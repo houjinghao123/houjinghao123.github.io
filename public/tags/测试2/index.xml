@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>测试2 on phjhq&#39;s Blog</title>
+    <link>http://localhost:1313/tags/%E6%B5%8B%E8%AF%952/</link>
+    <description>Recent content in 测试2 on phjhq&#39;s Blog</description>
+    <generator>Hugo -- 0.134.1</generator>
+    <language>zh</language>
+    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Tue, 10 Sep 2024 16:55:14 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%B5%8B%E8%AF%952/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Tue, 10 Sep 2024 16:55:14 +0800</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>&lt;p&gt;这是第一篇文章&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
