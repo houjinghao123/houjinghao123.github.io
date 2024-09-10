@@ -4,6 +4,11 @@
     <title>phjhq&#39;s Blog</title>
     <link>http://localhost:1313/</link>
     <description>Recent content on phjhq&#39;s Blog</description>
+    <image>
+      <title>phjhq&#39;s Blog</title>
+      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
+      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
+    </image>
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
@@ -14,7 +19,17 @@
       <link>http://localhost:1313/posts/my-first-post/</link>
       <pubDate>Tue, 10 Sep 2024 16:55:14 +0800</pubDate>
       <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>&lt;p&gt;这是第一篇文章&lt;/p&gt;</description>
+      <description>&lt;p&gt;这是第一篇文章&lt;/p&gt;
+&lt;p&gt;行内数学公式：$a^2 + b^2 = c^2$。&lt;/p&gt;
+&lt;p&gt;块公式，&lt;/p&gt;
+&lt;p&gt;$$
+a^2 + b^2 = c^2
+$$&lt;/p&gt;
+&lt;div&gt;
+$$
+\boldsymbol{x}_{i+1}+\boldsymbol{x}_{i+2}=\boldsymbol{x}_{i+3}
+$$
+&lt;/div&gt;</description>
     </item>
     <item>
       <title>关于</title>

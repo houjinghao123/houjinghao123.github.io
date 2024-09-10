@@ -1,4 +1,5 @@
 <div id="tw-comment"></div>
+
 <script>
   // 默认是暗色，根目录下的配置中的主题默认也是暗色
   const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "{{ .Site.Params.giscus.lightTheme }}" : "{{ .Site.Params.giscus.darkTheme }}";
@@ -7,9 +8,12 @@
       const iframe = document.querySelector('iframe.giscus-frame');
       if (iframe) {
         iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+
       }
+
     }
     sendMessage({ setConfig: { theme: getStoredTheme() } })
+
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -40,10 +44,13 @@
     const themeSwitcher = document.querySelector("#theme-toggle");
     if (themeSwitcher) {
       themeSwitcher.addEventListener("click", setGiscusTheme);
+
     }
     const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
     if (themeFloatSwitcher) {
       themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+
     }
+
   });
 </script>
