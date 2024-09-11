@@ -145,7 +145,9 @@ List除了从Collection集合继承的方法外，List 集合里添加了一些`
 - Map 中的 key 和  value 都可以是任何引用类型的数据。但常用String类作为Map的“键”。
 
 - Map接口的常用实现类：`HashMap`、`LinkedHashMap`、`TreeMap`和``Properties`。其中，HashMap是 Map 接口使用`频率最高`的实现类。<br>
+
 <img src="https://i.postimg.cc/kGGdw9Td/image-20220409001015034.png" />
+
 ### 5.2 Map接口的常用方法
 
 - **添加、修改操作：**
