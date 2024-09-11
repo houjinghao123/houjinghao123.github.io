@@ -79,7 +79,7 @@ params:
     Content: >
       Welcome to my Blog! 这个一个根据hugo+Github.io+giscus生成的一个个人博客，主要是记录我个人的学习记录。
       <br>
-     下面是是我其他网站的连接
+      下面是是我其他网站的连接
       <br>
   # 社交帐号的按钮
   socialIcons:
