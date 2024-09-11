@@ -12,8 +12,17 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 10 Sep 2024 16:55:14 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Sep 2024 13:57:35 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java集合复习</title>
+      <link>http://localhost:1313/posts/java%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Wed, 11 Sep 2024 13:57:35 +0800</pubDate>
+      <guid>http://localhost:1313/posts/java%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/</guid>
+      <description>&lt;h1 id=&#34;java集合简介&#34;&gt;java集合简介&lt;/h1&gt;
+&lt;h2 id=&#34;一集合基本的关系结构&#34;&gt;一、集合基本的关系结构&lt;/h2&gt;
+&lt;p&gt;Collection 接口的接口 对象的集合（单列集合）&lt;/p&gt;</description>
+    </item>
     <item>
       <title>MySQL的基本操作</title>
       <link>http://localhost:1313/posts/my-first-post/</link>
