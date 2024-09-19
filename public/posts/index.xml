@@ -12,8 +12,128 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 11 Sep 2024 13:57:35 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Sep 2024 20:02:09 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql常用函数</title>
+      <link>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Thu, 19 Sep 2024 20:02:09 +0800</pubDate>
+      <guid>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</guid>
+      <description>&lt;h1 id=&#34;mysql常用函数&#34;&gt;Mysql常用函数&lt;/h1&gt;
+&lt;h2 id=&#34;聚合函数&#34;&gt;&lt;strong&gt;聚合函数&lt;/strong&gt;&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;count&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;统计数量&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;max&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;最大值&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;min&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;最小值&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;avg&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;平均值&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;sum&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;求和&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;字符串函数&#34;&gt;&lt;strong&gt;字符串函数&lt;/strong&gt;&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;CONCAT(S1,S2,&amp;hellip;Sn)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;字符串拼接，将S1，S2，&amp;hellip; Sn拼接成一个字符串&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;LOWER(str)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;将字符串str全部转为小写&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;UPPER(str)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;将字符串str全部转为大写&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;LPAD(str,n,pad)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;左填充，用字符串pad对str的左边进行填充，达到n个字符串长度&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;RPAD(str,n,pad)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;右填充，用字符串pad对str的右边进行填充，达到n个字符串长度&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;TRIM(str)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;去掉字符串头部和尾部的空格&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;SUBSTRING(str,start,len)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;返回从字符串str从start位置起的len个长度的字符串&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;数值函数&#34;&gt;&lt;strong&gt;数值函数&lt;/strong&gt;&lt;/h2&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;CEIL(x)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;向上取整&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;FLOOR(x)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;向下取整&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;MOD(x,y)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;返回x/y的模&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;RAND()&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;返回0~1内的随机数&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;ROUND(x,y)&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;求参数x的四舍五入的值，保留y位小数&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;例题：&lt;br&gt;
+通过数据库的函数，生成一个六位数的随机验证码。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Stop Hyper V</title>
+      <link>http://localhost:1313/posts/stop-hyper-v/</link>
+      <pubDate>Thu, 12 Sep 2024 14:38:59 +0800</pubDate>
+      <guid>http://localhost:1313/posts/stop-hyper-v/</guid>
+      <description>&lt;h1 id=&#34;配置硬件加速&#34;&gt;配置硬件加速&lt;/h1&gt;
+&lt;h2 id=&#34;使用sdk-管理器安装&#34;&gt;使用SDK 管理器安装&lt;/h2&gt;
+&lt;p&gt;1.选择Tools&amp;gt;SDK Manger&lt;br&gt;
+&lt;img src=&#34;https://i.postimg.cc/g2zgzhDN/screenshot-9.png&#34; /&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Java集合复习</title>
       <link>http://localhost:1313/posts/java%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/</link>

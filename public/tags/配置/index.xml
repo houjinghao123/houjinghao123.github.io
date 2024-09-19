@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>配置 on phjhq&#39;s Blog</title>
+    <link>http://localhost:1313/tags/%E9%85%8D%E7%BD%AE/</link>
+    <description>Recent content in 配置 on phjhq&#39;s Blog</description>
+    <image>
+      <title>phjhq&#39;s Blog</title>
+      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
+      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
+    </image>
+    <generator>Hugo -- 0.134.1</generator>
+    <language>zh</language>
+    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
+    <lastBuildDate>Thu, 12 Sep 2024 14:38:59 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Stop Hyper V</title>
+      <link>http://localhost:1313/posts/stop-hyper-v/</link>
+      <pubDate>Thu, 12 Sep 2024 14:38:59 +0800</pubDate>
+      <guid>http://localhost:1313/posts/stop-hyper-v/</guid>
+      <description>&lt;h1 id=&#34;配置硬件加速&#34;&gt;配置硬件加速&lt;/h1&gt;
+&lt;h2 id=&#34;使用sdk-管理器安装&#34;&gt;使用SDK 管理器安装&lt;/h2&gt;
+&lt;p&gt;1.选择Tools&amp;gt;SDK Manger&lt;br&gt;
+&lt;img src=&#34;https://i.postimg.cc/g2zgzhDN/screenshot-9.png&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
