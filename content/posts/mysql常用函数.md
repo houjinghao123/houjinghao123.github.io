@@ -6,6 +6,8 @@ tags = ["mysql"]
 +++
 # Mysql常用函数
 
+<img src="https://i.postimg.cc/cJQ332yQ/screenshot-12.png" /><br>
+
 ## **聚合函数**
 | 函数                            |                                   功能 |
 | ------                          |                                  ------|
