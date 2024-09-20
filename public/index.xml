@@ -12,14 +12,23 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Thu, 19 Sep 2024 20:02:09 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Sep 2024 14:04:10 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql事务</title>
+      <link>http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/</link>
+      <pubDate>Fri, 20 Sep 2024 14:04:10 +0800</pubDate>
+      <guid>http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/</guid>
+      <description>&lt;h1 id=&#34;事务&#34;&gt;事务&lt;/h1&gt;
+&lt;p&gt;事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Mysql常用函数</title>
       <link>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</link>
       <pubDate>Thu, 19 Sep 2024 20:02:09 +0800</pubDate>
       <guid>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</guid>
       <description>&lt;h1 id=&#34;mysql常用函数&#34;&gt;Mysql常用函数&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/cJQ332yQ/screenshot-12.png&#34; /&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&#34;聚合函数&#34;&gt;&lt;strong&gt;聚合函数&lt;/strong&gt;&lt;/h2&gt;
 &lt;table&gt;
   &lt;thead&gt;
