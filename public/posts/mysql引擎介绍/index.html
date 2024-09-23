@@ -5,12 +5,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Mysql事务 | phjhq&#39;s Blog</title>
+<title>Mysql存储引擎 | phjhq&#39;s Blog</title>
 <meta name="keywords" content="mysql, 数据库">
-<meta name="description" content="事务
-事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。">
+<meta name="description" content="Mysql存储引擎
+1.Mysql的体系结构
+
+
+
+连接层
+服务层
+引擎层
+存储层
+
+2.存储引擎介绍
+存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/">
+<link rel="canonical" href="http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
@@ -19,7 +29,7 @@
 <link rel="mask-icon" href="http://localhost:1313/favicon.png">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
 <noscript>
     <style>
         #theme-toggle,
@@ -68,21 +78,41 @@
     border: inherit;
     color: #515151;
   }
-</style><meta property="og:title" content="Mysql事务" />
-<meta property="og:description" content="事务
-事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。" />
+</style><meta property="og:title" content="Mysql存储引擎" />
+<meta property="og:description" content="Mysql存储引擎
+1.Mysql的体系结构
+
+
+
+连接层
+服务层
+引擎层
+存储层
+
+2.存储引擎介绍
+存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/" />
+<meta property="og:url" content="http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-09-20T14:04:10+08:00" />
-<meta property="article:modified_time" content="2024-09-20T14:04:10+08:00" />
+<meta property="article:published_time" content="2024-09-21T14:04:10+08:00" />
+<meta property="article:modified_time" content="2024-09-21T14:04:10+08:00" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
-<meta name="twitter:title" content="Mysql事务"/>
-<meta name="twitter:description" content="事务
-事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。"/>
+<meta name="twitter:title" content="Mysql存储引擎"/>
+<meta name="twitter:description" content="Mysql存储引擎
+1.Mysql的体系结构
+
+
+
+连接层
+服务层
+引擎层
+存储层
+
+2.存储引擎介绍
+存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。"/>
 
 
 <script type="application/ld+json">
@@ -99,8 +129,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Mysql事务",
-      "item": "http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/"
+      "name": "Mysql存储引擎",
+      "item": "http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/"
     }
   ]
 }
@@ -109,24 +139,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Mysql事务",
-  "name": "Mysql事务",
-  "description": "事务 事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。\n",
+  "headline": "Mysql存储引擎",
+  "name": "Mysql存储引擎",
+  "description": "Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n",
   "keywords": [
     "mysql", "数据库"
   ],
-  "articleBody": "事务 事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。\n使用到的关键字 set autocommit=0; start transaction; commit; rollback; savepoint 断点 commit to 断点 rollback to 断点 事务四大特性 原子性（Atomicity）：事务是不可分割的最小操作单元，要么全部成功，要么全部失败 一致性（Consistency）：事务完成时，必须使所有的数据都保持一致状态 隔离性（Isolation）：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行 持久性（Durability）：事务一旦提交或回滚，它对数据库中的数据改变就是永久的 并发事务问题 1） 脏读：一个事务读到另一个事务还没有提交的数据\n比如B读取到了A未提交的数据。\n2） 不可重复读：一个事务先后读取同一条记录，但两次读取的数据不同，称为不可重复读。\n事务A两次读取同一条记录，但是读取到的数据却是不一样的。\n3） 幻读：一个事务读取数据时，另外一个事务进行更新，导致第一个事务读取到了没有更新的数据\n不可重复读和幻读的区别\n不可重复读是读取了其他事务更改的数据 -\u003eupdate 幻读是读取了其他事务新增的数据 -\u003einsert和delete\n事务的隔离级别 为了解决并发事务所引发的问题，在数据库中引入了事务隔离级别。\n数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读 这几类问题。\nMySql默认REPEATABLE_READ\n隔离级别 脏读 不可重复读 幻读 Read uncommitted(读未提交) Y Y Y Read committed(读以提交) N Y Y Repeatable Read(可重复读) N N Y Serializable N N N 查看事务隔离级别 SELECT @@TRANSACTION_ISOLATION; 设置事务隔离级别 SET [ SESSION | GLOBAL ] TRANSACTION ISOLATION LEVEL { READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE } ",
-  "wordCount" : "756",
+  "articleBody": "Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n2.1 InnoDB 1).介绍\nInnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5之后，InnoDB是默认的MySQL存储引擎。\n2).特点\n●DML操作遵循ACID模型，支持事务；\n●行级锁，提高并发访问性能；\n●支持外键FOREIGN KEY约束，保证数据的完整性和正确性；\n3).文件\n参数：innodb_file_per_table\nshow variables like 'innodb_file_per_table'; 如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。\nshow variables like '%datadir%'; 使用上面的命令查看自己表数据存储位置\n4)逻辑存储结构\n表空间: InnoDB存储引擎逻辑结构的最高层，ibd文件其实就是表空间文件，在表空间中可以包含多个Segment段。 段:表空间是由各个段组成的，常见的段有数据段、索引段、回滚段等。InnoDB中对于段的管理，都是引擎自身完成，不需要人为对其控制，一个段中包含多个区。 区:区是表空间的单元结构，每个区的大小为1M。默认情况下， InnoDB存储引擎页大小为16K，即一个区中一共有64个连续的页。 页:页是组成区的最小单元，页也是InnoDB存储引擎磁盘管理的最小单元 ，每个页的大小默认为 16KB。为了保证页的连续性，InnoDB存储引擎每次从磁盘申请 4-5个区。 行: InnoDB存储引擎是面向行的，也就是说数据是按行进行存放的，在每一行中除了定义表时所指定的字段以外，还包含两个隐藏字段(后面会详细介绍)。 2.2 MyISAM（被） 1).介绍\nMyISAM是MySQL早期的默认存储引擎。\n2).特点\n不支持事务，不支持外键\n支持表锁，不支持行锁\n访问速度快\n2.3Memory 1).介绍\nMemory引擎的表数据时存储在内存中的，由于受到硬件问题、或断电问题的影响，只能将这些表作为临时表或缓存使用。\n2).特点\n存放在内存中\nhash索引（默认）\n2.4三种索引的区别 ",
+  "wordCount" : "934",
   "inLanguage": "zh",
-  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-20T14:04:10+08:00",
-  "dateModified": "2024-09-20T14:04:10+08:00",
+  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-21T14:04:10+08:00",
+  "dateModified": "2024-09-21T14:04:10+08:00",
   "author":{
     "@type": "Person",
     "name": "phjhq"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/"
+    "@id": "http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/"
   },
   "publisher": {
     "@type": "Organization",
@@ -215,9 +245,9 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      Mysql事务
+      Mysql存储引擎
     </h1>
-    <div class="post-meta"><span title='2024-09-20 14:04:10 +0800 CST'>2024-09-20</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq
+    <div class="post-meta"><span title='2024-09-21 14:04:10 +0800 CST'>2024-09-21</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq
 
 </div>
   </header> <div class="toc">
@@ -228,17 +258,24 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#%e4%ba%8b%e5%8a%a1" aria-label="事务">事务</a><ul>
+                    <a href="#mysql%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" aria-label="Mysql存储引擎">Mysql存储引擎</a><ul>
                         
                 <li>
-                    <a href="#%e4%bd%bf%e7%94%a8%e5%88%b0%e7%9a%84%e5%85%b3%e9%94%ae%e5%ad%97" aria-label="使用到的关键字">使用到的关键字</a></li>
+                    <a href="#1mysql%e7%9a%84%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84" aria-label="1.Mysql的体系结构">1.Mysql的体系结构</a></li>
                 <li>
-                    <a href="#%e4%ba%8b%e5%8a%a1%e5%9b%9b%e5%a4%a7%e7%89%b9%e6%80%a7" aria-label="事务四大特性">事务四大特性</a></li>
+                    <a href="#2%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e%e4%bb%8b%e7%bb%8d" aria-label="2.存储引擎介绍">2.存储引擎介绍</a><ul>
+                        
                 <li>
-                    <a href="#%e5%b9%b6%e5%8f%91%e4%ba%8b%e5%8a%a1%e9%97%ae%e9%a2%98" aria-label="并发事务问题">并发事务问题</a></li>
+                    <a href="#21-innodb" aria-label="2.1 InnoDB">2.1 InnoDB</a></li>
                 <li>
-                    <a href="#%e4%ba%8b%e5%8a%a1%e7%9a%84%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" aria-label="事务的隔离级别">事务的隔离级别</a>
+                    <a href="#22-myisam%e8%a2%ab" aria-label="2.2 MyISAM（被）">2.2 MyISAM（被）</a></li>
+                <li>
+                    <a href="#23memory" aria-label="2.3Memory">2.3Memory</a></li>
+                <li>
+                    <a href="#24%e4%b8%89%e7%a7%8d%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="2.4三种索引的区别">2.4三种索引的区别</a>
                 </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -246,87 +283,59 @@
     </details>
 </div>
 
-  <div class="post-content"><h1 id="事务">事务<a hidden class="anchor" aria-hidden="true" href="#事务">#</a></h1>
-<p>事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。</p>
-<h2 id="使用到的关键字">使用到的关键字<a hidden class="anchor" aria-hidden="true" href="#使用到的关键字">#</a></h2>
-<pre tabindex="0"><code>set autocommit=0;
-start transaction;
-commit;
-rollback;
-
-savepoint  断点
-commit to 断点
-rollback to 断点
-</code></pre><h2 id="事务四大特性">事务四大特性<a hidden class="anchor" aria-hidden="true" href="#事务四大特性">#</a></h2>
+  <div class="post-content"><h1 id="mysql存储引擎"><strong>Mysql存储引擎</strong><a hidden class="anchor" aria-hidden="true" href="#mysql存储引擎">#</a></h1>
+<h2 id="1mysql的体系结构"><strong>1.Mysql的体系结构</strong><a hidden class="anchor" aria-hidden="true" href="#1mysql的体系结构">#</a></h2>
+<p><img loading="lazy" src="https://i.postimg.cc/MpV3xV4W/screenshot-16.png" alt=""  />
+</p>
+<ol>
+<li>连接层</li>
+<li>服务层</li>
+<li>引擎层</li>
+<li>存储层</li>
+</ol>
+<h2 id="2存储引擎介绍"><strong>2.存储引擎介绍</strong><a hidden class="anchor" aria-hidden="true" href="#2存储引擎介绍">#</a></h2>
+<p>存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，<code>所以存储引擎也可被称为表类型</code> 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。</p>
+<h3 id="21-innodb">2.1 InnoDB<a hidden class="anchor" aria-hidden="true" href="#21-innodb">#</a></h3>
+<p><img loading="lazy" src="https://i.postimg.cc/SK9K6WdY/screenshot-19.png" alt=""  />
+</p>
+<p>1).介绍</p>
+<p>InnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5之后，InnoDB是默认的MySQL存储引擎。</p>
+<p>2).特点</p>
+<p>●DML操作遵循ACID模型，支持事务；</p>
+<p>●行级锁，提高并发访问性能；</p>
+<p>●支持外键FOREIGN KEY约束，保证数据的完整性和正确性；</p>
+<p>3).文件</p>
+<p>参数：innodb_file_per_table</p>
+<pre tabindex="0"><code>show variables like &#39;innodb_file_per_table&#39;;
+</code></pre><p>如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。</p>
+<pre tabindex="0"><code>show variables like &#39;%datadir%&#39;;
+</code></pre><p>使用上面的命令查看自己表数据存储位置</p>
+<p>4)<em>逻辑存储结构</em></p>
+<p><img loading="lazy" src="https://i.postimg.cc/XqkTkhMD/screenshot-17.png" alt=""  />
+</p>
 <ul>
-<li>原子性（Atomicity）：事务是不可分割的最小操作单元，要么全部成功，要么全部失败</li>
-<li>一致性（Consistency）：事务完成时，必须使所有的数据都保持一致状态</li>
-<li>隔离性（Isolation）：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行</li>
-<li>持久性（Durability）：事务一旦提交或回滚，它对数据库中的数据改变就是永久的</li>
+<li>表空间: InnoDB存储引擎逻辑结构的最高层，ibd文件其实就是表空间文件，在表空间中可以包含多个Segment段。</li>
+<li>段:表空间是由各个段组成的，常见的段有数据段、索引段、回滚段等。InnoDB中对于段的管理，都是引擎自身完成，不需要人为对其控制，一个段中包含多个区。</li>
+<li>区:区是表空间的单元结构，每个区的大小为1M。默认情况下， InnoDB存储引擎页大小为16K，即一个区中一共有64个连续的页。</li>
+<li>页:页是组成区的最小单元，<code>页也是InnoDB存储引擎磁盘管理的最小单元</code> ，每个页的大小默认为 16KB。为了保证页的连续性，InnoDB存储引擎每次从磁盘申请 4-5个区。</li>
+<li>行: InnoDB存储引擎是面向行的，也就是说数据是按行进行存放的，在每一行中除了定义表时所指定的字段以外，还包含两个隐藏字段(后面会详细介绍)。</li>
 </ul>
-<h2 id="并发事务问题">并发事务问题<a hidden class="anchor" aria-hidden="true" href="#并发事务问题">#</a></h2>
-<p>1） 脏读：一个事务读到另一个事务还没有提交的数据</p>
-<img src="https://i.postimg.cc/SKW9fz92/screenshot-13.png" />
-<p>比如B读取到了A未提交的数据。</p>
-<p>2） 不可重复读：一个事务先后读取同一条记录，但两次读取的数据不同，称为不可重复读。</p>
-<img src="https://i.postimg.cc/2yXLSQsJ/screenshot-14.png" />
-<p>事务A两次读取同一条记录，但是读取到的数据却是不一样的。</p>
-<p>3） 幻读：一个事务读取数据时，另外一个事务进行更新，导致第一个事务读取到了没有更新的数据</p>
-<img src="https://i.postimg.cc/25fby8tz/screenshot-15.png" />
-<blockquote>
-<p>不可重复读和幻读的区别</p>
-<p>不可重复读是读取了其他事务更改的数据 -&gt;update   <br>
-幻读是读取了其他事务新增的数据 -&gt;insert和delete</p>
-</blockquote>
-<h2 id="事务的隔离级别">事务的隔离级别<a hidden class="anchor" aria-hidden="true" href="#事务的隔离级别">#</a></h2>
-<p>为了解决并发事务所引发的问题，在数据库中引入了事务隔离级别。</p>
-<p>数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读 这几类问题。</p>
-<p><code>MySql默认REPEATABLE_READ</code></p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">隔离级别</th>
-          <th style="text-align: left">脏读</th>
-          <th style="text-align: left">不可重复读</th>
-          <th style="text-align: left">幻读</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">Read uncommitted(读未提交)</td>
-          <td style="text-align: left">Y</td>
-          <td style="text-align: left">Y</td>
-          <td style="text-align: left">Y</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Read committed(读以提交)</td>
-          <td style="text-align: left">N</td>
-          <td style="text-align: left">Y</td>
-          <td style="text-align: left">Y</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Repeatable Read(可重复读)</td>
-          <td style="text-align: left">N</td>
-          <td style="text-align: left">N</td>
-          <td style="text-align: left">Y</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Serializable</td>
-          <td style="text-align: left">N</td>
-          <td style="text-align: left">N</td>
-          <td style="text-align: left">N</td>
-      </tr>
-  </tbody>
-</table>
-<ul>
-<li>查看事务隔离级别
-<pre tabindex="0"><code>SELECT @@TRANSACTION_ISOLATION;
-</code></pre></li>
-<li>设置事务隔离级别
-<pre tabindex="0"><code>SET [ SESSION | GLOBAL ] TRANSACTION ISOLATION LEVEL { READ UNCOMMITTED |
-READ COMMITTED | REPEATABLE READ | SERIALIZABLE }
-</code></pre></li>
-</ul>
+<h3 id="22-myisam被"><strong>2.2 MyISAM（被）</strong><a hidden class="anchor" aria-hidden="true" href="#22-myisam被">#</a></h3>
+<p>1).介绍</p>
+<p>MyISAM是MySQL早期的默认存储引擎。</p>
+<p>2).特点</p>
+<p>不支持事务，不支持外键</p>
+<p>支持表锁，不支持行锁</p>
+<p>访问速度快</p>
+<h3 id="23memory"><strong>2.3Memory</strong><a hidden class="anchor" aria-hidden="true" href="#23memory">#</a></h3>
+<p>1).介绍</p>
+<p>Memory引擎的表数据时存储在内存中的，由于受到硬件问题、或断电问题的影响，只能将这些表作为临时表或缓存使用。</p>
+<p>2).特点</p>
+<p>存放在内存中</p>
+<p>hash索引（默认）</p>
+<h3 id="24三种索引的区别"><strong>2.4三种索引的区别</strong><a hidden class="anchor" aria-hidden="true" href="#24三种索引的区别">#</a></h3>
+<p><img loading="lazy" src="https://i.postimg.cc/s29W4960/screenshot-18.png" alt=""  />
+</p>
 
 
   </div>
@@ -337,15 +346,10 @@ READ COMMITTED | REPEATABLE READ | SERIALIZABLE }
       <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/">
-    <span class="title">« 上一页</span>
-    <br>
-    <span>Mysql存储引擎</span>
-  </a>
-  <a class="next" href="http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/">
+  <a class="next" href="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/">
     <span class="title">下一页 »</span>
     <br>
-    <span>Mysql常用函数</span>
+    <span>Mysql事务</span>
   </a>
 </nav>
 

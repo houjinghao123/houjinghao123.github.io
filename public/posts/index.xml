@@ -12,8 +12,26 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 20 Sep 2024 14:04:10 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Sep 2024 14:04:10 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql存储引擎</title>
+      <link>http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Sat, 21 Sep 2024 14:04:10 +0800</pubDate>
+      <guid>http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/</guid>
+      <description>&lt;h1 id=&#34;mysql存储引擎&#34;&gt;&lt;strong&gt;Mysql存储引擎&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;1mysql的体系结构&#34;&gt;&lt;strong&gt;1.Mysql的体系结构&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i.postimg.cc/MpV3xV4W/screenshot-16.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;连接层&lt;/li&gt;
+&lt;li&gt;服务层&lt;/li&gt;
+&lt;li&gt;引擎层&lt;/li&gt;
+&lt;li&gt;存储层&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;2存储引擎介绍&#34;&gt;&lt;strong&gt;2.存储引擎介绍&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，&lt;code&gt;所以存储引擎也可被称为表类型&lt;/code&gt; 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Mysql事务</title>
       <link>http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/</link>
