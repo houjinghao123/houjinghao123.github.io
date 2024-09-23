@@ -94,7 +94,7 @@ hash索引（默认）
 
 
 
-### **2.4三种索引的区别**
+### **2.4三种引擎的区别**
 
 ![](https://i.postimg.cc/s29W4960/screenshot-18.png)
 
