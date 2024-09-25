@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>Mysql存储引擎 | phjhq&#39;s Blog</title>
 <meta name="keywords" content="mysql, 数据库">
-<meta name="description" content="Mysql存储引擎
+<meta name="description" content="一、Mysql存储引擎
 1.Mysql的体系结构
 
 
@@ -79,7 +79,7 @@
     color: #515151;
   }
 </style><meta property="og:title" content="Mysql存储引擎" />
-<meta property="og:description" content="Mysql存储引擎
+<meta property="og:description" content="一、Mysql存储引擎
 1.Mysql的体系结构
 
 
@@ -101,7 +101,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta name="twitter:title" content="Mysql存储引擎"/>
-<meta name="twitter:description" content="Mysql存储引擎
+<meta name="twitter:description" content="一、Mysql存储引擎
 1.Mysql的体系结构
 
 
@@ -141,12 +141,12 @@
   "@type": "BlogPosting",
   "headline": "Mysql存储引擎",
   "name": "Mysql存储引擎",
-  "description": "Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n",
+  "description": "一、Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n",
   "keywords": [
     "mysql", "数据库"
   ],
-  "articleBody": "Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n2.1 InnoDB 1).介绍\nInnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5之后，InnoDB是默认的MySQL存储引擎。\n2).特点\n●DML操作遵循ACID模型，支持事务；\n●行级锁，提高并发访问性能；\n●支持外键FOREIGN KEY约束，保证数据的完整性和正确性；\n3).文件\n参数：innodb_file_per_table\nshow variables like 'innodb_file_per_table'; 如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。\nshow variables like '%datadir%'; 使用上面的命令查看自己表数据存储位置\n4)逻辑存储结构\n表空间: InnoDB存储引擎逻辑结构的最高层，ibd文件其实就是表空间文件，在表空间中可以包含多个Segment段。 段:表空间是由各个段组成的，常见的段有数据段、索引段、回滚段等。InnoDB中对于段的管理，都是引擎自身完成，不需要人为对其控制，一个段中包含多个区。 区:区是表空间的单元结构，每个区的大小为1M。默认情况下， InnoDB存储引擎页大小为16K，即一个区中一共有64个连续的页。 页:页是组成区的最小单元，页也是InnoDB存储引擎磁盘管理的最小单元 ，每个页的大小默认为 16KB。为了保证页的连续性，InnoDB存储引擎每次从磁盘申请 4-5个区。 行: InnoDB存储引擎是面向行的，也就是说数据是按行进行存放的，在每一行中除了定义表时所指定的字段以外，还包含两个隐藏字段(后面会详细介绍)。 2.2 MyISAM（被） 1).介绍\nMyISAM是MySQL早期的默认存储引擎。\n2).特点\n不支持事务，不支持外键\n支持表锁，不支持行锁\n访问速度快\n2.3Memory 1).介绍\nMemory引擎的表数据时存储在内存中的，由于受到硬件问题、或断电问题的影响，只能将这些表作为临时表或缓存使用。\n2).特点\n存放在内存中\nhash索引（默认）\n2.4三种索引的区别 ",
-  "wordCount" : "934",
+  "articleBody": "一、Mysql存储引擎 1.Mysql的体系结构 连接层 服务层 引擎层 存储层 2.存储引擎介绍 存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，所以存储引擎也可被称为表类型 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。\n2.1InnoDB 1).介绍\nInnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5之后，InnoDB是默认的MySQL存储引擎。\n2).特点\n●DML操作遵循ACID模型，支持事务；\n●行锁，提高并发访问性能；\n●支持外键FOREIGN KEY约束，保证数据的完整性和正确性；\n3).文件\n参数：innodb_file_per_table\nshow variables like 'innodb_file_per_table'; 如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。\nshow variables like '%datadir%'; 使用上面的命令查看自己表数据存储位置\n4)*逻辑存储结构*\n表空间: InnoDB存储引擎逻辑结构的最高层，ibd文件其实就是表空间文件，在表空间中可以包含多个Segment段。 段:表空间是由各个段组成的，常见的段有数据段、索引段、回滚段等。InnoDB中对于段的管理，都是引擎自身完成，不需要人为对其控制，一个段中包含多个区。 区:区是表空间的单元结构，每个区的大小为1M。默认情况下， InnoDB存储引擎页大小为16K，即一个区中一共有64个连续的页。 页:页是组成区的最小单元，页也是InnoDB存储引擎磁盘管理的最小单元 ，每个页的大小默认为 16KB。为了保证页的连续性，InnoDB存储引擎每次从磁盘申请 4-5个区。 行: InnoDB存储引擎是面向行的，也就是说数据是按行进行存放的，在每一行中除了定义表时所指定的字段以外，还包含两个隐藏字段(后面会详细介绍)。 2.2 MyISAM（被） 1).介绍\nMyISAM是MySQL早期的默认存储引擎。\n2).特点\n不支持事务，不支持外键\n支持表锁，不支持行锁\n访问速度快\n2.3Memory 1).介绍\nMemory引擎的表数据时存储在内存中的，由于受到硬件问题、或断电问题的影响，只能将这些表作为临时表或缓存使用。\n2).特点\n存放在内存中\nhash索引（默认）\n2.4三种索引的区别 二、索引 索引概述 索引（index）是帮助MySQL高效获取数据的数据结构(有序)。在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。\n无索引和有索引的情况下 假如我们要执行的SQL语句为 ： select* from user where age= 45;\n在无索引的情况下会对全表进行扫描效率很低\n在有索引时我们可以根据这个表建立索引，一般索引都是B+tree，然后会根据age进行查找\n优势 劣势 提高数据检索的效率，降低数据库IO成本 索引列也要占用空间 通过索引|列对数据进行排序，降低 、数据排序的成本，降低CPU的消 耗。 索引大大提高了查询效率，同时却也降低更新表的速度 如对表进行INSERT、UPDATE、DELETE时，效率降低 索引结构 索引结构 描述 B+Tree索引 最常见的索引类型，大部分引擎都支持 B+树索引 Hash索引 底层数据结构是用哈希表实现的,只有精确匹配索引列的查询才有效,不支持范围查询 R-tree(空间索引） 空间索引|是MyISAM引|擎的一个特殊索引类型，主要用于地理空间数据类 型，通常使用较少 Full-text(全文索引) 是一种通过建立倒排索引，快速匹配文档的方式。类似于 Lucene, Solr,ES 上述是MySQL中所支持的所有的索引结构，接下来，我们再来看看不同的存储引擎对于索引结构的支持情况。\n索引分类 在MySQL数据库，将索引的具体类型主要分为以下几类：主键索引、唯一索引、常规索引、全文索引。\n索引基础分类 分类 含义 特点 关键字 主键索引 针对于表中主键创建的索引 默认自动创建,只能有一个 PRIMARY 唯一索引 避免同一个表中某数据列中的值重复 可以有多个 UNIQUE 常规索引 快速定位特定数据 可以有多个 全文索引 全文索引查找的是文本中的关键词，而不是比较索引中的值 可以有多个 FULLTEXT 聚集索引\u0026二级索引 而在在InnoDB存储引擎中，根据索引的存储形式，又可以分为以下两种：\n分类 含义 特点 聚集索引(ClusteredIndex) 将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据 必须有,而且只有一个 二级索引(SecondaryIndex) 将数据与索引分开存储，索引结构的叶子节点关 可以存在多个 聚集索引选取规则:\n如果存在主键，主键索引就是聚集索引。 如果不存在主键，将使用第一个唯一（UNIQUE）索引作为聚集索引。 如果表没有主键，或没有合适的唯一索引，则InnoDB会自动生成一个rowid作为隐藏的聚集索引。 接下来，我们来分析一下，当我们执行如下的SQL语句时，具体的查找过程是什么样子的。\n具体过程如下:\n①.由于是根据name字段进行查询，所以先根据name=‘Arm’到name字段的二级索引中进行匹配查找。但是在二级索引中只能查找到 Arm对应的主键值 10。\n②.由于查询返回的数据是*，所以此时，还需要根据主键值10，到聚集索引中查找10对应的记录，最终找到10对应的行row。\n③.最终拿到这一行的数据，直接返回即可。\n回表查询： 这种先到二级索引中查找数据，找到主键值, 然后再到聚集索引中根据主键值，获取数据的方式，就称之为回表查询\n索引语法 1）创建索引\nCREATE [UNIQUE | FULLTEXT] INDEX index_name NO table_name(index_col_name,....); 查看索引 SHOW INDEX FROM table_name; 3)删除索引\nDROP INDEX index_name NO table_name; 三、SQL性能分析 3.1SQL执行频率 MySQL客户端连接成功后，通过 show[session|global] status命令可以提供服务器状态信息。通过如下指令，可以查看当前数据库的INSERT、UPDATE、DELETE、SELECT的访问频次：\n-- session 是查看当前会话； -- global 是查询全局数据； SHOW GLOBAL STATUS LIKE 'COM_______'; 通过上述指令，我们可以查看到当前数据库到底是以查询为主，还是以增删改为主，从而为数据库优化提供参考依据。如果是以增删改为主，我们可以考虑不对其进行索引的优化。如果是以查询为主，那么就要考虑对数据库的索引进行优化了。\n3.2慢查询日志 慢查询日志记录了所有执行时间超过指定参数（long_query_time，单位：秒，默认10秒）的所有SQL语句的日志。\nMySQL的慢查询日志默认没有开启，我们可以查看一下系统变量 slow_query_log。\nshow variables like '%quer%'; 在windos下开启慢查询 临时开启慢查询（重启MySQL后就会失效）\nset global slow_query_log='ON'; --设置慢查询日志存放的位置 set global slow_query_log_file='D:\\\\home\\\\mysql.log'; 永久开启慢查询（mysql版本5.7.30）\n找到mysql的安装目录，找到my.ini文件夹在[mysqld]处加入以下代码开启慢查询，永久有效。\n#存储位置 datadir=D:/soft/mysql-5.30/Data #开启慢查询 slow-query-log=1 #D:/soft/mysql-5.30/Data/HJH-slow.log 慢查询日志文件存储位置 slow_query_log_file=\"HJH-slow.log\" #慢查询判断时间 long_query_time=10 在Ubuntu中开启慢查询 //TODO\nprofile详情 show profiles能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。通过have_profiling参数，能够看到当前MySQL是否支持profile操作： -- 查看数据库是否支持profile SELECT @@have_profiling; -- 开启profile SET [session | global]profiling = 1; 开启profiling后就能使用profiling相关命令来查询执行过的SQL语句\n执行一系列的业务SQL的操作，然后通过如下指令查看指令的执行耗时：\n-- 查看每一条SQL的耗时基本情况 show profiles; -- 查看指定query_id的SQL语句各个阶段的耗时情况 show profile for query query_id; -- 查看指定query_id的SQL语句CPU的使用情况 show profile cpu for query query_id; explain EXPLAIN或者 DESC命令获取 MySQL如何执行 SELECT语句的信息，包括在 SELECT语句执行过程中表如何连接和连接的顺序。\n-- 直接在select语句前加上关键字 explain/desc EXPLAIN SELECT 字段列表 FROM 表明 WHERE 条件; Explain执行计划中各个字段的含义:\n字段 含义 id select查询的序列号，表示查询中执行select子句或者是操作表的顺序(id相同，执行顺序从上到下；id不同，值越大，越先执行)。 select_type 表示 SELECT的类型，常见的取值有 SIMPLE（简单表，即不使用表连接或者子查询）、PRIMARY（主查询，即外层的查询）、UNION（UNION中的第二个或者后面的查询语句）、SUBQUERY（SELECT/WHERE之后包含了子查询）等 type 表示连接类型，性能由好到差的连接类型为NULL、system、const、eq_ref、ref、range、 index、all 。 possible_key 显示可能应用在这张表上的索引，一个或多个。 key 实际使用的索引，如果为NULL，则没有使用索引。 key_len 表示索引中使用的字节数， 该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下，长度越短越好 。 rows MySQL认为必须要执行查询的行数，在innodb引擎的表中，是一个估计值，可能并不总是准确的。 filtered 表示返回结果的行数占需读取行数的百分比， filtered的值越大越好。 Extra Using where: Using Index 查找使用了索引，但是需要的数据都在索引列表中找到，所以不需要回表查询 。Using index condition:查找使用了索引，但是需要回表查询数据 五、索引的使用 最左前缀法则 使用联合索引时要遵守最左前缀法则。最左前缀法则是指在查询索引时从索引的最左列开始，并且不跳过索引中的列。如果跳过某一列，后面的字段索引失效。\ntb_user表\ncreate table tb_user( id int primary key auto_increment comment '主键', name varchar(50) not null comment '用户名', phone varchar(11) not null comment '手机号', email varchar(100) comment '邮箱', profession varchar(11) comment '专业', age tinyint unsigned comment '年龄', gender char(1) comment '性别 , 1: 男, 2: 女', status char(1) comment '状态', createtime datetime comment '创建时间' ) comment '系统用户表'; INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('吕布', '17799990000', 'lvbu666@163.com', '软件工程', 23, '1', '6', '2001-02-02 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('曹操', '17799990001', 'caocao666@qq.com', '通讯工程', 33, '1', '0', '2001-03-05 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('赵云', '17799990002', '17799990@139.com', '英语', 34, '1', '2', '2002-03-02 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('孙悟空', '17799990003', '17799990@sina.com', '工程造价', 54, '1', '0', '2001-07-02 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('花木兰', '17799990004', '19980729@sina.com', '软件工程', 23, '2', '1', '2001-04-22 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('大乔', '17799990005', 'daqiao666@sina.com', '舞蹈', 22, '2', '0', '2001-02-07 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('露娜', '17799990006', 'luna_love@sina.com', '应用数学', 24, '2', '0', '2001-02-08 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('程咬金', '17799990007', 'chengyaojin@163.com', '化工', 38, '1', '5', '2001-05-23 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('项羽', '17799990008', 'xiaoyu666@qq.com', '金属材料', 43, '1', '0', '2001-09-18 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('白起', '17799990009', 'baiqi666@sina.com', '机械工程及其自动化', 27, '1', '2', '2001-08-16 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('韩信', '17799990010', 'hanxin520@163.com', '无机非金属材料工程', 27, '1', '0', '2001-06-12 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('荆轲', '17799990011', 'jingke123@163.com', '会计', 29, '1', '0', '2001-05-11 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('兰陵王', '17799990012', 'lanlinwang666@126.com', '工程造价', 44, '1', '1', '2001-04-09 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('狂铁', '17799990013', 'kuangtie@sina.com', '应用数学', 43, '1', '2', '2001-04-10 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('貂蝉', '17799990014', '84958948374@qq.com', '软件工程', 40, '2', '3', '2001-02-12 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('妲己', '17799990015', '2783238293@qq.com', '软件工程', 31, '2', '0', '2001-01-30 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('芈月', '17799990016', 'xiaomin2001@sina.com', '工业经济', 35, '2', '0', '2000-05-03 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('嬴政', '17799990017', '8839434342@qq.com', '化工', 38, '1', '1', '2001-08-08 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('狄仁杰', '17799990018', 'jujiamlm8166@163.com', '国际贸易', 30, '1', '0', '2007-03-12 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('安琪拉', '17799990019', 'jdodm1h@126.com', '城市规划', 51, '2', '0', '2001-08-15 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('典韦', '17799990020', 'ycaunanjian@163.com', '城市规划', 52, '1', '2', '2000-04-12 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('廉颇', '17799990021', 'lianpo321@126.com', '土木工程', 19, '1', '3', '2002-07-18 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('后羿', '17799990022', 'altycj2000@139.com', '城市园林', 20, '1', '0', '2002-03-10 00:00:00'); INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES ('姜子牙', '17799990023', '37483844@qq.com', '工程造价', 29, '1', '4', '2003-05-26 00:00:00'); 在 tb_user表中，有一个联合索引，这个联合索引涉及到三个字段，顺序分别为：profession， age，status。\n对于最左前缀法则指的是，查询时，最左边的列，也就是profession必须存在，否则索引全部失效。\n从图中可以看出只要有profession存在就会使用索引，当profession不存在即使使用后面的属性也不会触发索引。\n思考题： 当执行SQL语句: explain select * from tb_user where age = 3 and status=‘0’ and profession=‘软件工程’;时，是否满足最左前缀法则，走不走 上述的联合索引，索引长度？\n很显然时走的，最左前缀法则中指的最最左边的列，是指在查询时，联合索引的最左边的字段（就是第一个字段）必须存在，与我们编写SQL时。条件的顺序无关。\n范围查询 联合索引中，出现范围查询(\u003e,\u003c)，范围查询右侧的列索引失效。\n在使用范围查询时有效字段是38，但是在不使用时有效字段是42，说明在使用范围查询时有字段失效了。\n所以在业务允许的情况下，尽可能的使用类似的\u003e=或\u003c=这类的范围查询。\n范围失效的情况 索引列运算 不要在索引列上进行运算操作，索引将失效。\n字符串不加引号 不要在索引列上进行运算操作，索引将失效。\n模糊查询使用头部模糊查询，索引失效 如果仅仅是尾部模糊匹配，索引不会失效。如果是头部模糊匹配，索引失效。\nor连接条件 用or分割开的条件，如果or前的条件中的列有索引，而后面的列中没有索引，那么涉及的索引都不会被用到。\n-数据分布影响。\n如果MySQL评估使用索引比全表更慢，则不使用索引。\nSQL提示 SQL提示，是优化数据库的一个重要手段，简单来说，就是在SQL语句中加入一些人为的提示来达到优化操作的目的\n1). use index ：建议MySQL使用哪一个索引完成此次查询（仅仅是建议，mysql内部还会再次进行评估）。\nexplain select * from tb_user use index(idx_user_pro) where profession='软件工程' 2). ignore index ：忽略指定的索引。\nexplain select * from tb_user ignore index(idx_user_pro) where profession='软件工程' 3). force index ：强制使用索引。\nexplain select * from tb_user ignore index(idx_user_pro) where profession='软件工程' 覆盖索引 尽量使用覆盖索引，减少select*。那么什么是覆盖索引呢？覆盖索引是指查询使用了索引，并且需要返回的列，在该索引中已经全部能够找到 。\nB.执行SQL: select * from tb_user where id =2;\n根据id查询，直接走聚集索引查询一次索引扫描，直接返回数据，性能高。\nc.执行SQL: select id ,name from tb_user where name =‘Arm’;\n根据name字段查询辅助索引，id和name在name的二级索引中都是可以直接获取到的，所以不需要回表查询，性能高。\nd.执行SQL:select id ,name ,gender from tb_user where name =‘Arm’;\n由于在name的二级索引中，不包含gender，所以，需要两次索引扫描，也就是需要回表查询，性能相对较差一点。\n前缀索引 当字段类型为字符串（varchar，text，longtext等）时，有时候需要索引很长的字符串，这会让索引变得很大，查询时，浪费大量的磁盘IO，影响查询效率。此时可以只将字符串的一部分前缀，建立索引，这样可以大大节约索引空间，从而提高索引效率。\n1).语法\ncreate index idx_xxxx on table_name(colum(n)); 示例\n在tb_user的表的email字段，建立长度未5的前缀索引。\ncreate index idx_email_5 on tb_user(email(5)); 2)查询流程\n单列索引和联合索引 单列索引：即一个索引只包含单个列。\n联合索引：即一个索引包含了多个列。\n在业务场景中，如果存在多个查询条件，考虑针对于查询字段建立索引时，建议建立联合索引，而非单列索引。\n索引设计原则 1).针对于数据量较大，且查询比较频繁的表建立索引。\n2).针对于常作为查询条件（where）、排序（order by）、分组（group by）操作的字段建立索引。\n3).尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高，使用索引的效率越高。\n4).如果是字符串类型的字段，字段的长度较长，可以针对于字段的特点，建立前缀索引。\n5).尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，避免回表，提高查询效率。\n6).要控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价也就越大，会影响增删改的效率。\n7).如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询。\n",
+  "wordCount" : "6943",
   "inLanguage": "zh",
   "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-21T14:04:10+08:00",
   "dateModified": "2024-09-21T14:04:10+08:00",
@@ -247,7 +247,7 @@
     <h1 class="post-title entry-hint-parent">
       Mysql存储引擎
     </h1>
-    <div class="post-meta"><span title='2024-09-21 14:04:10 +0800 CST'>2024-09-21</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq
+    <div class="post-meta"><span title='2024-09-21 14:04:10 +0800 CST'>2024-09-21</span>&nbsp;·&nbsp;14 分钟&nbsp;·&nbsp;phjhq
 
 </div>
   </header> <div class="toc">
@@ -258,7 +258,7 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#mysql%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" aria-label="Mysql存储引擎">Mysql存储引擎</a><ul>
+                    <a href="#%e4%b8%80mysql%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e" aria-label="一、Mysql存储引擎">一、Mysql存储引擎</a><ul>
                         
                 <li>
                     <a href="#1mysql%e7%9a%84%e4%bd%93%e7%b3%bb%e7%bb%93%e6%9e%84" aria-label="1.Mysql的体系结构">1.Mysql的体系结构</a></li>
@@ -266,24 +266,86 @@
                     <a href="#2%e5%ad%98%e5%82%a8%e5%bc%95%e6%93%8e%e4%bb%8b%e7%bb%8d" aria-label="2.存储引擎介绍">2.存储引擎介绍</a><ul>
                         
                 <li>
-                    <a href="#21-innodb" aria-label="2.1 InnoDB">2.1 InnoDB</a></li>
+                    <a href="#21innodb" aria-label="2.1InnoDB">2.1InnoDB</a></li>
                 <li>
                     <a href="#22-myisam%e8%a2%ab" aria-label="2.2 MyISAM（被）">2.2 MyISAM（被）</a></li>
                 <li>
                     <a href="#23memory" aria-label="2.3Memory">2.3Memory</a></li>
                 <li>
-                    <a href="#24%e4%b8%89%e7%a7%8d%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="2.4三种索引的区别">2.4三种索引的区别</a>
+                    <a href="#24%e4%b8%89%e7%a7%8d%e7%b4%a2%e5%bc%95%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="2.4三种索引的区别">2.4三种索引的区别</a></li></ul>
+                </li></ul>
                 </li>
-            </ul>
-            </li>
-            </ul>
-            </li>
+                <li>
+                    <a href="#%e4%ba%8c%e7%b4%a2%e5%bc%95" aria-label="二、索引">二、索引</a><ul>
+                        
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e6%a6%82%e8%bf%b0" aria-label="索引概述">索引概述</a></li>
+                <li>
+                    <a href="#%e6%97%a0%e7%b4%a2%e5%bc%95%e5%92%8c%e6%9c%89%e7%b4%a2%e5%bc%95%e7%9a%84%e6%83%85%e5%86%b5%e4%b8%8b" aria-label="无索引和有索引的情况下">无索引和有索引的情况下</a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e7%bb%93%e6%9e%84" aria-label="索引结构">索引结构</a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e5%88%86%e7%b1%bb" aria-label="索引分类">索引分类</a><ul>
+                        
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e5%9f%ba%e7%a1%80%e5%88%86%e7%b1%bb" aria-label="索引基础分类">索引基础分类</a></li>
+                <li>
+                    <a href="#%e8%81%9a%e9%9b%86%e7%b4%a2%e5%bc%95%e4%ba%8c%e7%ba%a7%e7%b4%a2%e5%bc%95" aria-label="聚集索引&amp;二级索引">聚集索引&amp;二级索引</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e8%af%ad%e6%b3%95" aria-label="索引语法">索引语法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%b8%89sql%e6%80%a7%e8%83%bd%e5%88%86%e6%9e%90" aria-label="三、SQL性能分析">三、SQL性能分析</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#31sql%e6%89%a7%e8%a1%8c%e9%a2%91%e7%8e%87" aria-label="3.1SQL执行频率">3.1SQL执行频率</a></li>
+                <li>
+                    <a href="#32%e6%85%a2%e6%9f%a5%e8%af%a2%e6%97%a5%e5%bf%97" aria-label="3.2慢查询日志">3.2慢查询日志</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9c%a8windos%e4%b8%8b%e5%bc%80%e5%90%af%e6%85%a2%e6%9f%a5%e8%af%a2" aria-label="在windos下开启慢查询">在windos下开启慢查询</a></li>
+                <li>
+                    <a href="#%e5%9c%a8ubuntu%e4%b8%ad%e5%bc%80%e5%90%af%e6%85%a2%e6%9f%a5%e8%af%a2" aria-label="在Ubuntu中开启慢查询">在Ubuntu中开启慢查询</a></li></ul>
+                </li>
+                <li>
+                    <a href="#profile%e8%af%a6%e6%83%85" aria-label="profile详情">profile详情</a></li>
+                <li>
+                    <a href="#show-profiles%e8%83%bd%e5%a4%9f%e5%9c%a8%e5%81%9asql%e4%bc%98%e5%8c%96%e6%97%b6%e5%b8%ae%e5%8a%a9%e6%88%91%e4%bb%ac%e4%ba%86%e8%a7%a3%e6%97%b6%e9%97%b4%e9%83%bd%e8%80%97%e8%b4%b9%e5%88%b0%e5%93%aa%e9%87%8c%e5%8e%bb%e4%ba%86%e9%80%9a%e8%bf%87have_profiling%e5%8f%82%e6%95%b0%e8%83%bd%e5%a4%9f%e7%9c%8b%e5%88%b0%e5%bd%93%e5%89%8dmysql%e6%98%af%e5%90%a6%e6%94%af%e6%8c%81profile%e6%93%8d%e4%bd%9c" aria-label="show profiles能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。通过have_profiling参数，能够看到当前MySQL是否支持profile操作：">show profiles能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。通过have_profiling参数，能够看到当前MySQL是否支持profile操作：</a></li>
+                <li>
+                    <a href="#explain" aria-label="explain">explain</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%94%e7%b4%a2%e5%bc%95%e7%9a%84%e4%bd%bf%e7%94%a8" aria-label="五、索引的使用">五、索引的使用</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#%e6%9c%80%e5%b7%a6%e5%89%8d%e7%bc%80%e6%b3%95%e5%88%99" aria-label="最左前缀法则">最左前缀法则</a></li>
+                <li>
+                    <a href="#%e8%8c%83%e5%9b%b4%e6%9f%a5%e8%af%a2" aria-label="范围查询">范围查询</a></li>
+                <li>
+                    <a href="#%e8%8c%83%e5%9b%b4%e5%a4%b1%e6%95%88%e7%9a%84%e6%83%85%e5%86%b5" aria-label="范围失效的情况">范围失效的情况</a></li></ul>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sql%e6%8f%90%e7%a4%ba" aria-label="SQL提示">SQL提示</a></li>
+                <li>
+                    <a href="#%e8%a6%86%e7%9b%96%e7%b4%a2%e5%bc%95" aria-label="覆盖索引">覆盖索引</a></li>
+                <li>
+                    <a href="#%e5%89%8d%e7%bc%80%e7%b4%a2%e5%bc%95" aria-label="前缀索引">前缀索引</a></li>
+                <li>
+                    <a href="#%e5%8d%95%e5%88%97%e7%b4%a2%e5%bc%95%e5%92%8c%e8%81%94%e5%90%88%e7%b4%a2%e5%bc%95" aria-label="单列索引和联合索引">单列索引和联合索引</a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" aria-label="索引设计原则">索引设计原则</a>
+                </li>
             </ul>
         </div>
     </details>
 </div>
 
-  <div class="post-content"><h1 id="mysql存储引擎"><strong>Mysql存储引擎</strong><a hidden class="anchor" aria-hidden="true" href="#mysql存储引擎">#</a></h1>
+  <div class="post-content"><h1 id="一mysql存储引擎"><strong>一、Mysql存储引擎</strong><a hidden class="anchor" aria-hidden="true" href="#一mysql存储引擎">#</a></h1>
 <h2 id="1mysql的体系结构"><strong>1.Mysql的体系结构</strong><a hidden class="anchor" aria-hidden="true" href="#1mysql的体系结构">#</a></h2>
 <p><img loading="lazy" src="https://i.postimg.cc/MpV3xV4W/screenshot-16.png" alt=""  />
 </p>
@@ -295,14 +357,12 @@
 </ol>
 <h2 id="2存储引擎介绍"><strong>2.存储引擎介绍</strong><a hidden class="anchor" aria-hidden="true" href="#2存储引擎介绍">#</a></h2>
 <p>存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，<code>所以存储引擎也可被称为表类型</code> 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。</p>
-<h3 id="21-innodb">2.1 InnoDB<a hidden class="anchor" aria-hidden="true" href="#21-innodb">#</a></h3>
-<p><img loading="lazy" src="https://i.postimg.cc/SK9K6WdY/screenshot-19.png" alt=""  />
-</p>
+<h3 id="21innodb"><strong>2.1InnoDB</strong><a hidden class="anchor" aria-hidden="true" href="#21innodb">#</a></h3>
 <p>1).介绍</p>
 <p>InnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5.5之后，InnoDB是默认的MySQL存储引擎。</p>
 <p>2).特点</p>
 <p>●DML操作遵循ACID模型，支持事务；</p>
-<p>●行级锁，提高并发访问性能；</p>
+<p>●行锁，提高并发访问性能；</p>
 <p>●支持外键FOREIGN KEY约束，保证数据的完整性和正确性；</p>
 <p>3).文件</p>
 <p>参数：innodb_file_per_table</p>
@@ -310,7 +370,7 @@
 </code></pre><p>如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。</p>
 <pre tabindex="0"><code>show variables like &#39;%datadir%&#39;;
 </code></pre><p>使用上面的命令查看自己表数据存储位置</p>
-<p>4)<em>逻辑存储结构</em></p>
+<p>4)*逻辑存储结构*</p>
 <p><img loading="lazy" src="https://i.postimg.cc/XqkTkhMD/screenshot-17.png" alt=""  />
 </p>
 <ul>
@@ -336,6 +396,402 @@
 <h3 id="24三种索引的区别"><strong>2.4三种索引的区别</strong><a hidden class="anchor" aria-hidden="true" href="#24三种索引的区别">#</a></h3>
 <p><img loading="lazy" src="https://i.postimg.cc/s29W4960/screenshot-18.png" alt=""  />
 </p>
+<h1 id="二索引"><strong>二、索引</strong><a hidden class="anchor" aria-hidden="true" href="#二索引">#</a></h1>
+<h2 id="索引概述"><strong>索引概述</strong><a hidden class="anchor" aria-hidden="true" href="#索引概述">#</a></h2>
+<p>索引（index）是帮助MySQL高效获取数据的数据结构(有序)。在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法，这种数据结构就是索引。</p>
+<h2 id="无索引和有索引的情况下"><strong>无索引和有索引的情况下</strong><a hidden class="anchor" aria-hidden="true" href="#无索引和有索引的情况下">#</a></h2>
+<p>假如我们要执行的SQL语句为 ： select* from user where age= 45;</p>
+<p>在无索引的情况下会对全表进行扫描效率很低</p>
+<p><img loading="lazy" src="https://i.postimg.cc/j5H8pFx6/screenshot-21.png" alt=""  />
+</p>
+<p>在有索引时我们可以根据这个表建立索引，一般索引都是B+tree，然后会根据age进行查找</p>
+<p><img loading="lazy" src="https://i.postimg.cc/dVBk7RWs/screenshot-23.png" alt=""  />
+</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">优势</th>
+          <th style="text-align: left">劣势</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">提高数据检索的效率，降低数据库IO成本</td>
+          <td style="text-align: left">索引列也要占用空间</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">通过索引|列对数据进行排序，降低</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">、数据排序的成本，降低CPU的消</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">耗。</td>
+          <td style="text-align: left">索引大大提高了查询效率，同时却也降低更新表的速度</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">如对表进行INSERT、UPDATE、DELETE时，效率降低</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="索引结构"><strong>索引结构</strong><a hidden class="anchor" aria-hidden="true" href="#索引结构">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><strong>索引结构</strong></th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">B+Tree索引</td>
+          <td style="text-align: left">最常见的索引类型，大部分引擎都支持 B+树索引</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Hash索引</td>
+          <td style="text-align: left">底层数据结构是用哈希表实现的,只有精确匹配索引列的查询才有效,不支持范围查询</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">R-tree(空间索引）</td>
+          <td style="text-align: left">空间索引|是MyISAM引|擎的一个特殊索引类型，主要用于地理空间数据类</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">型，通常使用较少</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Full-text(全文索引)</td>
+          <td style="text-align: left">是一种通过建立倒排索引，快速匹配文档的方式。类似于</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Lucene, Solr,ES</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<p>上述是MySQL中所支持的所有的索引结构，接下来，我们再来看看不同的存储引擎对于索引结构的支持情况。</p>
+<p><img loading="lazy" src="https://i.postimg.cc/PrvBKh99/screenshot-24.png" alt=""  />
+</p>
+<h2 id="索引分类"><strong>索引分类</strong><a hidden class="anchor" aria-hidden="true" href="#索引分类">#</a></h2>
+<p>在MySQL数据库，将索引的具体类型主要分为以下几类：主键索引、唯一索引、常规索引、全文索引。</p>
+<h3 id="索引基础分类"><strong>索引</strong>基础<strong>分类</strong><a hidden class="anchor" aria-hidden="true" href="#索引基础分类">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><strong>分类</strong></th>
+          <th style="text-align: left"><strong>含义</strong></th>
+          <th style="text-align: left"><strong>特点</strong></th>
+          <th style="text-align: left"><strong>关键字</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">主键索引</td>
+          <td style="text-align: left">针对于表中主键创建的索引</td>
+          <td style="text-align: left">默认自动创建,只能有一个</td>
+          <td style="text-align: left">PRIMARY</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">唯一索引</td>
+          <td style="text-align: left">避免同一个表中某数据列中的值重复</td>
+          <td style="text-align: left">可以有多个</td>
+          <td style="text-align: left">UNIQUE</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">常规索引</td>
+          <td style="text-align: left">快速定位特定数据</td>
+          <td style="text-align: left">可以有多个</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">全文索引</td>
+          <td style="text-align: left">全文索引查找的是文本中的关键词，而不是比较索引中的值</td>
+          <td style="text-align: left">可以有多个</td>
+          <td style="text-align: left">FULLTEXT</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="聚集索引二级索引">聚集索引&amp;二级索引<a hidden class="anchor" aria-hidden="true" href="#聚集索引二级索引">#</a></h3>
+<p>而在在InnoDB存储引擎中，根据索引的存储形式，又可以分为以下两种：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><strong>分类</strong></th>
+          <th style="text-align: left"><strong>含义</strong></th>
+          <th style="text-align: left"><strong>特点</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">聚集索引(ClusteredIndex)</td>
+          <td style="text-align: left">将数据存储与索引放到了一块，索引结构的叶子节点保存了行数据</td>
+          <td style="text-align: left">必须有,而且只有一个</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">二级索引(SecondaryIndex)</td>
+          <td style="text-align: left">将数据与索引分开存储，索引结构的叶子节点关</td>
+          <td style="text-align: left">可以存在多个</td>
+      </tr>
+  </tbody>
+</table>
+<p>聚集索引选取规则:</p>
+<ul>
+<li>如果存在主键，主键索引就是聚集索引。</li>
+<li>如果不存在主键，将使用第一个唯一（UNIQUE）索引作为聚集索引。</li>
+<li>如果表没有主键，或没有合适的唯一索引，则InnoDB会自动生成一个rowid作为隐藏的聚集索引。</li>
+</ul>
+<p>接下来，我们来分析一下，当我们执行如下的SQL语句时，具体的查找过程是什么样子的。</p>
+<p><img loading="lazy" src="https://i.postimg.cc/C1Bx49gN/screenshot-25.png" alt=""  />
+</p>
+<p>具体过程如下:</p>
+<p>①.由于是根据name字段进行查询，所以先根据name=&lsquo;Arm&rsquo;到name字段的二级索引中进行匹配查找。但是在二级索引中只能查找到 Arm对应的主键值 10。</p>
+<p>②.由于查询返回的数据是*，所以此时，还需要根据主键值10，到聚集索引中查找10对应的记录，最终找到10对应的行row。</p>
+<p>③.最终拿到这一行的数据，直接返回即可。</p>
+<blockquote>
+<p>回表查询：   这种先到二级索引中查找数据，找到主键值,
+然后再到聚集索引中根据主键值，获取数据的方式，就称之为回表查询</p>
+</blockquote>
+<h2 id="索引语法"><strong>索引语法</strong><a hidden class="anchor" aria-hidden="true" href="#索引语法">#</a></h2>
+<p>1）创建索引</p>
+<pre tabindex="0"><code>CREATE [UNIQUE | FULLTEXT] INDEX index_name NO table_name(index_col_name,....);
+</code></pre><ol start="2">
+<li>查看索引</li>
+</ol>
+<pre tabindex="0"><code>SHOW INDEX FROM table_name;
+</code></pre><p>3)删除索引</p>
+<pre tabindex="0"><code>DROP INDEX index_name NO table_name;
+</code></pre><h1 id="三sql性能分析"><strong>三、SQL性能分析</strong><a hidden class="anchor" aria-hidden="true" href="#三sql性能分析">#</a></h1>
+<h3 id="31sql执行频率"><strong>3.1SQL执行频率</strong><a hidden class="anchor" aria-hidden="true" href="#31sql执行频率">#</a></h3>
+<p>MySQL客户端连接成功后，通过 show[session|global] status命令可以提供服务器状态信息。通过如下指令，可以查看当前数据库的INSERT、UPDATE、DELETE、SELECT的访问频次：</p>
+<pre tabindex="0"><code>-- session 是查看当前会话；
+-- global 是查询全局数据；
+ SHOW GLOBAL STATUS LIKE &#39;COM_______&#39;;
+</code></pre><blockquote>
+<p>通过上述指令，我们可以查看到当前数据库到底是以查询为主，还是以增删改为主，从而为数据库优化提供参考依据。如果是以增删改为主，我们可以考虑不对其进行索引的优化。如果是以查询为主，那么就要考虑对数据库的索引进行优化了。</p>
+</blockquote>
+<h3 id="32慢查询日志"><strong>3.2慢查询日志</strong><a hidden class="anchor" aria-hidden="true" href="#32慢查询日志">#</a></h3>
+<p>慢查询日志记录了所有执行时间超过指定参数（long_query_time，单位：秒，默认10秒）的所有SQL语句的日志。</p>
+<p>MySQL的慢查询日志默认没有开启，我们可以查看一下系统变量 slow_query_log。</p>
+<pre tabindex="0"><code>show variables like &#39;%quer%&#39;;
+</code></pre><h4 id="在windos下开启慢查询"><strong>在windos下开启慢查询</strong><a hidden class="anchor" aria-hidden="true" href="#在windos下开启慢查询">#</a></h4>
+<p>临时开启慢查询（重启MySQL后就会失效）</p>
+<pre tabindex="0"><code>set global slow_query_log=&#39;ON&#39;;
+
+--设置慢查询日志存放的位置
+set global slow_query_log_file=&#39;D:\\home\\mysql.log&#39;;
+</code></pre><p>永久开启慢查询（mysql版本5.7.30）</p>
+<p>找到mysql的安装目录，找到my.ini文件夹在[mysqld]处加入以下代码开启慢查询，永久有效。</p>
+<pre tabindex="0"><code>#存储位置
+datadir=D:/soft/mysql-5.30/Data
+#开启慢查询
+slow-query-log=1
+#D:/soft/mysql-5.30/Data/HJH-slow.log 慢查询日志文件存储位置
+slow_query_log_file=&#34;HJH-slow.log&#34;
+#慢查询判断时间
+long_query_time=10
+</code></pre><h4 id="在ubuntu中开启慢查询"><strong>在Ubuntu中开启慢查询</strong><a hidden class="anchor" aria-hidden="true" href="#在ubuntu中开启慢查询">#</a></h4>
+<p>//TODO</p>
+<h3 id="profile详情"><strong>profile详情</strong><a hidden class="anchor" aria-hidden="true" href="#profile详情">#</a></h3>
+<h3 id="show-profiles能够在做sql优化时帮助我们了解时间都耗费到哪里去了通过have_profiling参数能够看到当前mysql是否支持profile操作">show profiles能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。通过have_profiling参数，能够看到当前MySQL是否支持profile操作：<a hidden class="anchor" aria-hidden="true" href="#show-profiles能够在做sql优化时帮助我们了解时间都耗费到哪里去了通过have_profiling参数能够看到当前mysql是否支持profile操作">#</a></h3>
+<pre tabindex="0"><code>-- 查看数据库是否支持profile
+SELECT @@have_profiling;
+
+-- 开启profile
+SET [session | global]profiling = 1;
+</code></pre><p>开启profiling后就能使用profiling相关命令来查询执行过的SQL语句</p>
+<p>执行一系列的业务SQL的操作，然后通过如下指令查看指令的执行耗时：</p>
+<pre tabindex="0"><code> -- 查看每一条SQL的耗时基本情况
+show profiles;
+
+-- 查看指定query_id的SQL语句各个阶段的耗时情况
+show profile for query query_id;
+
+-- 查看指定query_id的SQL语句CPU的使用情况
+show profile cpu for query query_id;
+</code></pre><h3 id="explain"><strong>explain</strong><a hidden class="anchor" aria-hidden="true" href="#explain">#</a></h3>
+<p>EXPLAIN或者 DESC命令获取 MySQL如何执行 SELECT语句的信息，包括在 SELECT语句执行过程中表如何连接和连接的顺序。</p>
+<pre tabindex="0"><code>-- 直接在select语句前加上关键字 explain/desc
+EXPLAIN SELECT 字段列表 FROM 表明 WHERE 条件;
+</code></pre><p><img loading="lazy" src="https://i.postimg.cc/s2dgvXWJ/screenshot-26.png" alt=""  />
+</p>
+<p>Explain执行计划中各个字段的含义:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><strong>字段</strong></th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">id</td>
+          <td style="text-align: left">select查询的序列号，表示查询中执行select子句或者是操作表的顺序(id相同，执行顺序从上到下；id不同，值越大，越先执行)。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">select_type</td>
+          <td style="text-align: left">表示 SELECT的类型，常见的取值有 SIMPLE（简单表，即不使用表连接或者子查询）、PRIMARY（主查询，即外层的查询）、UNION（UNION中的第二个或者后面的查询语句）、SUBQUERY（SELECT/WHERE之后包含了子查询）等</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">type</td>
+          <td style="text-align: left">表示连接类型，性能由好到差的连接类型为NULL、system、const、eq_ref、ref、range、 index、all 。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">possible_key</td>
+          <td style="text-align: left">显示可能应用在这张表上的索引，一个或多个。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">key</td>
+          <td style="text-align: left">实际使用的索引，如果为NULL，则没有使用索引。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">key_len</td>
+          <td style="text-align: left">表示索引中使用的字节数， 该值为索引字段最大可能长度，并非实际使用长度，在不损失精确性的前提下，长度越短越好 。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">rows</td>
+          <td style="text-align: left">MySQL认为必须要执行查询的行数，在innodb引擎的表中，是一个估计值，可能并不总是准确的。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">filtered</td>
+          <td style="text-align: left">表示返回结果的行数占需读取行数的百分比， filtered的值越大越好。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Extra</td>
+          <td style="text-align: left">Using where: Using Index 查找使用了索引，但是需要的数据都在索引列表中找到，所以不需要回表查询 。Using index condition:查找使用了索引，但是需要回表查询数据</td>
+      </tr>
+  </tbody>
+</table>
+<h1 id="五索引的使用"><strong>五、索引的使用</strong><a hidden class="anchor" aria-hidden="true" href="#五索引的使用">#</a></h1>
+<h3 id="最左前缀法则"><strong>最左前缀法则</strong><a hidden class="anchor" aria-hidden="true" href="#最左前缀法则">#</a></h3>
+<p>使用联合索引时要遵守最左前缀法则。最左前缀法则是指在查询索引时从索引的最左列开始，并且不跳过索引中的列。如果跳过某一列，后面的字段索引失效。</p>
+<p>tb_user表</p>
+<pre tabindex="0"><code>create table tb_user(
+	id int primary key auto_increment comment &#39;主键&#39;,
+	name varchar(50) not null comment &#39;用户名&#39;,
+	phone varchar(11) not null comment &#39;手机号&#39;,
+	email varchar(100) comment &#39;邮箱&#39;,
+	profession varchar(11) comment &#39;专业&#39;,
+	age tinyint unsigned comment &#39;年龄&#39;,
+	gender char(1) comment &#39;性别 , 1: 男, 2: 女&#39;,
+	status char(1) comment &#39;状态&#39;,
+	createtime datetime comment &#39;创建时间&#39;
+) comment &#39;系统用户表&#39;;
+
+
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;吕布&#39;, &#39;17799990000&#39;, &#39;lvbu666@163.com&#39;, &#39;软件工程&#39;, 23, &#39;1&#39;, &#39;6&#39;, &#39;2001-02-02 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;曹操&#39;, &#39;17799990001&#39;, &#39;caocao666@qq.com&#39;, &#39;通讯工程&#39;, 33, &#39;1&#39;, &#39;0&#39;, &#39;2001-03-05 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;赵云&#39;, &#39;17799990002&#39;, &#39;17799990@139.com&#39;, &#39;英语&#39;, 34, &#39;1&#39;, &#39;2&#39;, &#39;2002-03-02 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;孙悟空&#39;, &#39;17799990003&#39;, &#39;17799990@sina.com&#39;, &#39;工程造价&#39;, 54, &#39;1&#39;, &#39;0&#39;, &#39;2001-07-02 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;花木兰&#39;, &#39;17799990004&#39;, &#39;19980729@sina.com&#39;, &#39;软件工程&#39;, 23, &#39;2&#39;, &#39;1&#39;, &#39;2001-04-22 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;大乔&#39;, &#39;17799990005&#39;, &#39;daqiao666@sina.com&#39;, &#39;舞蹈&#39;, 22, &#39;2&#39;, &#39;0&#39;, &#39;2001-02-07 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;露娜&#39;, &#39;17799990006&#39;, &#39;luna_love@sina.com&#39;, &#39;应用数学&#39;, 24, &#39;2&#39;, &#39;0&#39;, &#39;2001-02-08 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;程咬金&#39;, &#39;17799990007&#39;, &#39;chengyaojin@163.com&#39;, &#39;化工&#39;, 38, &#39;1&#39;, &#39;5&#39;, &#39;2001-05-23 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;项羽&#39;, &#39;17799990008&#39;, &#39;xiaoyu666@qq.com&#39;, &#39;金属材料&#39;, 43, &#39;1&#39;, &#39;0&#39;, &#39;2001-09-18 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;白起&#39;, &#39;17799990009&#39;, &#39;baiqi666@sina.com&#39;, &#39;机械工程及其自动化&#39;, 27, &#39;1&#39;, &#39;2&#39;, &#39;2001-08-16 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;韩信&#39;, &#39;17799990010&#39;, &#39;hanxin520@163.com&#39;, &#39;无机非金属材料工程&#39;, 27, &#39;1&#39;, &#39;0&#39;, &#39;2001-06-12 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;荆轲&#39;, &#39;17799990011&#39;, &#39;jingke123@163.com&#39;, &#39;会计&#39;, 29, &#39;1&#39;, &#39;0&#39;, &#39;2001-05-11 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;兰陵王&#39;, &#39;17799990012&#39;, &#39;lanlinwang666@126.com&#39;, &#39;工程造价&#39;, 44, &#39;1&#39;, &#39;1&#39;, &#39;2001-04-09 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;狂铁&#39;, &#39;17799990013&#39;, &#39;kuangtie@sina.com&#39;, &#39;应用数学&#39;, 43, &#39;1&#39;, &#39;2&#39;, &#39;2001-04-10 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;貂蝉&#39;, &#39;17799990014&#39;, &#39;84958948374@qq.com&#39;, &#39;软件工程&#39;, 40, &#39;2&#39;, &#39;3&#39;, &#39;2001-02-12 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;妲己&#39;, &#39;17799990015&#39;, &#39;2783238293@qq.com&#39;, &#39;软件工程&#39;, 31, &#39;2&#39;, &#39;0&#39;, &#39;2001-01-30 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;芈月&#39;, &#39;17799990016&#39;, &#39;xiaomin2001@sina.com&#39;, &#39;工业经济&#39;, 35, &#39;2&#39;, &#39;0&#39;, &#39;2000-05-03 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;嬴政&#39;, &#39;17799990017&#39;, &#39;8839434342@qq.com&#39;, &#39;化工&#39;, 38, &#39;1&#39;, &#39;1&#39;, &#39;2001-08-08 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;狄仁杰&#39;, &#39;17799990018&#39;, &#39;jujiamlm8166@163.com&#39;, &#39;国际贸易&#39;, 30, &#39;1&#39;, &#39;0&#39;, &#39;2007-03-12 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;安琪拉&#39;, &#39;17799990019&#39;, &#39;jdodm1h@126.com&#39;, &#39;城市规划&#39;, 51, &#39;2&#39;, &#39;0&#39;, &#39;2001-08-15 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;典韦&#39;, &#39;17799990020&#39;, &#39;ycaunanjian@163.com&#39;, &#39;城市规划&#39;, 52, &#39;1&#39;, &#39;2&#39;, &#39;2000-04-12 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;廉颇&#39;, &#39;17799990021&#39;, &#39;lianpo321@126.com&#39;, &#39;土木工程&#39;, 19, &#39;1&#39;, &#39;3&#39;, &#39;2002-07-18 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;后羿&#39;, &#39;17799990022&#39;, &#39;altycj2000@139.com&#39;, &#39;城市园林&#39;, 20, &#39;1&#39;, &#39;0&#39;, &#39;2002-03-10 00:00:00&#39;);
+INSERT INTO itcast.tb_user (name, phone, email, profession, age, gender, status, createtime) VALUES (&#39;姜子牙&#39;, &#39;17799990023&#39;, &#39;37483844@qq.com&#39;, &#39;工程造价&#39;, 29, &#39;1&#39;, &#39;4&#39;, &#39;2003-05-26 00:00:00&#39;);
+</code></pre><p>在 tb_user表中，有一个联合索引，这个联合索引涉及到三个字段，顺序分别为：profession， age，status。</p>
+<p>对于最左前缀法则指的是，查询时，最左边的列，也就是profession必须存在，否则索引全部失效。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/100d1612bf7b43158702ddc213d7c4c3/image.png?Expires=3304039820&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=68VccCIR1ThrhjMWwwtlHQOmCBI%3D" alt="image.png"  />
+</p>
+<p>从图中可以看出只要有profession存在就会使用索引，当profession不存在即使使用后面的属性也不会触发索引。</p>
+<blockquote>
+<p>思考题：
+当执行SQL语句: explain select * from tb_user where age = 3 and
+status=&lsquo;0’ and profession=&lsquo;软件工程&rsquo;;时，是否满足最左前缀法则，走不走
+上述的联合索引，索引长度？</p>
+<p>很显然时走的，最左前缀法则中指的最最左边的列，是指在查询时，联合索引的最左边的字段（就是第一个字段）必须存在，与我们编写SQL时。条件的顺序无关。</p>
+</blockquote>
+<h3 id="范围查询"><strong>范围查询</strong><a hidden class="anchor" aria-hidden="true" href="#范围查询">#</a></h3>
+<p>联合索引中，出现范围查询(&gt;,&lt;)，范围查询右侧的列索引失效。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/bfc44d1693c142169e8dd3159c7aa327/image.png?Expires=3304040474&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=uxT64YYgp%2BBmXG8VtQnQ09WyRhI%3D" alt="image.png"  />
+</p>
+<p>在使用范围查询时有效字段是38，但是在不使用时有效字段是42，说明在使用范围查询时有字段失效了。</p>
+<p>所以在业务允许的情况下，尽可能的使用类似的&gt;=或&lt;=这类的范围查询。</p>
+<h3 id="范围失效的情况"><strong>范围失效的情况</strong><a hidden class="anchor" aria-hidden="true" href="#范围失效的情况">#</a></h3>
+<ul>
+<li>索引列运算</li>
+</ul>
+<p>不要在索引列上进行运算操作，索引将失效。</p>
+<ul>
+<li>字符串不加引号</li>
+</ul>
+<p>不要在索引列上进行运算操作，索引将失效。</p>
+<ul>
+<li>模糊查询使用头部模糊查询，索引失效</li>
+</ul>
+<p>如果仅仅是尾部模糊匹配，索引不会失效。如果是头部模糊匹配，索引失效。</p>
+<ul>
+<li>or连接条件</li>
+</ul>
+<p>用or分割开的条件，如果or前的条件中的列有索引，而后面的列中没有索引，那么涉及的索引都不会被用到。</p>
+<p>-数据分布影响。</p>
+<p>如果MySQL评估使用索引比全表更慢，则不使用索引。</p>
+<h1 id="sql提示"><strong>SQL提示</strong><a hidden class="anchor" aria-hidden="true" href="#sql提示">#</a></h1>
+<p>SQL提示，是优化数据库的一个重要手段，简单来说，就是在SQL语句中加入一些人为的提示来达到优化操作的目的</p>
+<p>1). use index ：建议MySQL使用哪一个索引完成此次查询（仅仅是建议，mysql内部还会再次进行评估）。</p>
+<pre tabindex="0"><code>explain select * from tb_user use index(idx_user_pro) where profession=&#39;软件工程&#39;
+</code></pre><p>2). ignore index ：忽略指定的索引。</p>
+<pre tabindex="0"><code>explain select * from tb_user ignore index(idx_user_pro) where profession=&#39;软件工程&#39;
+</code></pre><p>3). force index ：强制使用索引。</p>
+<pre tabindex="0"><code>explain select * from tb_user ignore index(idx_user_pro) where profession=&#39;软件工程&#39;
+</code></pre><h1 id="覆盖索引"><strong>覆盖索引</strong><a hidden class="anchor" aria-hidden="true" href="#覆盖索引">#</a></h1>
+<p>尽量使用覆盖索引，减少select*。那么什么是覆盖索引呢？覆盖索引是指查询使用了索引，并且需要返回的列，在该索引中已经全部能够找到 。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/0d08f6e6f0354782a294c0c3d63ee8ec/image.png?Expires=3304046761&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=gms41e%2BskUWdzEUC5dNO%2FMsWcf0%3D" alt="image.png"  />
+</p>
+<p>B.执行SQL: select * from tb_user where id =2;</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/0c814530f97b418c88de7c3662dc3263/image.png?Expires=3304046885&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=2MwVPaXLQ%2F47PxaMcwnoSUB7Amw%3D" alt="image.png"  />
+</p>
+<p>根据id查询，直接走聚集索引查询一次索引扫描，直接返回数据，性能高。</p>
+<p>c.执行SQL: select id ,name from tb_user where name =&lsquo;Arm&rsquo;;</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/e426287c39a8440396f23cce94c1030d/image.png?Expires=3304047013&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=mU2rvvE5l4F7BrozXDMdAwtYzaw%3D" alt="image.png"  />
+</p>
+<p>根据name字段查询辅助索引，id和name在name的二级索引中都是可以直接获取到的，所以不需要回表查询，性能高。</p>
+<p>d.执行SQL:select id ,name ,gender from tb_user where name =&lsquo;Arm&rsquo;;</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/873185bb6aa44128b6d48843d0033115/image.png?Expires=3304047192&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=jN7utyLdFKad%2BQ9zhJFv8d%2FakPY%3D" alt="image.png"  />
+</p>
+<p>由于在name的二级索引中，不包含gender，所以，需要两次索引扫描，也就是需要回表查询，性能相对较差一点。</p>
+<h1 id="前缀索引"><strong>前缀索引</strong><a hidden class="anchor" aria-hidden="true" href="#前缀索引">#</a></h1>
+<p>当字段类型为字符串（varchar，text，longtext等）时，有时候需要索引很长的字符串，这会让索引变得很大，查询时，浪费大量的磁盘IO，影响查询效率。此时可以只将字符串的一部分前缀，建立索引，这样可以大大节约索引空间，从而提高索引效率。</p>
+<p>1).语法</p>
+<pre tabindex="0"><code>create index idx_xxxx on table_name(colum(n));
+</code></pre><p>示例</p>
+<p>在tb_user的表的email字段，建立长度未5的前缀索引。</p>
+<pre tabindex="0"><code>create index idx_email_5 on tb_user(email(5));
+</code></pre><p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/bbbede15a4e44b50bfd1bb91d13f77b2/image.png?Expires=3304047585&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=J5WBvAAEGifmVVEIc5%2B3meJb3z8%3D" alt="image.png"  />
+</p>
+<p>2)查询流程</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/60eb102ffb8447e1ade9098639487c33/image.png?Expires=3304047670&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=So1qHGMA54KPpwLKLDeUQtH3b2A%3D" alt="image.png"  />
+</p>
+<h1 id="单列索引和联合索引"><strong>单列索引和联合索引</strong><a hidden class="anchor" aria-hidden="true" href="#单列索引和联合索引">#</a></h1>
+<p>单列索引：即一个索引只包含单个列。</p>
+<p>联合索引：即一个索引包含了多个列。</p>
+<p>在业务场景中，如果存在多个查询条件，考虑针对于查询字段建立索引时，建议建立联合索引，而非单列索引。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/3c76af6ef2b44d74826ecffdf44ed035/image.png?Expires=3304048885&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=F%2F4QWnVhtiFlDa2vSKuenQKqg9I%3D" alt="image.png"  />
+</p>
+<h1 id="索引设计原则"><strong>索引设计原则</strong><a hidden class="anchor" aria-hidden="true" href="#索引设计原则">#</a></h1>
+<p>1).针对于数据量较大，且查询比较频繁的表建立索引。</p>
+<p>2).针对于常作为查询条件（where）、排序（order by）、分组（group by）操作的字段建立索引。</p>
+<p>3).尽量选择区分度高的列作为索引，尽量建立唯一索引，区分度越高，使用索引的效率越高。</p>
+<p>4).如果是字符串类型的字段，字段的长度较长，可以针对于字段的特点，建立前缀索引。</p>
+<p>5).尽量使用联合索引，减少单列索引，查询时，联合索引很多时候可以覆盖索引，节省存储空间，避免回表，提高查询效率。</p>
+<p>6).要控制索引的数量，索引并不是多多益善，索引越多，维护索引结构的代价也就越大，会影响增删改的效率。</p>
+<p>7).如果索引列不能存储NULL值，请在创建表时使用NOT NULL约束它。当优化器知道每列是否包含NULL值时，它可以更好地确定哪个索引最有效地用于查询。</p>
 
 
   </div>
@@ -346,6 +802,11 @@
       <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>复习数据结构二叉树</span>
+  </a>
   <a class="next" href="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/">
     <span class="title">下一页 »</span>
     <br>
