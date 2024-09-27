@@ -12,8 +12,23 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Tue, 24 Sep 2024 18:56:07 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Sep 2024 09:13:15 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQL优化</title>
+      <link>http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Fri, 27 Sep 2024 09:13:15 +0800</pubDate>
+      <guid>http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/</guid>
+      <description>&lt;h1 id=&#34;sql优化&#34;&gt;&lt;strong&gt;SQL优化&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;插入数据&#34;&gt;&lt;strong&gt;插入数据&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&#34;insert&#34;&gt;&lt;strong&gt;insert&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;假设我们需要插入大量数据，那么有哪些方法呢？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;批量插入数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;INSERT INTO tb_test values(1,&amp;#39;Tom&amp;#39;),(2,&amp;#39;Cat&amp;#39;),(3,&amp;#39;Jerry&amp;#39;);
+&lt;/code&gt;&lt;/pr</description>
+    </item>
     <item>
       <title>复习数据结构二叉树</title>
       <link>http://localhost:1313/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/</link>

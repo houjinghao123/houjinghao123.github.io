@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>SQL优化 | phjhq&#39;s Blog</title>
+<meta name="keywords" content="mysql, 数据库">
+<meta name="description" content="SQL优化
+插入数据
+insert
+假设我们需要插入大量数据，那么有哪些方法呢？
+
+批量插入数据
+
+INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+">
+<meta name="author" content="phjhq">
+<link rel="canonical" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
+<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+  rel="stylesheet">
+
+<script type="text/javascript" async
+  src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: {
+          equationNumbers: { autoNumber: "AMS" },
+          extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      }
+    });
+
+    MathJax.Hub.Queue(function () {
+      
+      
+      
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+<style>
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+</style><meta property="og:title" content="SQL优化" />
+<meta property="og:description" content="SQL优化
+插入数据
+insert
+假设我们需要插入大量数据，那么有哪些方法呢？
+
+批量插入数据
+
+INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/" />
+<meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-27T09:13:15+08:00" />
+<meta property="article:modified_time" content="2024-09-27T09:13:15+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta name="twitter:title" content="SQL优化"/>
+<meta name="twitter:description" content="SQL优化
+插入数据
+insert
+假设我们需要插入大量数据，那么有哪些方法呢？
+
+批量插入数据
+
+INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "SQL优化",
+      "item": "http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SQL优化",
+  "name": "SQL优化",
+  "description": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); ",
+  "keywords": [
+    "mysql", "数据库"
+  ],
+  "articleBody": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); 手动控制事务的提交 start transaction; INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); INSERT INTO tb_test values(4,'Tom'),(5,'Cat'),(6,'Jerry'); commit; 这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、\nload 指令 -- 客户端连接服务端时，加上参数 ---local-infile mysql --local-infile -uroot -p -- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关 set global local_infile =1; -- 执行load指令将准备好的数据，加载到表结构中 load data local infile 'd:/data/test.log' into table tb_test fields terminated by ',' lines terminated by '\\n';'; -- fields terminatedp-每个字段之间使用什么分隔 -- lines terminated-每条数据之间用什么分隔 主键按顺序插入性能要高于乱序插入：因为插入时需要根据主键进行排序生成索引，当使用乱序时会可能会导致用一页的数据产生分页的现象。\n主键优化 在上一小节，我们提到，主键顺序插入的性能是要高于乱序插入的。这一小节，就来介绍一下具体的原因，然后再分析一下主键又该如何设计。\n1)数据组织方式 在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表(IOT)\n行数据都是存储在聚集索引的叶子节点上的，而InnoDB的逻辑结构是：表-\u003e段 -\u003e区 -\u003e块-\u003e 行\n在InnoDB引擎中。数据行是记录在逻辑结构的page页中的，每一页的大小是16k，一个页中所存储的行也是有限的，如果插入的数据行row在该页存储不小，将会存储到下一个页中，页与页之间会通过指针连接。\n页分裂 页可以为空，也可以填充一半，也可以填充100%。每个页包含了2-N行数据(如果一行数据过大，会行溢出)，根据主键排列。\nA. 主键顺序插入效果\n从磁盘中申请页，主键顺序插入 B.主键乱序插入效果\n加入1#，2#页都已经写满了，存放了如图的数据 2.此时在插入id为50的记录，会发生什么现象\n会在开启一个页，写入新的页中？\n不会。因为，索引结构的叶子节点是有顺序的。按照顺序，应该存储在47之后。\n但是在47所在的1#页中已经写满了，存储不了50对应的数据了。那么此时会开辟一个新的页 3#。\n但是不会直接将50存入3#页，而是会将1#页一半的数据移动到3#页没然后3#页，插入50。\n移动数据，并插入id为50的数据之后，那么此时，这三个页之间的数据顺序是有问题的。 1#的下一个页，应该是3#， 3#的下一个页是2#。所以，此时，需要重新设置链表指针。\n上述的这种现象，称之为\"页分裂\"，是比较耗费性能的操作。\n页合并 当有1#,2#,3#三个页时，假设我们删除了2#页上的50%(MERGE_THRESHOLD)的记录，那么InnoDB会开始开始寻找1#或3#(磁盘最近距离)，看看是否可以将两页合并以优化空间使用。\nMERGE_THRESHOLD:合并页的阈值，可以自己设置，并在创建表或者创建索引时指定。\n索引设计原则 满足业务需求的情况下，尽量降低主键的长度 插入数据时，尽量选择顺序插入，选择使用AUTO_INCREMENT自增主键。 业务操作时，避免对主键的修改。 尽量不要使用UUID做主键或者是其他自然主键，如身份证号。 业务操作时，避免对主键的修改。 order by 优化 MySQL的排序，有两种方式：\nUsing filesort:通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区sort buffer中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort排序。 Using index:通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高。 对于以上的两种排序方式，Using index的性能高，而Using filesort的性能低，我们在优化排序操作时，尽量要优化为 Using index。\n可以使用explain 查看extra\n为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。\n-- 创建索引 create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc]) 根据age, phone进行降序一个升序，一个降序\n因为创建索引时，如果未指定顺序，默认都是按照升序排序的，而查询时，一个升序，一个降序，此时就会出现Using filesort。\n解决这种问题只需要在创建索引时一个使用desc，一个使用asc。\n我们得出order by优化原则:\nA.根据排序字段建立合适的索引，多字段排序时，也遵循最左前缀法则。\nB.尽量使用覆盖索引。\nC.多字段排序,一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）。\nD.如果不可避免的出现filesort，大数据量排序时，可以适当增大排序缓冲区大小sort_buffer_size(默认256k)。\ngroup by优化 优化思路\nA.在分组操作时，可以通过索引来提高效率。\nB.分组操作时，索引的使用也是满足最左前缀法则的。\n当进行分组查询时如果使用了联合索引那就要符合最左前缀法，如果不使用就会出现Using temporary。\nlimit优化 分页查询，在查询时，越往后，分页查询效率越低。\n优化思路\n一般分页查询时，通过创建覆盖索引能够比较好地提高性能，可以通过覆盖索引加子查询形式进行优化。\n未使用索引时\n使用索引时\ncount优化 优化方案 在之前的测试中，我们发现，如果数据量很大，在执行count操作时，是非常耗时的。\n而对于count的执行方式不同的引擎也有不同的方法。\nMyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*)的时候会直接返回这个数，效率很高；但是如果是带条件的count，MyISAM也慢。 InnoDB 引擎是它执行count(*) 的时候，需要把数据一行一行的从引擎里面读取出来，然后积累计数。 优化思路：自己计数（可以借助redis这样的数据库进行，但是如果是带条件的count，还是麻烦）。\n不同count使用方法的性能：\ncount(字段)",
+  "wordCount" : "2497",
+  "inLanguage": "zh",
+  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-27T09:13:15+08:00",
+  "dateModified": "2024-09-27T09:13:15+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "phjhq"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "phjhq's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      SQL优化
+    </h1>
+    <div class="post-meta"><span title='2024-09-27 09:13:15 +0800 CST'>2024-09-27</span>&nbsp;·&nbsp;5 分钟&nbsp;·&nbsp;phjhq
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#sql%e4%bc%98%e5%8c%96" aria-label="SQL优化">SQL优化</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8f%92%e5%85%a5%e6%95%b0%e6%8d%ae" aria-label="插入数据">插入数据</a><ul>
+                        
+                <li>
+                    <a href="#insert" aria-label="insert">insert</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%b8%bb%e9%94%ae%e4%bc%98%e5%8c%96" aria-label="主键优化">主键优化</a><ul>
+                        
+                <li>
+                    <a href="#1%e6%95%b0%e6%8d%ae%e7%bb%84%e7%bb%87%e6%96%b9%e5%bc%8f" aria-label="1)数据组织方式">1)数据组织方式</a></li>
+                <li>
+                    <a href="#%e9%a1%b5%e5%88%86%e8%a3%82" aria-label="页分裂">页分裂</a></li>
+                <li>
+                    <a href="#%e9%a1%b5%e5%90%88%e5%b9%b6" aria-label="页合并">页合并</a></li>
+                <li>
+                    <a href="#%e7%b4%a2%e5%bc%95%e8%ae%be%e8%ae%a1%e5%8e%9f%e5%88%99" aria-label="索引设计原则">索引设计原则</a></li></ul>
+                </li>
+                <li>
+                    <a href="#order-by-%e4%bc%98%e5%8c%96" aria-label="order by 优化">order by 优化</a></li>
+                <li>
+                    <a href="#group-by%e4%bc%98%e5%8c%96" aria-label="group by优化">group by优化</a></li>
+                <li>
+                    <a href="#limit%e4%bc%98%e5%8c%96" aria-label="limit优化">limit优化</a></li>
+                <li>
+                    <a href="#count%e4%bc%98%e5%8c%96" aria-label="count优化">count优化</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e6%96%b9%e6%a1%88" aria-label="优化方案">优化方案</a></li></ul>
+                </li>
+                <li>
+                    <a href="#update%e4%bc%98%e5%8c%96" aria-label="update优化">update优化</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="sql优化"><strong>SQL优化</strong><a hidden class="anchor" aria-hidden="true" href="#sql优化">#</a></h1>
+<h2 id="插入数据"><strong>插入数据</strong><a hidden class="anchor" aria-hidden="true" href="#插入数据">#</a></h2>
+<h3 id="insert"><strong>insert</strong><a hidden class="anchor" aria-hidden="true" href="#insert">#</a></h3>
+<p>假设我们需要插入大量数据，那么有哪些方法呢？</p>
+<ul>
+<li>批量插入数据</li>
+</ul>
+<pre tabindex="0"><code>INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+</code></pre><ul>
+<li>手动控制事务的提交</li>
+</ul>
+<pre tabindex="0"><code>start transaction;
+INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+INSERT INTO tb_test values(4,&#39;Tom&#39;),(5,&#39;Cat&#39;),(6,&#39;Jerry&#39;);
+
+commit;
+</code></pre><p>这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、</p>
+<ul>
+<li>load 指令</li>
+</ul>
+<pre tabindex="0"><code>-- 客户端连接服务端时，加上参数 ---local-infile
+mysql --local-infile -uroot -p
+
+-- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
+set global local_infile =1;
+
+-- 执行load指令将准备好的数据，加载到表结构中
+load data local infile &#39;d:/data/test.log&#39; into table tb_test fields terminated by &#39;,&#39; lines terminated by &#39;\n&#39;;&#39;;
+
+-- fields terminatedp-每个字段之间使用什么分隔
+-- lines terminated-每条数据之间用什么分隔
+</code></pre><blockquote>
+<p>主键按顺序插入性能要高于乱序插入：因为插入时需要根据主键进行排序生成索引，当使用乱序时会可能会导致用一页的数据产生分页的现象。</p>
+</blockquote>
+<h2 id="主键优化"><strong>主键优化</strong><a hidden class="anchor" aria-hidden="true" href="#主键优化">#</a></h2>
+<p>在上一小节，我们提到，主键顺序插入的性能是要高于乱序插入的。这一小节，就来介绍一下具体的原因，然后再分析一下主键又该如何设计。</p>
+<h3 id="1数据组织方式"><strong>1)数据组织方式</strong><a hidden class="anchor" aria-hidden="true" href="#1数据组织方式">#</a></h3>
+<p>在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表(IOT)</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/eca96c6e6faa46e08cf80d55baddbc6c/image.png?Expires=3304070654&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=GoQzCKzzWQILHEcFGHiHzNSQOFw%3D" alt="image.png"  />
+</p>
+<p>行数据都是存储在聚集索引的叶子节点上的，而InnoDB的逻辑结构是：表-&gt;段 -&gt;区 -&gt;块-&gt; 行</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/c17cdb5c0fee4bfdbbd6c72a490ec87b/image.png?Expires=3304070824&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=EiSHHSRXvtTHJKX%2Fj7wLQCNcfhA%3D" alt="image.png"  />
+</p>
+<p>在InnoDB引擎中。数据行是记录在逻辑结构的page页中的，每一页的大小是16k，一个页中所存储的行也是有限的，如果插入的数据行row在该页存储不小，将会存储到下一个页中，页与页之间会通过指针连接。</p>
+<h3 id="页分裂"><strong>页分裂</strong><a hidden class="anchor" aria-hidden="true" href="#页分裂">#</a></h3>
+<p>页可以为空，也可以填充一半，也可以填充100%。每个页包含了2-N行数据(如果一行数据过大，会行溢出)，根据主键排列。</p>
+<p>A. 主键顺序插入效果</p>
+<ol>
+<li>从磁盘中申请页，主键顺序插入</li>
+</ol>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/7167f87ff6144b5f9a66a694b3adfc4e/image.png?Expires=3304071099&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=%2B4bwN1sG2Z34Orkbb0EgDxInFI4%3D" alt="image.png"  />
+</p>
+<p>B.主键乱序插入效果</p>
+<ol>
+<li>加入1#，2#页都已经写满了，存放了如图的数据</li>
+</ol>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/cd45f4142d5142569fda7ca1fc5fdd8c/image.png?Expires=3304071169&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=t9sMVjppvR9MoRmBVoCKv45XhaU%3D" alt="image.png"  />
+</p>
+<p>2.此时在插入id为50的记录，会发生什么现象</p>
+<p>会在开启一个页，写入新的页中？</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/f3db3ffddaa34778808f48270cc9112f/image.png?Expires=3304071289&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=sf0piRmFtWIEyV6dZ%2ByaUDX0ceE%3D" alt="image.png"  />
+</p>
+<p>不会。因为，索引结构的叶子节点是有顺序的。按照顺序，应该存储在47之后。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/ee35df3500984cb0b1f359eda772e526/image.png?Expires=3304071359&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=KZlKCyW11R168i1NJJxyfSAbUe8%3D" alt="image.png"  />
+</p>
+<p>但是在47所在的1#页中已经写满了，存储不了50对应的数据了。那么此时会开辟一个新的页 3#。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/8761781f0b394f02acbe285f5bda643e/image.png?Expires=3304071628&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=HiX0D5BMnT%2BM3u1kg8dX53%2Bp%2BCw%3D" alt="image.png"  />
+</p>
+<p>但是不会直接将50存入3#页，而是会将1#页一半的数据移动到3#页没然后3#页，插入50。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/a014d94de0d5433fb098cb0c6e643359/image.png?Expires=3304071724&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=bPHyZbNKyiHs%2BRB0b6iLTUhR5s4%3D" alt="image.png"  />
+</p>
+<p>移动数据，并插入id为50的数据之后，那么此时，这三个页之间的数据顺序是有问题的。 1#的下一个页，应该是3#， 3#的下一个页是2#。所以，此时，需要重新设置链表指针。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/bdeaee9f82cf4b459cb6a8eb71668e9c/image.png?Expires=3304071795&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=mgl%2FdAdAb3xwee3T4Wqi%2FFYsVW8%3D" alt="image.png"  />
+</p>
+<p>上述的这种现象，称之为&quot;页分裂&quot;，是比较耗费性能的操作。</p>
+<h3 id="页合并"><strong>页合并</strong><a hidden class="anchor" aria-hidden="true" href="#页合并">#</a></h3>
+<p>当有1#,2#,3#三个页时，假设我们删除了2#页上的50%(MERGE_THRESHOLD)的记录，那么InnoDB会开始开始寻找1#或3#(磁盘最近距离)，看看是否可以将两页合并以优化空间使用。</p>
+<blockquote>
+<p>MERGE_THRESHOLD:合并页的阈值，可以自己设置，并在创建表或者创建索引时指定。</p>
+</blockquote>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/0433f426a2a54be8b059ea46229f1351/image.png?Expires=3304072329&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=%2Bnmwpa1adLu8NwTgcacc1m0FG4E%3D" alt="image.png"  />
+</p>
+<h3 id="索引设计原则"><strong>索引设计原则</strong><a hidden class="anchor" aria-hidden="true" href="#索引设计原则">#</a></h3>
+<ul>
+<li>满足业务需求的情况下，尽量降低主键的长度</li>
+<li>插入数据时，尽量选择顺序插入，选择使用AUTO_INCREMENT自增主键。</li>
+<li>业务操作时，避免对主键的修改。</li>
+<li>尽量不要使用UUID做主键或者是其他自然主键，如身份证号。</li>
+<li>业务操作时，避免对主键的修改。</li>
+</ul>
+<h2 id="order-by-优化"><strong>order by 优化</strong><a hidden class="anchor" aria-hidden="true" href="#order-by-优化">#</a></h2>
+<p>MySQL的排序，有两种方式：</p>
+<ul>
+<li>Using filesort:通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区sort buffer中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort排序。</li>
+<li>Using index:通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高。</li>
+</ul>
+<p>对于以上的两种排序方式，Using index的性能高，而Using filesort的性能低，我们在优化排序操作时，尽量要优化为 Using index。</p>
+<blockquote>
+<p>可以使用explain 查看extra</p>
+</blockquote>
+<p>为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。</p>
+<pre tabindex="0"><code>-- 创建索引
+create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc])
+</code></pre><p>根据age, phone进行降序一个升序，一个降序</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/c6026ad9ec8642b786f7c092d8cf8430/image.png?Expires=3304118571&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=dZBo3V6pbA5xAOUW2KLkckSBVd0%3D" alt="image.png"  />
+</p>
+<p>因为创建索引时，如果未指定顺序，默认都是按照升序排序的，而查询时，一个升序，一个降序，此时就会出现Using filesort。</p>
+<p>解决这种问题只需要在创建索引时一个使用desc，一个使用asc。</p>
+<p>我们得出order by优化原则:</p>
+<p>A.根据排序字段建立合适的索引，多字段排序时，也遵循最左前缀法则。</p>
+<p>B.尽量使用覆盖索引。</p>
+<p>C.多字段排序,一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）。</p>
+<p>D.如果不可避免的出现filesort，大数据量排序时，可以适当增大排序缓冲区大小sort_buffer_size(默认256k)。</p>
+<h2 id="group-by优化"><strong>group by优化</strong><a hidden class="anchor" aria-hidden="true" href="#group-by优化">#</a></h2>
+<p>优化思路</p>
+<p>A.在分组操作时，可以通过索引来提高效率。</p>
+<p>B.分组操作时，索引的使用也是满足最左前缀法则的。</p>
+<p>当进行分组查询时如果使用了联合索引那就要符合最左前缀法，如果不使用就会出现Using temporary。</p>
+<h2 id="limit优化"><strong>limit优化</strong><a hidden class="anchor" aria-hidden="true" href="#limit优化">#</a></h2>
+<p>分页查询，在查询时，越往后，分页查询效率越低。</p>
+<p>优化思路</p>
+<p>一般分页查询时，通过创建覆盖索引能够比较好地提高性能，可以通过覆盖索引加子查询形式进行优化。</p>
+<p>未使用索引时</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/5a3a07467ee243589c0240eabfd92960/image.png?Expires=3304197243&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=CDLo2g5XiglFQUTfZ1pANGlhhhI%3D" alt="image.png"  />
+</p>
+<p>使用索引时</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/3b09390904684a359e447d6e7fe3eae6/image.png?Expires=3304197230&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=t5GsKv6VYo6EENdg60aotDIToWM%3D" alt="image.png"  />
+</p>
+<h2 id="count优化"><strong>count优化</strong><a hidden class="anchor" aria-hidden="true" href="#count优化">#</a></h2>
+<h3 id="优化方案"><strong>优化方案</strong><a hidden class="anchor" aria-hidden="true" href="#优化方案">#</a></h3>
+<p>在之前的测试中，我们发现，如果数据量很大，在执行count操作时，是非常耗时的。</p>
+<p>而对于count的执行方式不同的引擎也有不同的方法。</p>
+<ul>
+<li>MyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*)的时候会直接返回这个数，效率很高；但是如果是带条件的count，MyISAM也慢。</li>
+<li>InnoDB 引擎是它执行count(*) 的时候，需要把数据一行一行的从引擎里面读取出来，然后积累计数。</li>
+</ul>
+<p>优化思路：自己计数（可以借助redis这样的数据库进行，但是如果是带条件的count，还是麻烦）。</p>
+<p>不同count使用方法的性能：</p>
+<p>count(字段)&lt;count(主键)&lt;count(1)|count(*);</p>
+<h2 id="update优化"><strong>update优化</strong><a hidden class="anchor" aria-hidden="true" href="#update优化">#</a></h2>
+<p>开启事务后，在使用没有的索引的字段机进行update的处理时会产生表锁，</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/13c1661a34c244aeadcbb735915daf69/image.png?Expires=3304199454&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=p%2FUtWr7ECDQ1K47TnQ3n%2Bp77rOg%3D" alt="image.png"  />
+</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/95b2fcc4df5947008a13d864afc05f6b/image.png?Expires=3304199435&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=BHgeBBCsh9SUxOA2cDORHDn5ik4%3D" alt="image.png"  />
+</p>
+<p>优化思路</p>
+<p>因为InnoDB的行锁是针对索引加的行锁，不是针对记录加的锁，并且该索引不能失效，否则行锁会升级为表锁。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/mysql/">Mysql</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>复习数据结构二叉树</span>
+  </a>
+</nav>
+
+  </footer><div id="tw-comment"></div>
+
+<script>
+  
+  const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+  const setGiscusTheme = () => {
+    const sendMessage = (message) => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+
+      }
+
+    }
+    sendMessage({ setConfig: { theme: getStoredTheme() } })
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "houjinghao123\/houjinghao123.github.io",
+      "data-repo-id": "R_kgDOMvdtTg",
+      "data-category": "Announcements",
+      "data-category-id": "DIC_kwDOMvdtTs4CiV_q",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": getStoredTheme(),
+      "data-lang": "zh-CN",
+      "data-loading": "lazy",
+      "crossorigin": "anonymous",
+    };
+
+    
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(
+      ([key, value]) => giscusScript.setAttribute(key, value));
+    document.querySelector("#tw-comment").appendChild(giscusScript);
+
+    
+    const themeSwitcher = document.querySelector("#theme-toggle");
+    if (themeSwitcher) {
+      themeSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+    const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+    if (themeFloatSwitcher) {
+      themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+
+  });
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://houjinghao123.github.io/">©2024 phjhq&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"
+  integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj+Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  var OSName = "unknown";
+  var navApp = navigator.userAgent.toLowerCase();
+  switch (true) {
+    case (navApp.indexOf("win") != -1):
+      OSName = "windows";
+      break;
+    case (navApp.indexOf("mac") != -1):
+      OSName = "apple";
+      break;
+    case (navApp.indexOf("linux") != -1):
+      OSName = "linux";
+      break;
+    case (navApp.indexOf("x11") != -1):
+      OSName = "unix";
+      break;
+  }
+
+  const images = Array.from(document.querySelectorAll(".post-content img"));
+  images.forEach(img => {
+    mediumZoom(img, {
+      margin: 1,    
+      scrollOffset: 40,  
+      container: null,  
+      template: null,  
+      
+    });
+  });
+
+  if (OSName == "windows") {
+    document.body.className += ' win11'
+  }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
