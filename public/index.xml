@@ -12,8 +12,18 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 27 Sep 2024 09:13:15 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2024 15:21:23 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>视图和存储过程</title>
+      <link>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sun, 29 Sep 2024 15:21:23 +0800</pubDate>
+      <guid>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
+      <description>&lt;h1 id=&#34;视图-存储过程&#34;&gt;&lt;strong&gt;视图-存储过程&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;一视图&#34;&gt;&lt;strong&gt;一、视图&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&#34;11介绍&#34;&gt;&lt;strong&gt;1.1介绍&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>SQL优化</title>
       <link>http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/</link>

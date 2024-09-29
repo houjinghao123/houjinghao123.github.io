@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>视图和存储过程 | phjhq&#39;s Blog</title>
+<meta name="keywords" content="mysql, 数据库">
+<meta name="description" content="视图-存储过程
+一、视图
+1.1介绍
+视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。">
+<meta name="author" content="phjhq">
+<link rel="canonical" href="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
+<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+  rel="stylesheet">
+
+<script type="text/javascript" async
+  src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: {
+          equationNumbers: { autoNumber: "AMS" },
+          extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      }
+    });
+
+    MathJax.Hub.Queue(function () {
+      
+      
+      
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+<style>
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+</style><meta property="og:title" content="视图和存储过程" />
+<meta property="og:description" content="视图-存储过程
+一、视图
+1.1介绍
+视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" />
+<meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-29T15:21:23+08:00" />
+<meta property="article:modified_time" content="2024-09-29T15:21:23+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta name="twitter:title" content="视图和存储过程"/>
+<meta name="twitter:description" content="视图-存储过程
+一、视图
+1.1介绍
+视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "视图和存储过程",
+      "item": "http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "视图和存储过程",
+  "name": "视图和存储过程",
+  "description": "视图-存储过程 一、视图 1.1介绍 视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。\n",
+  "keywords": [
+    "mysql", "数据库"
+  ],
+  "articleBody": "视图-存储过程 一、视图 1.1介绍 视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。\n通俗的讲，视图只保存了查询的SQL逻辑，不保存查询结果。所以我们在创建视图的时候，主要的工作就落在创建这条SQL查询语句上。\n1.2基本语法 创建 1create [or replace] view 视图名称[(列表名称)] as select 语句 [with [cascaded | local] check option] 查询 1查询创建视图语句：show create view 视图名称； 2查看视图数据： select * from 视图名称 ....; 修改 1方式一：create or replace view 视图名称[(列名列表)]] as select 语句[with [cascaded | local] check option] 删除 1drop view [if exists] 视图名称 [,视图名称] ... 1.3检测选项 当使用WITH CHECK OPTION子句创建视图时，MySQL会通过视图检查正在更改的每个行，例如插入，更新，删除，以使其符合视图的定义。 MySQL允许基于另一个视图创建视图，它还会检查依赖视图中的规则以保持一致性。为了确定检查的范围，mysql提供了两个选项： CASCADED和 LOCAL，默认值为 CASCADED 。\ncascaded 级联 当使用该属性时在进行视图检查时，上一级的检查条件会向下一级传递，并对每一级进行判断。\nlocal 本地 只会检查当前级别的判定条件。\n1.4视图更新规则 要使视图可更新，视图中的行与基础表中的行之间必须存在一对一的关系。如果视图包含以下任何一项，则该视图不可更新：A.聚合函数或窗口函数（SUM()、 MIN()、 MAX()、 COUNT()等）\nB. DISTINCT\nC. GROUP BY\nD. HAVING\nE. UNION或者 UNION ALL\n1.5视图的好处 简单 视图不仅可以简化数据库使用者对数据的理解，也可以简化他们的操作。那些被经常使用的查询可以被定义为视图，从而使得使用者不必为以后的操作每次指定全部的条件。\n安全 数据库可以授权，但不能授权到数据库特定行和特定的列上。通过视图用户只能查询和修改他们所能见到的数据\n数据独立 视图可帮助用户屏蔽真实表结构变化带来的影响。\n案例 二、存储过程 2.1介绍 存储过程是事先经过编译并存储在数据库中的一段 SQL语句的集合，调用存储过程可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是有好处的。存储过程思想上很简单，就是数据库 SQL语言层面的代码封装与重用，即SQL的函数。\n特点：\n封装，复用—》可以把某一业务SQL封装在存储过程中，需要用到的时候直接调用即可。 可以接收参数，也可以返回数据 减少网络交互，提升效率 2.2基本语法 创建 1create procedure 存储过程名称 ([参数列表]) 2begin 3 -- SQL语句 4end; 调用 1call 名称([参数]); 查看 1 2SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE ROUTINE_SCHEMA = 'xxx'; -- 查询指 3定数据库的存储过程及状态信息 4 5show create procedure 存储过程名称; -- 查询某个存储过程的定义 删除 1drop procedure [if exists] 存储过程名称; 2.3变量 在MySQL中变量分为三种类型：系统变量，用户定义变量，局部变量。\n系统变量\n系统变量是MySQL服务器提供，不是用户定义的，属于服务器层面。分为全局变量（GLOBAL）、会话变量（SESSION）。\n查看系统变量 1show [session | global] variables; -- 查看所有系统变量 2SHOW [ SESSION | GLOBAL ] VARIABLES LIKE '......'; -- 可以通过LIKE模糊匹配方式查找变量 3SELECT @@[SESSION | GLOBAL] 系统变量名; -- 查看指定变量的值 设置系统变量 1set [ SESSION | GLOBAL ] 系统变量名 = 值 ; 2SET @@[SESSION | GLOBAL]系统变量名 = 值 ; 如果没有指定session/global,默认是session。\nmysql服务重新启动之后，所设置的全局参数会失效，要想不失效，可以在 /etc/my.cnf 中配置。\n用户定义变量 用户定义变量 是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用 “@变量\n名” 使用就可以。其作用域为当前连接。\n赋值\n方式一：\n1set @var_name=expr [,@var_name=expr]...; 2set @var_name := expr [, @var_name := expr] ... ; 赋值时，可以使用 = ，也可以使用 := 。\n方式二:\n1select @var_name :=expr [,@var_name :=expr]...; 2select 字段名 into @var_name from 表名； 使用\n1select @var_name; 局部变量 局部变量 是根据需要定义的在局部生效的变量，访问之前，需要DECLARE声明。可用作存储过程内的\n局部变量和输入参数，局部变量的范围是在其内声明的BEGIN … END块\n声明\n1declare 变量名 变量类型 [default ...]; 变量类型就是数据库字段类型：INT、BIGINT、CHAR、VARCHAR、DATE、TIME等。\n赋值\n1set 变量名 =值； 2set 变量名 :=值； 3select 字段名 into 变量名 from 表名 ...; 2.4流程控制语句 参数类型\n参数 含义 备注 IN 该类参数作为输入，也就是需要调用时传值 默认 OUT 该类参数作为输出，也就是该参数可以作为返回值 INOUT 既可以作为输入参数，也可以作为输出参数 if\n用于做条件判断，具体的语法结构为：\n1IF 条件1 THEN 2..... 3ELSEIF 条件2 THEN -- 可选 4..... 5ELSE -- 可选 6..... 7END IF; case\n1-- 含义： 当case_value的值为 when_value1时，执行statement_list1，当值为 when_value2时， 2执行statement_list2， 否则就执行 statement_list 3CASE case_value 4 5\tWHEN when_value1 THEN statement_list1 6\t[ WHEN when_value2 THEN statement_list2] ... 7\t[ ELSE statement_list ] 8END CASE; 1-- 含义： 当条件search_condition1成立时，执行statement_list1，当条件search_condition2成 2立时，执行statement_list2， 否则就执行 statement_list 3CASE 4\tWHEN search_condition1 THEN statement_list1 5\t[WHEN search_condition2 THEN statement_list2] ... 6\t[ELSE statement_list] 7END CASE; while\nwhile 循环是有条件的循环控制语句。满足条件后，再执行循环体中的SQL语句。具体语法为：\n1-- 先判定条件，如果条件为true，则执行逻辑，否则，不执行逻辑 2WHILE 条件 DO 3\tSQL逻辑... 4END WHILE; repeat\nrepeat是有条件的循环控制语句, 当满足until声明的条件的时候，则退出循环 。具体语法为：\n1-- 先执行一次逻辑，然后判定UNTIL条件是否满足，如果满足，则退出。如果不满足，则继续下一次循环 2REPEAT 3\tSQL逻辑... 4\tUNTIL 条件 5END REPEAT; loop\nLOOP 实现简单的循环，如果不在SQL逻辑中增加退出循环的条件，可以用其来实现简单的死循环。\nLOOP可以配合一下两个语句使用：\nleave:配合循环使用，退出循环。类似break。 iterate:必须用在循环中，作用是跳过当前循环剩余的语句，直接进去下一循环。类似countie。 语法：\n[begin_label:] LOOP SQL逻辑... END LOOP [end_label]; LEAVE label; -- 退出指定标记的循环体 ITERATE label; -- 直接进入下一次循环 游标\n游标（CURSOR）是用来存储查询结果集的数据类型 , 在存储过程和函数中可以使用游标对结果集进\n行循环的处理。游标的使用包括游标的声明、OPEN、FETCH 和 CLOSE，其语法分别如下\n语法 A.声明游标\n1declare 游标名称 cursor for 查询语句; B.打开游标\n1open 游标名称; C.获取游标记录\n1fetch 游标名称 into 变量 [.变量]; D.关闭游标\n1close 游标名称; 案例\n1-- 根据传入的参数uage，来查询用户表tb_user中，所有的用户年龄小于等于uage的用户姓名 2-- （name）和专业（profession），并将用户的姓名和专业插入到所创建的一张新表 3-- (id,name,profession)中。 4create procedure p11(in uage int) 5begin 6 declare uname varchar(100); 7 declare pro varchar(100); 8 declare u_cursor cursor for select name ,profession from tb_user where age\u003c=uage; 9 drop table if exists tb_user_pro; 10 create table if not exists tb_user_pro( 11 id int primary key auto_increment, 12 name varchar(100), 13 profession varchar(100) 14 ); 15 open u_cursor ; 16 while true do 17 fetch u_cursor into uname,pro; 18 insert into tb_user_pro values(null,uname,pro); 19 end while; 20 close u_cursor; 21end; 2.5条件处理程序 条件处理程序（Handler）可以用来定义在流程控制结构执行过程中遇到问题时相应的处理步骤。具体\n语法为：\n1DECLARE handler_action HANDLER FOR condition_value [, condition_value] 2... statement ; 3handler_action 的取值： 4\tCONTINUE: 继续执行当前程序 5\tEXIT: 终止执行当前程序 6condition_value 的取值： 7\tSQLSTATE sqlstate_value: 状态码，如 02000 8\tSQLWARNING: 所有以01开头的SQLSTATE代码的简写 9\tNOT FOUND: 所有以02开头的SQLSTATE代码的简写 10\tSQLEXCEPTION: 所有没有被SQLWARNING 或 NOT FOUND捕获的SQLSTATE代码的简写 案例\n1create procedure p11(in uage int) 2begin 3 declare uname varchar(100); 4 declare pro varchar(100); 5 declare u_cursor cursor for select name ,profession from tb_user where age\u003c=uage; 6 -- 声明条件处理程序： 当SQL语句执行抛出的状态码为02000时，将关闭游标u_cursor,并退出 7 declare exit handler for SQLSTATE '02000' close u_cursor; 8 drop table if exists tb_user_pro; 9 create table if not exists tb_user_pro( 10 id int primary key auto_increment, 11 name varchar(100), 12 profession varchar(100) 13 ); 14 open u_cursor ; 15 while true do 16 fetch u_cursor into uname,pro; 17 insert into tb_user_pro values(null,uname,pro); 18 end while; 19 close u_cursor; 20end; ",
+  "wordCount" : "3123",
+  "inLanguage": "zh",
+  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-29T15:21:23+08:00",
+  "dateModified": "2024-09-29T15:21:23+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "phjhq"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "phjhq's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      视图和存储过程
+    </h1>
+    <div class="post-meta"><span title='2024-09-29 15:21:23 +0800 CST'>2024-09-29</span>&nbsp;·&nbsp;7 分钟&nbsp;·&nbsp;phjhq
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%a7%86%e5%9b%be-%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b" aria-label="视图-存储过程">视图-存储过程</a><ul>
+                        
+                <li>
+                    <a href="#%e4%b8%80%e8%a7%86%e5%9b%be" aria-label="一、视图">一、视图</a><ul>
+                        
+                <li>
+                    <a href="#11%e4%bb%8b%e7%bb%8d" aria-label="1.1介绍">1.1介绍</a></li>
+                <li>
+                    <a href="#12%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" aria-label="1.2基本语法">1.2基本语法</a></li>
+                <li>
+                    <a href="#13%e6%a3%80%e6%b5%8b%e9%80%89%e9%a1%b9" aria-label="1.3检测选项">1.3检测选项</a></li>
+                <li>
+                    <a href="#14%e8%a7%86%e5%9b%be%e6%9b%b4%e6%96%b0%e8%a7%84%e5%88%99" aria-label="1.4视图更新规则">1.4视图更新规则</a></li>
+                <li>
+                    <a href="#15%e8%a7%86%e5%9b%be%e7%9a%84%e5%a5%bd%e5%a4%84" aria-label="1.5视图的好处">1.5视图的好处</a></li>
+                <li>
+                    <a href="#%e6%a1%88%e4%be%8b" aria-label="案例">案例</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%ba%8c%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b" aria-label="二、存储过程">二、存储过程</a><ul>
+                        
+                <li>
+                    <a href="#21%e4%bb%8b%e7%bb%8d" aria-label="2.1介绍">2.1介绍</a></li>
+                <li>
+                    <a href="#22%e5%9f%ba%e6%9c%ac%e8%af%ad%e6%b3%95" aria-label="2.2基本语法">2.2基本语法</a></li>
+                <li>
+                    <a href="#23%e5%8f%98%e9%87%8f" aria-label="2.3变量">2.3变量</a></li>
+                <li>
+                    <a href="#24%e6%b5%81%e7%a8%8b%e6%8e%a7%e5%88%b6%e8%af%ad%e5%8f%a5" aria-label="2.4流程控制语句">2.4流程控制语句</a></li>
+                <li>
+                    <a href="#25%e6%9d%a1%e4%bb%b6%e5%a4%84%e7%90%86%e7%a8%8b%e5%ba%8f" aria-label="2.5条件处理程序">2.5条件处理程序</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="视图-存储过程"><strong>视图-存储过程</strong><a hidden class="anchor" aria-hidden="true" href="#视图-存储过程">#</a></h1>
+<h2 id="一视图"><strong>一、视图</strong><a hidden class="anchor" aria-hidden="true" href="#一视图">#</a></h2>
+<h3 id="11介绍"><strong>1.1介绍</strong><a hidden class="anchor" aria-hidden="true" href="#11介绍">#</a></h3>
+<p>视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。</p>
+<p>通俗的讲，视图只保存了查询的SQL逻辑，不保存查询结果。所以我们在创建视图的时候，主要的工作就落在创建这条SQL查询语句上。</p>
+<h3 id="12基本语法"><strong>1.2基本语法</strong><a hidden class="anchor" aria-hidden="true" href="#12基本语法">#</a></h3>
+<ul>
+<li>创建</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="p">[</span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="p">]</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="err">视图名称</span><span class="p">[(</span><span class="err">列表名称</span><span class="p">)]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="err">语句</span><span class="w"> </span><span class="p">[</span><span class="k">with</span><span class="w"> </span><span class="p">[</span><span class="n">cascaded</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">local</span><span class="p">]</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="k">option</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>查询</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="err">查询创建视图语句：</span><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="err">视图名称；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="err">查看视图数据：</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="err">视图名称</span><span class="w"> </span><span class="p">....;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>修改</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="err">方式一：</span><span class="k">create</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">replace</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="err">视图名称</span><span class="p">[(</span><span class="err">列名列表</span><span class="p">)]]</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="err">语句</span><span class="p">[</span><span class="k">with</span><span class="w"> </span><span class="p">[</span><span class="n">cascaded</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">local</span><span class="p">]</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="k">option</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>删除</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="p">[</span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="p">]</span><span class="w"> </span><span class="err">视图名称</span><span class="w"> </span><span class="p">[,</span><span class="err">视图名称</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span></code></pre></div><h3 id="13检测选项"><strong>1.3检测选项</strong><a hidden class="anchor" aria-hidden="true" href="#13检测选项">#</a></h3>
+<p>当使用WITH CHECK OPTION子句创建视图时，MySQL会通过视图检查正在更改的每个行，例如插入，更新，删除，以使其符合视图的定义。 MySQL允许基于另一个视图创建视图，它还会检查依赖视图中的规则以保持一致性。为了确定检查的范围，mysql提供了两个选项： CASCADED和 LOCAL，默认值为 CASCADED 。</p>
+<ul>
+<li><strong>cascaded 级联</strong></li>
+</ul>
+<p>当使用该属性时在进行视图检查时，上一级的检查条件会向下一级传递，并对每一级进行判断。</p>
+<ul>
+<li><strong>local 本地</strong></li>
+</ul>
+<p>只会检查当前级别的判定条件。</p>
+<h3 id="14视图更新规则"><strong>1.4视图更新规则</strong><a hidden class="anchor" aria-hidden="true" href="#14视图更新规则">#</a></h3>
+<p>要使视图可更新，视图中的行与基础表中的行之间必须存在一对一的关系。如果视图包含以下任何一项，则该视图不可更新：A.聚合函数或窗口函数（SUM()、 MIN()、 MAX()、 COUNT()等）</p>
+<p>B. DISTINCT</p>
+<p>C. GROUP BY</p>
+<p>D. HAVING</p>
+<p>E. UNION或者 UNION ALL</p>
+<h3 id="15视图的好处"><strong>1.5视图的好处</strong><a hidden class="anchor" aria-hidden="true" href="#15视图的好处">#</a></h3>
+<ul>
+<li>简单</li>
+</ul>
+<p>视图不仅可以简化数据库使用者对数据的理解，也可以简化他们的操作。那些被经常使用的查询可以被定义为视图，从而使得使用者不必为以后的操作每次指定全部的条件。</p>
+<ul>
+<li>安全</li>
+</ul>
+<p>数据库可以授权，但不能授权到数据库特定行和特定的列上。通过视图用户只能查询和修改他们所能见到的数据</p>
+<ul>
+<li>数据独立</li>
+</ul>
+<p>视图可帮助用户屏蔽真实表结构变化带来的影响。</p>
+<h3 id="案例"><strong>案例</strong><a hidden class="anchor" aria-hidden="true" href="#案例">#</a></h3>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/82cba780a3c0408aad05bb5abe8250a4/image.png?Expires=3304307142&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=qIPmUXi6LFKZBF2dUCpjih%2F4z6s%3D" alt="image.png"  />
+</p>
+<h2 id="二存储过程"><strong>二、存储过程</strong><a hidden class="anchor" aria-hidden="true" href="#二存储过程">#</a></h2>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/cde3805f4fa24236ab9c5103fd488d6a/image.png?Expires=3304394381&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=QAdEvgz0TzCqyMRClGxaDtea6zw%3D" alt="image.png"  />
+</p>
+<h3 id="21介绍"><strong>2.1介绍</strong><a hidden class="anchor" aria-hidden="true" href="#21介绍">#</a></h3>
+<p>存储过程是事先经过编译并存储在数据库中的一段 SQL语句的集合，调用存储过程可以简化应用开发人员的很多工作，减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是有好处的。存储过程思想上很简单，就是数据库 SQL语言层面的代码封装与重用，即SQL的函数。</p>
+<p>特点：</p>
+<ul>
+<li>封装，复用&mdash;》可以把某一业务SQL封装在存储过程中，需要用到的时候直接调用即可。</li>
+<li>可以接收参数，也可以返回数据</li>
+<li>减少网络交互，提升效率</li>
+</ul>
+<h3 id="22基本语法"><strong>2.2基本语法</strong><a hidden class="anchor" aria-hidden="true" href="#22基本语法">#</a></h3>
+<ul>
+<li><strong>创建</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="err">存储过程名称</span><span class="w"> </span><span class="p">([</span><span class="err">参数列表</span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"> </span><span class="c1">-- SQL语句
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>调用</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">call</span><span class="w"> </span><span class="err">名称</span><span class="p">([</span><span class="err">参数</span><span class="p">]);</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li><strong>查看</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">ROUTINES</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">ROUTINE_SCHEMA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;xxx&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 查询指
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="err">定数据库的存储过程及状态信息</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="k">show</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="err">存储过程名称</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 查询某个存储过程的定义
+</span></span></span></code></pre></div><ul>
+<li><strong>删除</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="p">[</span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="p">]</span><span class="w"> </span><span class="err">存储过程名称</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="23变量"><strong>2.3变量</strong><a hidden class="anchor" aria-hidden="true" href="#23变量">#</a></h3>
+<p>在MySQL中变量分为三种类型：系统变量，用户定义变量，局部变量。</p>
+<p><strong>系统变量</strong></p>
+<p>系统变量是MySQL服务器提供，不是用户定义的，属于服务器层面。分为全局变量（GLOBAL）、会话变量（SESSION）。</p>
+<ul>
+<li>查看系统变量</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">show</span><span class="w"> </span><span class="p">[</span><span class="n">session</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">global</span><span class="p">]</span><span class="w"> </span><span class="n">variables</span><span class="p">;</span><span class="w">           </span><span class="c1">-- 查看所有系统变量
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">SHOW</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="n">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GLOBAL</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;......&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 可以通过LIKE模糊匹配方式查找变量
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="p">[</span><span class="n">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GLOBAL</span><span class="p">]</span><span class="w"> </span><span class="err">系统变量名</span><span class="p">;</span><span class="w"> </span><span class="c1">-- 查看指定变量的值
+</span></span></span></code></pre></div><ul>
+<li>设置系统变量</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="kt">set</span><span class="w">  </span><span class="p">[</span><span class="w"> </span><span class="n">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GLOBAL</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="err">系统变量名</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">值</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="kt">SET</span><span class="w"> </span><span class="o">@@</span><span class="p">[</span><span class="n">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">GLOBAL</span><span class="p">]</span><span class="err">系统变量名</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">值</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>如果没有指定session/global,默认是session。</p>
+<p>mysql服务重新启动之后，所设置的全局参数会失效，要想不失效，可以在 /etc/my.cnf 中配置。</p>
+</blockquote>
+<ul>
+<li>用户定义变量</li>
+</ul>
+<p>用户定义变量 是用户根据需要自己定义的变量，用户变量不用提前声明，在用的时候直接用 &ldquo;@变量</p>
+<p>名&rdquo; 使用就可以。其作用域为当前连接。</p>
+<p><strong>赋值</strong></p>
+<p>方式一：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="kt">set</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="o">=</span><span class="n">expr</span><span class="w"> </span><span class="p">[,</span><span class="o">@</span><span class="n">var_name</span><span class="o">=</span><span class="n">expr</span><span class="p">]...;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">expr</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">expr</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>赋值时，可以使用 = ，也可以使用 := 。</p>
+<p>方式二:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="n">expr</span><span class="w"> </span><span class="p">[,</span><span class="o">@</span><span class="n">var_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="n">expr</span><span class="p">]...;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="err">表名；</span><span class="w">
+</span></span></span></code></pre></div><p><strong>使用</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">select</span><span class="w"> </span><span class="o">@</span><span class="n">var_name</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>局部变量</li>
+</ul>
+<p>局部变量 是根据需要定义的在局部生效的变量，访问之前，需要DECLARE声明。可用作存储过程内的</p>
+<p>局部变量和输入参数，局部变量的范围是在其内声明的BEGIN &hellip; END块</p>
+<p><strong>声明</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">declare</span><span class="w"> </span><span class="err">变量名</span><span class="w"> </span><span class="err">变量类型</span><span class="w"> </span><span class="p">[</span><span class="k">default</span><span class="w"> </span><span class="p">...];</span><span class="w">
+</span></span></span></code></pre></div><p>变量类型就是数据库字段类型：INT、BIGINT、CHAR、VARCHAR、DATE、TIME等。</p>
+<p><strong>赋值</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="kt">set</span><span class="w"> </span><span class="err">变量名</span><span class="w"> </span><span class="o">=</span><span class="err">值；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="kt">set</span><span class="w"> </span><span class="err">变量名</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="err">值；</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="err">变量名</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="p">...;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="24流程控制语句">2.4流程控制语句<a hidden class="anchor" aria-hidden="true" href="#24流程控制语句">#</a></h3>
+<p>参数类型</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">参数</th>
+          <th style="text-align: left">含义</th>
+          <th style="text-align: left">备注</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">IN</td>
+          <td style="text-align: left">该类参数作为输入，也就是需要调用时传值</td>
+          <td style="text-align: left">默认</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">OUT</td>
+          <td style="text-align: left">该类参数作为输出，也就是该参数可以作为返回值</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">INOUT</td>
+          <td style="text-align: left">既可以作为输入参数，也可以作为输出参数</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>if</strong></p>
+<p>用于做条件判断，具体的语法结构为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">IF</span><span class="w"> </span><span class="err">条件</span><span class="mi">1</span><span class="w"> </span><span class="k">THEN</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="p">.....</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">ELSEIF</span><span class="w"> </span><span class="err">条件</span><span class="mi">2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="c1">-- 可选
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"></span><span class="p">.....</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="k">ELSE</span><span class="w"> </span><span class="c1">-- 可选
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="c1"></span><span class="p">.....</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="n">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>case</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 含义： 当case_value的值为 when_value1时，执行statement_list1，当值为 when_value2时，
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="err">执行</span><span class="n">statement_list2</span><span class="err">，</span><span class="w"> </span><span class="err">否则就执行</span><span class="w"> </span><span class="n">statement_list</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">CASE</span><span class="w"> </span><span class="n">case_value</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">	</span><span class="k">WHEN</span><span class="w"> </span><span class="n">when_value1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">statement_list1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">	</span><span class="p">[</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">when_value2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">statement_list2</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w">	</span><span class="p">[</span><span class="w"> </span><span class="k">ELSE</span><span class="w"> </span><span class="n">statement_list</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w"></span><span class="n">END</span><span class="w"> </span><span class="k">CASE</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 含义： 当条件search_condition1成立时，执行statement_list1，当条件search_condition2成
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="err">立时，执行</span><span class="n">statement_list2</span><span class="err">，</span><span class="w"> </span><span class="err">否则就执行</span><span class="w"> </span><span class="n">statement_list</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">CASE</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">	</span><span class="k">WHEN</span><span class="w"> </span><span class="n">search_condition1</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">statement_list1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">	</span><span class="p">[</span><span class="k">WHEN</span><span class="w"> </span><span class="n">search_condition2</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="n">statement_list2</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">	</span><span class="p">[</span><span class="k">ELSE</span><span class="w"> </span><span class="n">statement_list</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="n">END</span><span class="w"> </span><span class="k">CASE</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>while</strong></p>
+<p>while 循环是有条件的循环控制语句。满足条件后，再执行循环体中的SQL语句。具体语法为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 先判定条件，如果条件为true，则执行逻辑，否则，不执行逻辑
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">WHILE</span><span class="w"> </span><span class="err">条件</span><span class="w"> </span><span class="n">DO</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">	</span><span class="n">SQL逻辑</span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">END</span><span class="w"> </span><span class="k">WHILE</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>repeat</strong></p>
+<p>repeat是有条件的循环控制语句, 当满足until声明的条件的时候，则退出循环 。具体语法为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 先执行一次逻辑，然后判定UNTIL条件是否满足，如果满足，则退出。如果不满足，则继续下一次循环
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">REPEAT</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">	</span><span class="n">SQL逻辑</span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">	</span><span class="n">UNTIL</span><span class="w"> </span><span class="err">条件</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">END</span><span class="w"> </span><span class="k">REPEAT</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><strong>loop</strong></p>
+<p>LOOP 实现简单的循环，如果不在SQL逻辑中增加退出循环的条件，可以用其来实现简单的死循环。</p>
+<p>LOOP可以配合一下两个语句使用：</p>
+<ul>
+<li>leave:配合循环使用，退出循环。类似break。</li>
+<li>iterate:必须用在循环中，作用是跳过当前循环剩余的语句，直接进去下一循环。类似countie。</li>
+</ul>
+<p>语法：</p>
+<pre tabindex="0"><code class="language-mssql" data-lang="mssql">[begin_label:] LOOP
+	SQL逻辑...
+END LOOP [end_label];
+
+LEAVE label; -- 退出指定标记的循环体
+ITERATE label; -- 直接进入下一次循环
+</code></pre><p><strong>游标</strong></p>
+<p>游标（CURSOR）是用来存储查询结果集的数据类型 , 在存储过程和函数中可以使用游标对结果集进</p>
+<p>行循环的处理。游标的使用包括游标的声明、OPEN、FETCH 和 CLOSE，其语法分别如下</p>
+<ul>
+<li><strong>语法</strong></li>
+</ul>
+<p>A.声明游标</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">declare</span><span class="w"> </span><span class="err">游标名称</span><span class="w"> </span><span class="k">cursor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="err">查询语句</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>B.打开游标</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">open</span><span class="w"> </span><span class="err">游标名称</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>C.获取游标记录</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">fetch</span><span class="w"> </span><span class="err">游标名称</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="err">变量</span><span class="w"> </span><span class="p">[.</span><span class="err">变量</span><span class="p">];</span><span class="w">
+</span></span></span></code></pre></div><p>D.关闭游标</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">close</span><span class="w"> </span><span class="err">游标名称</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>案例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">-- 根据传入的参数uage，来查询用户表tb_user中，所有的用户年龄小于等于uage的用户姓名
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1">-- （name）和专业（profession），并将用户的姓名和专业插入到所创建的一张新表
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1">--  (id,name,profession)中。
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="nf">p11</span><span class="p">(</span><span class="k">in</span><span class="w"> </span><span class="n">uage</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">uname</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">pro</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="k">cursor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">,</span><span class="n">profession</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="o">&lt;=</span><span class="n">uage</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">tb_user_pro</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="nf">tb_user_pro</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">            </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w">  </span><span class="kp">auto_increment</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">            </span><span class="n">profession</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="n">open</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="n">do</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="k">fetch</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">uname</span><span class="p">,</span><span class="n">pro</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">            </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">tb_user_pro</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="no">null</span><span class="p">,</span><span class="n">uname</span><span class="p">,</span><span class="n">pro</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="n">end</span><span class="w"> </span><span class="k">while</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="n">close</span><span class="w"> </span><span class="n">u_cursor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="25条件处理程序">2.5条件处理程序<a hidden class="anchor" aria-hidden="true" href="#25条件处理程序">#</a></h3>
+<p>条件处理程序（Handler）可以用来定义在流程控制结构执行过程中遇到问题时相应的处理步骤。具体</p>
+<p>语法为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="k">DECLARE</span><span class="w"> </span><span class="n">handler_action</span><span class="w"> </span><span class="n">HANDLER</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="n">condition_value</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="n">condition_value</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="p">...</span><span class="w"> </span><span class="n">statement</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="n">handler_action</span><span class="w"> </span><span class="err">的取值：</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">	</span><span class="k">CONTINUE</span><span class="p">:</span><span class="w"> </span><span class="err">继续执行当前程序</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">	</span><span class="k">EXIT</span><span class="p">:</span><span class="w"> </span><span class="err">终止执行当前程序</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="n">condition_value</span><span class="w"> </span><span class="err">的取值：</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">	</span><span class="k">SQLSTATE</span><span class="w"> </span><span class="n">sqlstate_value</span><span class="p">:</span><span class="w"> </span><span class="err">状态码，如</span><span class="w"> </span><span class="mi">02000</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">	</span><span class="k">SQLWARNING</span><span class="p">:</span><span class="w"> </span><span class="err">所有以</span><span class="mi">01</span><span class="err">开头的</span><span class="n">SQLSTATE代码的简写</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">	</span><span class="k">NOT</span><span class="w"> </span><span class="n">FOUND</span><span class="p">:</span><span class="w"> </span><span class="err">所有以</span><span class="mi">02</span><span class="err">开头的</span><span class="n">SQLSTATE代码的简写</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">	</span><span class="k">SQLEXCEPTION</span><span class="p">:</span><span class="w"> </span><span class="err">所有没有被</span><span class="n">SQLWARNING</span><span class="w"> </span><span class="err">或</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">FOUND捕获的SQLSTATE代码的简写</span><span class="w">
+</span></span></span></code></pre></div><p>案例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">procedure</span><span class="w"> </span><span class="nf">p11</span><span class="p">(</span><span class="k">in</span><span class="w"> </span><span class="n">uage</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">uname</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">pro</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="k">cursor</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">,</span><span class="n">profession</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="o">&lt;=</span><span class="n">uage</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">    </span><span class="c1">-- 声明条件处理程序： 当SQL语句执行抛出的状态码为02000时，将关闭游标u_cursor,并退出
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1"></span><span class="w">    </span><span class="k">declare</span><span class="w"> </span><span class="k">exit</span><span class="w"> </span><span class="n">handler</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">SQLSTATE</span><span class="w"> </span><span class="s1">&#39;02000&#39;</span><span class="w"> </span><span class="n">close</span><span class="w"> </span><span class="n">u_cursor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">tb_user_pro</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="nf">tb_user_pro</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">            </span><span class="n">id</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w">  </span><span class="kp">auto_increment</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">            </span><span class="n">profession</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="n">open</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="n">do</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">            </span><span class="k">fetch</span><span class="w"> </span><span class="n">u_cursor</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">uname</span><span class="p">,</span><span class="n">pro</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">            </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">tb_user_pro</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="no">null</span><span class="p">,</span><span class="n">uname</span><span class="p">,</span><span class="n">pro</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span><span class="n">end</span><span class="w"> </span><span class="k">while</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="n">close</span><span class="w"> </span><span class="n">u_cursor</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/mysql/">Mysql</a></li>
+      <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>SQL优化</span>
+  </a>
+</nav>
+
+  </footer><div id="tw-comment"></div>
+
+<script>
+  
+  const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+  const setGiscusTheme = () => {
+    const sendMessage = (message) => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+
+      }
+
+    }
+    sendMessage({ setConfig: { theme: getStoredTheme() } })
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "houjinghao123\/houjinghao123.github.io",
+      "data-repo-id": "R_kgDOMvdtTg",
+      "data-category": "Announcements",
+      "data-category-id": "DIC_kwDOMvdtTs4CiV_q",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": getStoredTheme(),
+      "data-lang": "zh-CN",
+      "data-loading": "lazy",
+      "crossorigin": "anonymous",
+    };
+
+    
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(
+      ([key, value]) => giscusScript.setAttribute(key, value));
+    document.querySelector("#tw-comment").appendChild(giscusScript);
+
+    
+    const themeSwitcher = document.querySelector("#theme-toggle");
+    if (themeSwitcher) {
+      themeSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+    const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+    if (themeFloatSwitcher) {
+      themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+
+  });
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://houjinghao123.github.io/">©2024 phjhq&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"
+  integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj+Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  var OSName = "unknown";
+  var navApp = navigator.userAgent.toLowerCase();
+  switch (true) {
+    case (navApp.indexOf("win") != -1):
+      OSName = "windows";
+      break;
+    case (navApp.indexOf("mac") != -1):
+      OSName = "apple";
+      break;
+    case (navApp.indexOf("linux") != -1):
+      OSName = "linux";
+      break;
+    case (navApp.indexOf("x11") != -1):
+      OSName = "unix";
+      break;
+  }
+
+  const images = Array.from(document.querySelectorAll(".post-content img"));
+  images.forEach(img => {
+    mediumZoom(img, {
+      margin: 1,    
+      scrollOffset: 40,  
+      container: null,  
+      template: null,  
+      
+    });
+  });
+
+  if (OSName == "windows") {
+    document.body.className += ' win11'
+  }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
