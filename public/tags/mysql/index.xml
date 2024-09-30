@@ -12,10 +12,19 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 29 Sep 2024 15:21:23 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2024 17:34:22 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>视图和存储过程</title>
+      <title>MySQL触发器</title>
+      <link>http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</link>
+      <pubDate>Sun, 29 Sep 2024 17:34:22 +0800</pubDate>
+      <guid>http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</guid>
+      <description>&lt;h1 id=&#34;触发器&#34;&gt;&lt;strong&gt;触发器&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;1介绍&#34;&gt;&lt;strong&gt;1.介绍&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;触发器是与表有关的数据库对象，指在insert/update/delete之前(BEFORE)或之后(AFTER)，触发并执行触发器中定义的SQL语句集合。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MySQL视图和存储过程</title>
       <link>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sun, 29 Sep 2024 15:21:23 +0800</pubDate>
       <guid>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
@@ -36,8 +45,8 @@
 &lt;ul&gt;
 &lt;li&gt;批量插入数据&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;INSERT INTO tb_test values(1,&amp;#39;Tom&amp;#39;),(2,&amp;#39;Cat&amp;#39;),(3,&amp;#39;Jerry&amp;#39;);
-&lt;/code&gt;&lt;/pr</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tb_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Cat&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Jerry&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>Mysql存储引擎</title>

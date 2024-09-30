@@ -14,7 +14,7 @@ insert
 
 批量插入数据
 
-INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
 ">
 <meta name="author" content="phjhq">
 <link rel="canonical" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
@@ -83,7 +83,7 @@ insert
 
 批量插入数据
 
-INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/" />
@@ -102,7 +102,7 @@ insert
 
 批量插入数据
 
-INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
 "/>
 
 
@@ -132,12 +132,12 @@ INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;
   "@type": "BlogPosting",
   "headline": "SQL优化",
   "name": "SQL优化",
-  "description": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); ",
+  "description": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 1INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); ",
   "keywords": [
     "mysql", "数据库"
   ],
-  "articleBody": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); 手动控制事务的提交 start transaction; INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); INSERT INTO tb_test values(4,'Tom'),(5,'Cat'),(6,'Jerry'); commit; 这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、\nload 指令 -- 客户端连接服务端时，加上参数 ---local-infile mysql --local-infile -uroot -p -- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关 set global local_infile =1; -- 执行load指令将准备好的数据，加载到表结构中 load data local infile 'd:/data/test.log' into table tb_test fields terminated by ',' lines terminated by '\\n';'; -- fields terminatedp-每个字段之间使用什么分隔 -- lines terminated-每条数据之间用什么分隔 主键按顺序插入性能要高于乱序插入：因为插入时需要根据主键进行排序生成索引，当使用乱序时会可能会导致用一页的数据产生分页的现象。\n主键优化 在上一小节，我们提到，主键顺序插入的性能是要高于乱序插入的。这一小节，就来介绍一下具体的原因，然后再分析一下主键又该如何设计。\n1)数据组织方式 在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表(IOT)\n行数据都是存储在聚集索引的叶子节点上的，而InnoDB的逻辑结构是：表-\u003e段 -\u003e区 -\u003e块-\u003e 行\n在InnoDB引擎中。数据行是记录在逻辑结构的page页中的，每一页的大小是16k，一个页中所存储的行也是有限的，如果插入的数据行row在该页存储不小，将会存储到下一个页中，页与页之间会通过指针连接。\n页分裂 页可以为空，也可以填充一半，也可以填充100%。每个页包含了2-N行数据(如果一行数据过大，会行溢出)，根据主键排列。\nA. 主键顺序插入效果\n从磁盘中申请页，主键顺序插入 B.主键乱序插入效果\n加入1#，2#页都已经写满了，存放了如图的数据 2.此时在插入id为50的记录，会发生什么现象\n会在开启一个页，写入新的页中？\n不会。因为，索引结构的叶子节点是有顺序的。按照顺序，应该存储在47之后。\n但是在47所在的1#页中已经写满了，存储不了50对应的数据了。那么此时会开辟一个新的页 3#。\n但是不会直接将50存入3#页，而是会将1#页一半的数据移动到3#页没然后3#页，插入50。\n移动数据，并插入id为50的数据之后，那么此时，这三个页之间的数据顺序是有问题的。 1#的下一个页，应该是3#， 3#的下一个页是2#。所以，此时，需要重新设置链表指针。\n上述的这种现象，称之为\"页分裂\"，是比较耗费性能的操作。\n页合并 当有1#,2#,3#三个页时，假设我们删除了2#页上的50%(MERGE_THRESHOLD)的记录，那么InnoDB会开始开始寻找1#或3#(磁盘最近距离)，看看是否可以将两页合并以优化空间使用。\nMERGE_THRESHOLD:合并页的阈值，可以自己设置，并在创建表或者创建索引时指定。\n索引设计原则 满足业务需求的情况下，尽量降低主键的长度 插入数据时，尽量选择顺序插入，选择使用AUTO_INCREMENT自增主键。 业务操作时，避免对主键的修改。 尽量不要使用UUID做主键或者是其他自然主键，如身份证号。 业务操作时，避免对主键的修改。 order by 优化 MySQL的排序，有两种方式：\nUsing filesort:通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区sort buffer中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort排序。 Using index:通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高。 对于以上的两种排序方式，Using index的性能高，而Using filesort的性能低，我们在优化排序操作时，尽量要优化为 Using index。\n可以使用explain 查看extra\n为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。\n-- 创建索引 create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc]) 根据age, phone进行降序一个升序，一个降序\n因为创建索引时，如果未指定顺序，默认都是按照升序排序的，而查询时，一个升序，一个降序，此时就会出现Using filesort。\n解决这种问题只需要在创建索引时一个使用desc，一个使用asc。\n我们得出order by优化原则:\nA.根据排序字段建立合适的索引，多字段排序时，也遵循最左前缀法则。\nB.尽量使用覆盖索引。\nC.多字段排序,一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）。\nD.如果不可避免的出现filesort，大数据量排序时，可以适当增大排序缓冲区大小sort_buffer_size(默认256k)。\ngroup by优化 优化思路\nA.在分组操作时，可以通过索引来提高效率。\nB.分组操作时，索引的使用也是满足最左前缀法则的。\n当进行分组查询时如果使用了联合索引那就要符合最左前缀法，如果不使用就会出现Using temporary。\nlimit优化 分页查询，在查询时，越往后，分页查询效率越低。\n优化思路\n一般分页查询时，通过创建覆盖索引能够比较好地提高性能，可以通过覆盖索引加子查询形式进行优化。\n未使用索引时\n使用索引时\ncount优化 优化方案 在之前的测试中，我们发现，如果数据量很大，在执行count操作时，是非常耗时的。\n而对于count的执行方式不同的引擎也有不同的方法。\nMyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*)的时候会直接返回这个数，效率很高；但是如果是带条件的count，MyISAM也慢。 InnoDB 引擎是它执行count(*) 的时候，需要把数据一行一行的从引擎里面读取出来，然后积累计数。 优化思路：自己计数（可以借助redis这样的数据库进行，但是如果是带条件的count，还是麻烦）。\n不同count使用方法的性能：\ncount(字段)",
-  "wordCount" : "2497",
+  "articleBody": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 1INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); 手动控制事务的提交 1start transaction; 2INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry'); 3INSERT INTO tb_test values(4,'Tom'),(5,'Cat'),(6,'Jerry'); 4 5commit; 这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、\nload 指令 1-- 客户端连接服务端时，加上参数 ---local-infile 2mysql --local-infile -uroot -p 3 4-- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关 5set global local_infile =1; 6 7-- 执行load指令将准备好的数据，加载到表结构中 8load data local infile 'd:/data/test.log' into table tb_test fields terminated by ',' lines terminated by '\\n';'; 9 10-- fields terminatedp-每个字段之间使用什么分隔 11-- lines terminated-每条数据之间用什么分隔 主键按顺序插入性能要高于乱序插入：因为插入时需要根据主键进行排序生成索引，当使用乱序时会可能会导致用一页的数据产生分页的现象。\n主键优化 在上一小节，我们提到，主键顺序插入的性能是要高于乱序插入的。这一小节，就来介绍一下具体的原因，然后再分析一下主键又该如何设计。\n1)数据组织方式 在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表(IOT)\n行数据都是存储在聚集索引的叶子节点上的，而InnoDB的逻辑结构是：表-\u003e段 -\u003e区 -\u003e块-\u003e 行\n在InnoDB引擎中。数据行是记录在逻辑结构的page页中的，每一页的大小是16k，一个页中所存储的行也是有限的，如果插入的数据行row在该页存储不小，将会存储到下一个页中，页与页之间会通过指针连接。\n页分裂 页可以为空，也可以填充一半，也可以填充100%。每个页包含了2-N行数据(如果一行数据过大，会行溢出)，根据主键排列。\nA. 主键顺序插入效果\n从磁盘中申请页，主键顺序插入 B.主键乱序插入效果\n加入1#，2#页都已经写满了，存放了如图的数据 2.此时在插入id为50的记录，会发生什么现象\n会在开启一个页，写入新的页中？\n不会。因为，索引结构的叶子节点是有顺序的。按照顺序，应该存储在47之后。\n但是在47所在的1#页中已经写满了，存储不了50对应的数据了。那么此时会开辟一个新的页 3#。\n但是不会直接将50存入3#页，而是会将1#页一半的数据移动到3#页没然后3#页，插入50。\n移动数据，并插入id为50的数据之后，那么此时，这三个页之间的数据顺序是有问题的。 1#的下一个页，应该是3#， 3#的下一个页是2#。所以，此时，需要重新设置链表指针。\n上述的这种现象，称之为\"页分裂\"，是比较耗费性能的操作。\n页合并 当有1#,2#,3#三个页时，假设我们删除了2#页上的50%(MERGE_THRESHOLD)的记录，那么InnoDB会开始开始寻找1#或3#(磁盘最近距离)，看看是否可以将两页合并以优化空间使用。\nMERGE_THRESHOLD:合并页的阈值，可以自己设置，并在创建表或者创建索引时指定。\n索引设计原则 满足业务需求的情况下，尽量降低主键的长度 插入数据时，尽量选择顺序插入，选择使用AUTO_INCREMENT自增主键。 业务操作时，避免对主键的修改。 尽量不要使用UUID做主键或者是其他自然主键，如身份证号。 业务操作时，避免对主键的修改。 order by 优化 MySQL的排序，有两种方式：\nUsing filesort:通过表的索引或全表扫描，读取满足条件的数据行，然后在排序缓冲区sort buffer中完成排序操作，所有不是通过索引直接返回排序结果的排序都叫 FileSort排序。 Using index:通过有序索引顺序扫描直接返回有序数据，这种情况即为 using index，不需要额外排序，操作效率高。 对于以上的两种排序方式，Using index的性能高，而Using filesort的性能低，我们在优化排序操作时，尽量要优化为 Using index。\n可以使用explain 查看extra\n为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。\n1-- 创建索引 2create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc]) 根据age, phone进行降序一个升序，一个降序\n因为创建索引时，如果未指定顺序，默认都是按照升序排序的，而查询时，一个升序，一个降序，此时就会出现Using filesort。\n解决这种问题只需要在创建索引时一个使用desc，一个使用asc。\n我们得出order by优化原则:\nA.根据排序字段建立合适的索引，多字段排序时，也遵循最左前缀法则。\nB.尽量使用覆盖索引。\nC.多字段排序,一个升序一个降序，此时需要注意联合索引在创建时的规则（ASC/DESC）。\nD.如果不可避免的出现filesort，大数据量排序时，可以适当增大排序缓冲区大小sort_buffer_size(默认256k)。\ngroup by优化 优化思路\nA.在分组操作时，可以通过索引来提高效率。\nB.分组操作时，索引的使用也是满足最左前缀法则的。\n当进行分组查询时如果使用了联合索引那就要符合最左前缀法，如果不使用就会出现Using temporary。\nlimit优化 分页查询，在查询时，越往后，分页查询效率越低。\n优化思路\n一般分页查询时，通过创建覆盖索引能够比较好地提高性能，可以通过覆盖索引加子查询形式进行优化。\n未使用索引时\n使用索引时\ncount优化 优化方案 在之前的测试中，我们发现，如果数据量很大，在执行count操作时，是非常耗时的。\n而对于count的执行方式不同的引擎也有不同的方法。\nMyISAM 引擎把一个表的总行数存在了磁盘上，因此执行 count(*)的时候会直接返回这个数，效率很高；但是如果是带条件的count，MyISAM也慢。 InnoDB 引擎是它执行count(*) 的时候，需要把数据一行一行的从引擎里面读取出来，然后积累计数。 优化思路：自己计数（可以借助redis这样的数据库进行，但是如果是带条件的count，还是麻烦）。\n不同count使用方法的性能：\ncount(字段)",
+  "wordCount" : "2501",
   "inLanguage": "zh",
   "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-09-27T09:13:15+08:00",
   "dateModified": "2024-09-27T09:13:15+08:00",
@@ -298,31 +298,31 @@ INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;
 <ul>
 <li>批量插入数据</li>
 </ul>
-<pre tabindex="0"><code>INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
-</code></pre><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><ul>
 <li>手动控制事务的提交</li>
 </ul>
-<pre tabindex="0"><code>start transaction;
-INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
-INSERT INTO tb_test values(4,&#39;Tom&#39;),(5,&#39;Cat&#39;),(6,&#39;Jerry&#39;);
-
-commit;
-</code></pre><p>这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">start</span><span class="w"> </span><span class="n">transaction</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">commit</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、</p>
 <ul>
 <li>load 指令</li>
 </ul>
-<pre tabindex="0"><code>-- 客户端连接服务端时，加上参数 ---local-infile
-mysql --local-infile -uroot -p
-
--- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
-set global local_infile =1;
-
--- 执行load指令将准备好的数据，加载到表结构中
-load data local infile &#39;d:/data/test.log&#39; into table tb_test fields terminated by &#39;,&#39; lines terminated by &#39;\n&#39;;&#39;;
-
--- fields terminatedp-每个字段之间使用什么分隔
--- lines terminated-每条数据之间用什么分隔
-</code></pre><blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">-- 客户端连接服务端时，加上参数 ---local-infile
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="w"> </span><span class="o">--</span><span class="n">local</span><span class="o">-</span><span class="k">infile</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="c1">-- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">local_infile</span><span class="w"> </span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="c1">-- 执行load指令将准备好的数据，加载到表结构中
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span><span class="k">load</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="k">infile</span><span class="w"> </span><span class="s1">&#39;d:/data/test.log&#39;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="k">lines</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="s1">&#39;;
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s1">-- fields terminatedp-每个字段之间使用什么分隔
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s1">-- lines terminated-每条数据之间用什么分隔
+</span></span></span></code></pre></div><blockquote>
 <p>主键按顺序插入性能要高于乱序插入：因为插入时需要根据主键进行排序生成索引，当使用乱序时会可能会导致用一页的数据产生分页的现象。</p>
 </blockquote>
 <h2 id="主键优化"><strong>主键优化</strong><a hidden class="anchor" aria-hidden="true" href="#主键优化">#</a></h2>
@@ -392,9 +392,9 @@ load data local infile &#39;d:/data/test.log&#39; into table tb_test fields term
 <p>可以使用explain 查看extra</p>
 </blockquote>
 <p>为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。</p>
-<pre tabindex="0"><code>-- 创建索引
-create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc])
-</code></pre><p>根据age, phone进行降序一个升序，一个降序</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 创建索引
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_user_age_phone</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">tb_user</span><span class="p">(</span><span class="n">age</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="n">phone</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">])</span><span class="w">
+</span></span></span></code></pre></div><p>根据age, phone进行降序一个升序，一个降序</p>
 <p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/c6026ad9ec8642b786f7c092d8cf8430/image.png?Expires=3304118571&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=dZBo3V6pbA5xAOUW2KLkckSBVd0%3D" alt="image.png"  />
 </p>
 <p>因为创建索引时，如果未指定顺序，默认都是按照升序排序的，而查询时，一个升序，一个降序，此时就会出现Using filesort。</p>
@@ -451,7 +451,7 @@ create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc])
   <a class="prev" href="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
     <span class="title">« 上一页</span>
     <br>
-    <span>视图和存储过程</span>
+    <span>MySQL视图和存储过程</span>
   </a>
   <a class="next" href="http://localhost:1313/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/">
     <span class="title">下一页 »</span>

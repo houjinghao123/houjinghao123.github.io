@@ -24,7 +24,7 @@ tags= ["mysql","数据库"]
 ## **2.语法**
 
 1）创建
-````
+````mysql
 create trigger trigger_name
 before/after insert/update/delete
 on tbl_name for each row --行级触发器
@@ -36,17 +36,17 @@ end;
 
 
 2)查看
-````
+````mysql
 show triggers;
 ````
 
 3)删除
-````
+````mysql
 drop trigger [schema_name.]trigger_name; --如果没有指定schema_name,默认为当前数据库。
 ````
 
 ## **案例**
-````
+````mysql
 -- 通过触发器记录 tb_user 表的数据变更日志，将变更日志插入到日志表user_logs中, 包含增加,修改 , 删除 ;
 
 -- 插入数据触发器
@@ -61,7 +61,7 @@ end;
 ````
 
 
-````
+````mysql
 -- 修改数据触发器
 
 create trigger tb_user_update_trigger
@@ -70,7 +70,7 @@ begin
     insert into user_logs(id, operation, operate_time, operate_id, operate_params)values(null,'update',now(),new.id,concat('更新之前的数据:id=',old.id,',name=',old.name, ', phone=', old.phone, ', email=', old.email, ', profession=', old.profession, ' | 更新之后的数据: id=',new.id,',name=',new.name, ', phone=', NEW.phone, ', email=', NEW.email, ', profession=', NEW.profession));
 end;
 ````
-````
+````mysql
 -- 删除数据触发器
 create trigger tb_user_delete_trigger
     after delete on tb_user for each row

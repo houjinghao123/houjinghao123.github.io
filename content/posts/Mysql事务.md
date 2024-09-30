@@ -10,7 +10,7 @@ tags = ["mysql","数据库"]
 
 ## 使用到的关键字
 
-```
+```mysql
 set autocommit=0;
 start transaction;
 commit;
@@ -66,11 +66,11 @@ rollback to 断点
 |Serializable | N |N |N|
 
 - 查看事务隔离级别
-  ```
+  ```mysql
   SELECT @@TRANSACTION_ISOLATION;
   ```
 - 设置事务隔离级别
-  ```
+  ```mysql
   SET [ SESSION | GLOBAL ] TRANSACTION ISOLATION LEVEL { READ UNCOMMITTED |
   READ COMMITTED | REPEATABLE READ | SERIALIZABLE }
   ```

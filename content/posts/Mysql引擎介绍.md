@@ -42,12 +42,12 @@ InnoDB是一种兼顾高可靠性和高性能的通用存储引擎，在 MySQL 5
 3).文件
 
 参数：innodb\_file\_per\_table
-````
+````mysql
 show variables like 'innodb_file_per_table';
 ````
 
 如果该参数开启，代表对于InnoDB引擎的表，每一张表都对应一个ibd文件。，存储该表的表结构（frm-早期的 、sdi-新版的）、数据和索引。
-````
+````mysql
 show variables like '%datadir%';
 ````
 
@@ -218,17 +218,17 @@ hash索引（默认）
 ## **索引语法**
 
 1）创建索引
-````
+````mysql
 CREATE [UNIQUE | FULLTEXT] INDEX index_name NO table_name(index_col_name,....);
 ````
 
 2）查看索引
-````
+````mysql
 SHOW INDEX FROM table_name;
 ````
 
 3)删除索引
-````
+````mysql
 DROP INDEX index_name NO table_name;
 ````
 
@@ -241,7 +241,7 @@ DROP INDEX index_name NO table_name;
 ### **3.1SQL执行频率**
 
 MySQL客户端连接成功后，通过 show[ session | global ] status命令可以提供服务器状态信息。通过如下指令，可以查看当前数据库的INSERT、UPDATE、DELETE、SELECT的访问频次：
-````
+````mysql
 -- session 是查看当前会话；
 -- global 是查询全局数据；
  SHOW GLOBAL STATUS LIKE 'COM_______';
@@ -255,14 +255,14 @@ MySQL客户端连接成功后，通过 show[ session | global ] status命令可�
 慢查询日志记录了所有执行时间超过指定参数（long\_query\_time，单位：秒，默认10秒）的所有SQL语句的日志。
 
 MySQL的慢查询日志默认没有开启，我们可以查看一下系统变量 slow\_query\_log。
-````
+````mysql
 show variables like '%quer%';
 ````
 
 #### **在windos下开启慢查询**
 
  临时开启慢查询（重启MySQL后就会失效）
-````
+````mysql
 set global slow_query_log='ON';
 
 --设置慢查询日志存放的位置
@@ -296,7 +296,7 @@ long_query_time=10
 ### show profiles能够在做SQL优化时帮助我们了解时间都耗费到哪里去了。通过have\_profiling参数，能够看到当前MySQL是否支持profile操作：
 
 
-````
+````mysql
 -- 查看数据库是否支持profile
 SELECT @@have_profiling;
 
@@ -310,7 +310,7 @@ SET [session | global]profiling = 1;
 
 
 执行一系列的业务SQL的操作，然后通过如下指令查看指令的执行耗时：
-````
+````mysql
  -- 查看每一条SQL的耗时基本情况
 show profiles;
 
@@ -325,7 +325,7 @@ show profile cpu for query query_id;
 ### **explain**
 
 EXPLAIN或者 DESC命令获取 MySQL如何执行 SELECT语句的信息，包括在 SELECT语句执行过程中表如何连接和连接的顺序。
-````
+````mysql
 -- 直接在select语句前加上关键字 explain/desc
 EXPLAIN SELECT 字段列表 FROM 表明 WHERE 条件;
 ````
@@ -361,7 +361,7 @@ Explain执行计划中各个字段的含义:
 使用联合索引时要遵守最左前缀法则。最左前缀法则是指在查询索引时从索引的最左列开始，并且不跳过索引中的列。如果跳过某一列，后面的字段索引失效。
 
 tb\_user表
-````
+````mysql
 create table tb_user(
 	id int primary key auto_increment comment '主键',
 	name varchar(50) not null comment '用户名',
@@ -466,7 +466,7 @@ SQL提示，是优化数据库的一个重要手段，简单来说，就是在SQ
 
 
 1). use index ：建议MySQL使用哪一个索引完成此次查询（仅仅是建议，mysql内部还会再次进行评估）。
-````
+````mysql
 explain select * from tb_user use index(idx_user_pro) where profession='软件工程'
 ````
 
@@ -475,12 +475,12 @@ explain select * from tb_user use index(idx_user_pro) where profession='软件�
 2). ignore index ：忽略指定的索引。
 
 
-````
+````mysql
 explain select * from tb_user ignore index(idx_user_pro) where profession='软件工程'
 ````
 
 3). force index ：强制使用索引。
-````
+````mysql
 explain select * from tb_user ignore index(idx_user_pro) where profession='软件工程'
 ````
 
@@ -525,7 +525,7 @@ d.执行SQL:select id ,name ,gender from tb\_user where name ='Arm';
 
 
 1).语法
-````
+````mysql
 create index idx_xxxx on table_name(colum(n));
 ````
 
@@ -534,7 +534,7 @@ create index idx_xxxx on table_name(colum(n));
 示例
 
 在tb\_user的表的email字段，建立长度未5的前缀索引。
-````
+````mysql
 create index idx_email_5 on tb_user(email(5));
 ````
 

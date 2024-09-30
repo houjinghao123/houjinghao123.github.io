@@ -14,11 +14,11 @@ tags= ["mysql","数据库"]
 
 假设我们需要插入大量数据，那么有哪些方法呢？
 - 批量插入数据
-````
+````mysql
 INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry');
 ````
 - 手动控制事务的提交
-````
+````mysql
 start transaction;
 INSERT INTO tb_test values(1,'Tom'),(2,'Cat'),(3,'Jerry');
 INSERT INTO tb_test values(4,'Tom'),(5,'Cat'),(6,'Jerry');
@@ -28,7 +28,7 @@ commit;
 
 这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、
 - load 指令
-````
+````mysql
 -- 客户端连接服务端时，加上参数 ---local-infile
 mysql --local-infile -uroot -p
 
@@ -157,7 +157,7 @@ MySQL的排序，有两种方式：
  为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。
 
 
-````
+````mysql
 -- 创建索引
 create index idx_user_age_phone on tb_user(age[asc | desc] ,phone[asc | desc])
 
