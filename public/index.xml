@@ -12,8 +12,17 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 29 Sep 2024 17:34:22 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 Oct 2024 13:21:57 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL锁</title>
+      <link>http://localhost:1313/posts/mysql%E9%94%81/</link>
+      <pubDate>Tue, 01 Oct 2024 13:21:57 +0800</pubDate>
+      <guid>http://localhost:1313/posts/mysql%E9%94%81/</guid>
+      <description>&lt;h1 id=&#34;mysql锁&#34;&gt;&lt;strong&gt;MySQL锁&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;1概述&#34;&gt;&lt;strong&gt;1、概述&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>MySQL触发器</title>
       <link>http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</link>

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>MySQL锁 | phjhq&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="MySQL锁
+1、概述
+如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。">
+<meta name="author" content="phjhq">
+<link rel="canonical" href="http://localhost:1313/posts/mysql%E9%94%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
+<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mysql%E9%94%81/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+  rel="stylesheet">
+
+<script type="text/javascript" async
+  src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: {
+          equationNumbers: { autoNumber: "AMS" },
+          extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      }
+    });
+
+    MathJax.Hub.Queue(function () {
+      
+      
+      
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+<style>
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+</style><meta property="og:title" content="MySQL锁" />
+<meta property="og:description" content="MySQL锁
+1、概述
+如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/mysql%E9%94%81/" />
+<meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-01T13:21:57+08:00" />
+<meta property="article:modified_time" content="2024-10-01T13:21:57+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta name="twitter:title" content="MySQL锁"/>
+<meta name="twitter:description" content="MySQL锁
+1、概述
+如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "MySQL锁",
+      "item": "http://localhost:1313/posts/mysql%E9%94%81/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MySQL锁",
+  "name": "MySQL锁",
+  "description": "MySQL锁 1、概述 如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "MySQL锁 1、概述 如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。\nMySQL中的锁，按照锁的粒度分，分为以下三类：\n全局锁：锁定数据库的所有表。 表级锁：每次操作锁住整张表。 行级锁：每次操作锁住对应的行数据。 2、全局锁 2.1介绍 全局锁就是对整个数据库实例加锁，加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句都将被阻塞。\n使用场景是做全库的逻辑备份，对所有的表进行锁定，从而获取一致性视图，保证数据的完整性。\n在进行全库的逻辑备份时加锁是为了防止出现数据不一致问题，发生这种问题的原因如下：\n假设在数据库中存在这样三张表: tb_stock库存表，tb_order订单表，tb_orderlog订单日志表。\n在进行数据备份时，先备份了tb_stick库存表 然后接下来，在业务系统中，执行了下单操作，扣减库存，生成订单（更新tb_stock表，插入tb_order表）。 然后在执行备份tb_order表的逻辑。 业务中执行插入订单日志操作。 最后，又备份了tb_orderlog表。 此时备份出来的数据，是存在问题的。因为备份出来的数据，tb_stock表与tb_order表的数据不一致(有最新操作的订单信息,但是库存数没减)。\n在对数据库加上全局锁后\n对数据库进行进行逻辑备份之前，先对整个数据库加上全局锁，一旦加了全局锁之后，其他的DDL、DML全部都处于阻塞状态，但是可以执行DQL语句，也就是处于只读状态，而数据备份就是查询操作。那么数据在进行逻辑备份的过程中，数据库中的数据就是不会发生变化的，这样就保证了数据的一致性和完整性。\n2.2语法 1）加全局锁\n1flush table with read lock; 2）数据备份\n1mysqldump -uroot -p**** 要备份的数据库名 \u003e 要备份到的地址/名字.sql 该方式时数据库自带的备份工具是直接在命令行窗口执行的\n3）释放锁\n1unlock tables; 2.3问题 数据库中加全局锁，是一个比较重的操作，存在以下问题：\n如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。 如果在从库上备份，那么在备份期间从库不能执行主库同步过来的二进制日志（binlog），会导致主从延迟。 在InnoDB引擎中，我们可以在备份时加上参数–single-transaction参数来完成不加锁的一致性数据备份。\n1mysqldump --single-transaction -uroot -p**** 要备份的数据库名 \u003e 要备份到的地址/名字.sql 3表级锁 3.1介绍 表级锁，每次操作锁住整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。应用在MyISAM、InnoDB、BDB等存储引擎中。\n对于表级锁，主要分为以下三类\n表锁 元数据锁(meta data lock,MDL) 意向锁 3.2表锁 对于表锁，分为两类：\n表共享读锁（read lock） 表独占写锁（write lock） 语法：\n加锁：lock tables 表名…read/write。 释放锁：unlock tables /断开客户端连接。 特点 :\n读锁 左侧为客户端一，对指定表加了读锁，不会影响右侧客户端二的读，但是会阻塞右侧客户端的写。\n写锁 左侧为客户端一，对指定表加了写锁，会阻塞右侧客户端的读和写。\n读锁不会堵塞其他客户端的读，但是会堵塞写。 写锁即会堵塞其他客户端的读，又会堵塞其他客户端换的写。\n3.3元数据锁 meta data lock,元数据锁，简写MDL。\nMDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。为了避免DML与DDL冲突，保证读写的正确性。\n这里的元数据，大家可以简单理解为就是一张表的表结构。也就是说，某一张表涉及到未提交的事务时，是不能够修改这张表的表结构的。\n在MySQL5.5中引入了MDL，当对一张表进行增删改查的时候，加MDL读锁(共享)；当对表结构进行变更操作的时候，加MDL写锁(排他)。\n常见的SQL操作时，所添加的元数据锁：\n对应SQL 锁类型 说明 lock tables xxx read/write SHARED_READ_ONLY/SHARED_NO_READ_WRITE select 、select…lock in share mode SHARED_READ 与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥 insert 、update、delete、select… forupdate SHARED_WRITE 与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥 alter table… EXCLUSIVE 与其他的MDL都互斥 当执行SELECT、INSERT、UPDATE、DELETE等语句时，添加的是元数据共享锁（SHARED_READ/SHARED_WRITE），之间是兼容的。\n当执行SELECT语句时，添加的是元数据共享锁（SHARED_READ），会阻塞元数据排他锁（EXCLUSIVE），之间是互斥的。\n我们可以通过下面的SQL,来查看数据库中的元数据锁的情况:\n1select object_type,object_schema,object_name,lock_type,lock_duration from 2performance_schema.metadata_locks ; 如果是5.7版本的数据库需要手动开启metadata_locks锁记录(临时生效)\n1update performance_schema.setup_instruments set enabled = 'YES',timed='YES' where name='wait/lock/metadata/sql/mdl'; 永久生效在配置文件中加入以下内容\n1# 开启监控元数据锁 2performance-schema-instrument='wait/lock/metadata/sql/mdl=ON' 当在不同的连接窗口上时EXCLUSIVE锁是和其他锁互斥的。如果在同一连接窗口则会强制提交事务。\n3.4意向锁 1）介绍\n为了避免DML在执行时，加的行锁与表锁冲突，在InnoDB中引入了意向锁，使得表锁不用检查每行数据数据是否加锁，使用意向锁来减少表锁的检查。\n假如没有意向锁，客户端一对表加了行锁后，客户端二如何给表加表锁呢，来通过示意图简单分析一下：\n首先客户端一，开启一个事务，然后执行DML操作，在执行DML语句时，会对涉及到的行加行锁。\n当客户端二，想对这张表加表锁时，会检查当前表是否有对应的行锁，如果没有，则添加表锁，此时就会从第一行数据，检查到最后一行数据，效率较低。\n有了意向锁之后 : 客户端一，在执行DML操作时，会对涉及的行加行锁，同时也会对该表加上意向锁。\n而其他客户端，在对这张表加表锁的时候，会根据该表上所加的意向锁来判定是否可以成功加表锁，而不用逐行判断行锁情况了。\n2）分类\n意向共享锁（IS）:由语句select … lock in share mode添加 。 与 表锁共享锁(read)兼容，与表锁排他锁(write)互斥。 意向排他锁 （IX）：由insert、update、delete、select…for update添加。与表锁共享锁和排他锁都互斥，意向锁之间不会互斥。 一旦事务提交了，意向共享锁、意向排他锁，都会自动释放。\n可以通过以下SQL，查看意向锁及行锁的加锁情况：（在Mysql8.0中能正常使用）\n1select object_schema,object_name,index_name,lock_type,lock_mode,lock_data from performance_schema.data_locks; 四、行级锁 4.1介绍 行级锁，每次操作锁住对应的行数据。锁定粒度最小，发生锁冲突的概率最低，并发度最高。应用在InnoDB存储引擎中。\nInnoDB的数据是基于索引组织的，行锁是通过对索引上的索引项加锁来实现的，而不是对记录加的锁。对于行级锁，主要分为以下三类：\n行锁（Record Lock）: 锁定单个行记录的锁，防止其他事务对此行进行update和delete。在RC、RR隔离级别下都支持。 间隙锁（Gap Lock）：锁定索引记录间隙（不含该记录），确保索引记录间隙不变，防止其他事务在这个间隙进行insert，产生幻读。在RR隔离级别下都支持。 临键锁（Next-Key Lock）：行锁和间隙锁的组合，同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持 4.2、行锁 1）介绍\nInnoDB实现了以下两种类型的行锁：\n共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。 排他锁（X）：允许获取排他锁的事务更新数据，阻止其他事务获得相同数据集的共享锁和排他锁。 X IX S IS X 互斥 互斥 互斥 互斥 IX 互斥 兼容 互斥 兼容 S 互斥 互斥 兼容 兼容 IS 互斥 兼容 兼容 兼容 常见的SQL语句，在执行时，所加的行锁如下：\nSQL 行锁类型 说明 INSERT … 排他锁 自动加锁 UPDATE … 排他锁 自动加锁 DELETE … 排他锁 自动加锁 SELECT（正常） 不加任何锁 SELECT … LOCK IN SHARE MODE 共享锁 需要手动在SELECT之后加LOCK IN SHARE MODE SELECT … FOR UPDATE 排他锁 需要手动在SELECT之后加FOR UPDATE 2）演示\n共享锁（S） 给id为1的加上共享锁后可以对数据进行查询，但是不能对数据进行更改。\n排他锁（X） 给id=3的加上排他锁后可以对其他事务进行查询但是不能更改和在对它加其他的锁。\n4.3、间隙锁 只存在于可重复读隔离级别，目的是为了解决可重复读隔离级别下幻读的现象。\n假设，表中有一个范围id为（3，5）间隙锁，那么其他事务就无法插入id=4这条记录了，这样就有效 的防止幻读现象的发生。\n间隙锁虽然存在X型间隙锁和S型间隙锁，但是并没有什么区别，间隙锁之间是兼容的，即两个事务可以 同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入幻影记录而提出 的。\n4.4、临键锁 Next-Key Lock 称为临键锁，是 Record Lock+ Gap Lock 的组合，锁定一个范围，并且锁定记录本身。\n假设，表中有一个范围 id 为（3，5]的 next-key lock，那么其他事务即不能插入 id= 4 记录，也不能修 改id=5 这条记录。\n所以，next-key lock 即能保护该记录，又能阻止其他事务将新纪录插入到被保护记录前面的间隙中。 next-keylock是包含间隙锁+记录锁的，如果一个事务获取了×型的next-keylock，那么另外一个事务 在获取相同范围的×型的next-keylock时，是会被阻塞的。\n参考文档\nMySQL数据库官方文档-InnoDB Locking\n",
+  "wordCount" : "3810",
+  "inLanguage": "zh",
+  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-10-01T13:21:57+08:00",
+  "dateModified": "2024-10-01T13:21:57+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "phjhq"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/mysql%E9%94%81/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "phjhq's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      MySQL锁
+    </h1>
+    <div class="post-meta"><span title='2024-10-01 13:21:57 +0800 CST'>2024-10-01</span>&nbsp;·&nbsp;8 分钟&nbsp;·&nbsp;phjhq
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#mysql%e9%94%81" aria-label="MySQL锁">MySQL锁</a><ul>
+                        
+                <li>
+                    <a href="#1%e6%a6%82%e8%bf%b0" aria-label="1、概述">1、概述</a></li>
+                <li>
+                    <a href="#2%e5%85%a8%e5%b1%80%e9%94%81" aria-label="2、全局锁">2、全局锁</a><ul>
+                        
+                <li>
+                    <a href="#21%e4%bb%8b%e7%bb%8d" aria-label="2.1介绍">2.1介绍</a></li>
+                <li>
+                    <a href="#22%e8%af%ad%e6%b3%95" aria-label="2.2语法">2.2语法</a></li>
+                <li>
+                    <a href="#23%e9%97%ae%e9%a2%98" aria-label="2.3问题">2.3问题</a></li></ul>
+                </li>
+                <li>
+                    <a href="#3%e8%a1%a8%e7%ba%a7%e9%94%81" aria-label="3表级锁">3表级锁</a><ul>
+                        
+                <li>
+                    <a href="#31%e4%bb%8b%e7%bb%8d" aria-label="3.1介绍">3.1介绍</a></li>
+                <li>
+                    <a href="#32%e8%a1%a8%e9%94%81" aria-label="3.2表锁">3.2表锁</a></li>
+                <li>
+                    <a href="#33%e5%85%83%e6%95%b0%e6%8d%ae%e9%94%81" aria-label="3.3元数据锁">3.3元数据锁</a></li>
+                <li>
+                    <a href="#34%e6%84%8f%e5%90%91%e9%94%81" aria-label="3.4意向锁">3.4意向锁</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%9b%9b%e8%a1%8c%e7%ba%a7%e9%94%81" aria-label="四、行级锁">四、行级锁</a><ul>
+                        
+                <li>
+                    <a href="#41%e4%bb%8b%e7%bb%8d" aria-label="4.1介绍">4.1介绍</a></li>
+                <li>
+                    <a href="#42%e8%a1%8c%e9%94%81" aria-label="4.2、行锁">4.2、行锁</a></li>
+                <li>
+                    <a href="#43%e9%97%b4%e9%9a%99%e9%94%81" aria-label="4.3、间隙锁">4.3、间隙锁</a></li>
+                <li>
+                    <a href="#44%e4%b8%b4%e9%94%ae%e9%94%81" aria-label="4.4、临键锁">4.4、临键锁</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="mysql锁"><strong>MySQL锁</strong><a hidden class="anchor" aria-hidden="true" href="#mysql锁">#</a></h1>
+<h2 id="1概述"><strong>1、概述</strong><a hidden class="anchor" aria-hidden="true" href="#1概述">#</a></h2>
+<p>如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。</p>
+<p>MySQL中的锁，按照锁的粒度分，分为以下三类：</p>
+<ul>
+<li>全局锁：锁定数据库的所有表。</li>
+<li>表级锁：每次操作锁住整张表。</li>
+<li>行级锁：每次操作锁住对应的行数据。</li>
+</ul>
+<h2 id="2全局锁"><strong>2、全局锁</strong><a hidden class="anchor" aria-hidden="true" href="#2全局锁">#</a></h2>
+<h3 id="21介绍"><strong>2.1介绍</strong><a hidden class="anchor" aria-hidden="true" href="#21介绍">#</a></h3>
+<p>全局锁就是对整个数据库实例加锁，加锁后整个实例就处于只读状态，后续的DML的写语句，DDL语句，已经更新操作的事务提交语句都将被阻塞。</p>
+<p>使用场景是做全库的逻辑备份，对所有的表进行锁定，从而获取一致性视图，保证数据的完整性。</p>
+<p>在进行全库的逻辑备份时加锁是为了防止出现数据不一致问题，发生这种问题的原因如下：</p>
+<p>假设在数据库中存在这样三张表: tb_stock库存表，tb_order订单表，tb_orderlog订单日志表。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/3a544566641d4a5ba81178cde8aabc20/image.png?Expires=3304408724&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=LsqnUL4E76lcaGQTm64IeBY7ra0%3D" alt="image.png"  />
+</p>
+<ol>
+<li>在进行数据备份时，先备份了tb_stick库存表</li>
+<li>然后接下来，在业务系统中，执行了下单操作，扣减库存，生成订单（更新tb_stock表，插入tb_order表）。</li>
+<li>然后在执行备份tb_order表的逻辑。</li>
+<li>业务中执行插入订单日志操作。</li>
+<li>最后，又备份了tb_orderlog表。</li>
+</ol>
+<p>此时备份出来的数据，是存在问题的。因为备份出来的数据，tb_stock表与tb_order表的数据不一致(有最新操作的订单信息,但是库存数没减)。</p>
+<p>在对数据库加上全局锁后</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/0f89474285e6401a826c8252b8d240fc/image.png?Expires=3304409048&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=VBHW4Ev9hzj4GoSV3lFr0OknzH0%3D" alt="image.png"  />
+</p>
+<p>对数据库进行进行逻辑备份之前，先对整个数据库加上全局锁，一旦加了全局锁之后，其他的DDL、DML全部都处于阻塞状态，但是可以执行DQL语句，也就是处于只读状态，而数据备份就是查询操作。那么数据在进行逻辑备份的过程中，数据库中的数据就是不会发生变化的，这样就保证了数据的一致性和完整性。</p>
+<h3 id="22语法"><strong>2.2语法</strong><a hidden class="anchor" aria-hidden="true" href="#22语法">#</a></h3>
+<p>1）加全局锁</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">flush</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>2）数据备份</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="o">****</span><span class="w"> </span><span class="err">要备份的数据库名</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="err">要备份到的地址</span><span class="o">/</span><span class="err">名字</span><span class="p">.</span><span class="k">sql</span><span class="w">
+</span></span></span></code></pre></div><p>该方式时数据库自带的备份工具是直接在命令行窗口执行的</p>
+<p>3）释放锁</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">unlock</span><span class="w"> </span><span class="kp">tables</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/7e08247e250b4e75a17427ea42c51823/image.png?Expires=3304410236&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=N%2FdXFFOp%2BAR9TIeVZoXAFG9APP8%3D" alt="image.png"  />
+</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/edfd9ca1a936453ab8fa995ac469417b/image.png?Expires=3304410284&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=Ytb2jWY5Ip%2F81Nq0Y6T8cpuzxy8%3D" alt="image.png"  />
+</p>
+<h3 id="23问题">2.3问题<a hidden class="anchor" aria-hidden="true" href="#23问题">#</a></h3>
+<p>数据库中加全局锁，是一个比较重的操作，存在以下问题：</p>
+<ul>
+<li>如果在主库上备份，那么在备份期间都不能执行更新，业务基本上就得停摆。</li>
+<li>如果在从库上备份，那么在备份期间从库不能执行主库同步过来的二进制日志（binlog），会导致主从延迟。</li>
+</ul>
+<p>在InnoDB引擎中，我们可以在备份时加上参数&ndash;single-transaction参数来完成不加锁的一致性数据备份。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">mysqldump</span> <span class="p">-</span><span class="n">-single-transaction</span> <span class="n">-uroot</span> <span class="n">-p</span><span class="p">****</span> <span class="n">要备份的数据库名</span> <span class="p">&gt;</span> <span class="n">要备份到的地址</span><span class="p">/</span><span class="n">名字</span><span class="p">.</span><span class="py">sql</span>
+</span></span></code></pre></div><h2 id="3表级锁">3表级锁<a hidden class="anchor" aria-hidden="true" href="#3表级锁">#</a></h2>
+<h3 id="31介绍"><strong>3.1介绍</strong><a hidden class="anchor" aria-hidden="true" href="#31介绍">#</a></h3>
+<p>表级锁，每次操作锁住整张表。锁定粒度大，发生锁冲突的概率最高，并发度最低。应用在MyISAM、InnoDB、BDB等存储引擎中。</p>
+<p>对于表级锁，主要分为以下三类</p>
+<ul>
+<li>表锁</li>
+<li>元数据锁(meta data lock,MDL)</li>
+<li>意向锁</li>
+</ul>
+<h3 id="32表锁"><strong>3.2表锁</strong><a hidden class="anchor" aria-hidden="true" href="#32表锁">#</a></h3>
+<p>对于表锁，分为两类：</p>
+<ul>
+<li>表共享读锁（read lock）</li>
+<li>表独占写锁（write lock）</li>
+</ul>
+<p>语法：</p>
+<ul>
+<li>加锁：lock tables 表名&hellip;read/write。</li>
+<li>释放锁：unlock tables /断开客户端连接。</li>
+</ul>
+<p>特点 :</p>
+<ol>
+<li>读锁</li>
+</ol>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/83e441953f204565b25178e669ce9e5c/image.png?Expires=3304410787&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=haapP%2Fz2UuRwZPmmpphS8nD%2B2tE%3D" alt="image.png"  />
+</p>
+<p>左侧为客户端一，对指定表加了读锁，不会影响右侧客户端二的读，但是会阻塞右侧客户端的写。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/3dfe236357a44032907aab752042d9d7/image.png?Expires=3304414330&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=EMxdtmeLA2PuCqdAOpv4dL9jkmg%3D" alt="image.png"  />
+</p>
+<ol start="2">
+<li>写锁</li>
+</ol>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/26329b4e9325401b837f385245e937a2/image.png?Expires=3304414715&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=8mA2CwOnVfTIUVGXG389MMSqB2Y%3D" alt="image.png"  />
+</p>
+<p>左侧为客户端一，对指定表加了写锁，会阻塞右侧客户端的读和写。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/bbc9dd32a371433fad208d20ea75b356/image.png?Expires=3304414930&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=ieB8VabOFNU4IghaXYnFFuH58U0%3D" alt="image.png"  />
+</p>
+<blockquote>
+<p>读锁不会堵塞其他客户端的读，但是会堵塞写。
+写锁即会堵塞其他客户端的读，又会堵塞其他客户端换的写。</p>
+</blockquote>
+<h3 id="33元数据锁">3.3元数据锁<a hidden class="anchor" aria-hidden="true" href="#33元数据锁">#</a></h3>
+<p>meta data lock,元数据锁，简写MDL。</p>
+<p>MDL加锁过程是系统自动控制，无需显式使用，在访问一张表的时候会自动加上。MDL锁主要作用是维护表元数据的数据一致性，在表上有活动事务的时候，不可以对元数据进行写入操作。<strong>为了避免DML与DDL冲突，保证读写的正确性。</strong></p>
+<p>这里的元数据，大家可以简单理解为就是一张表的表结构。也就是说，某一张表涉及到未提交的事务时，是不能够修改这张表的表结构的。</p>
+<p>在MySQL5.5中引入了MDL，当对一张表进行增删改查的时候，加MDL读锁(共享)；当对表结构进行变更操作的时候，加MDL写锁(排他)。</p>
+<p>常见的SQL操作时，所添加的元数据锁：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><strong>对应SQL</strong></th>
+          <th style="text-align: left"><strong>锁类型</strong></th>
+          <th style="text-align: left"><strong>说明</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">lock tables xxx read/write</td>
+          <td style="text-align: left">SHARED_READ_ONLY/SHARED_NO_READ_WRITE</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">select 、select&hellip;lock in share mode</td>
+          <td style="text-align: left">SHARED_READ</td>
+          <td style="text-align: left">与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">insert 、update、delete、select&hellip; forupdate</td>
+          <td style="text-align: left">SHARED_WRITE</td>
+          <td style="text-align: left">与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">alter table&hellip;</td>
+          <td style="text-align: left">EXCLUSIVE</td>
+          <td style="text-align: left">与其他的MDL都互斥</td>
+      </tr>
+  </tbody>
+</table>
+<p>当执行SELECT、INSERT、UPDATE、DELETE等语句时，添加的是元数据共享锁（SHARED_READ/SHARED_WRITE），之间是兼容的。</p>
+<p>当执行SELECT语句时，添加的是元数据共享锁（SHARED_READ），会阻塞元数据排他锁（EXCLUSIVE），之间是互斥的。</p>
+<p>我们可以通过下面的SQL,来查看数据库中的元数据锁的情况:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">object_type</span><span class="p">,</span><span class="n">object_schema</span><span class="p">,</span><span class="n">object_name</span><span class="p">,</span><span class="n">lock_type</span><span class="p">,</span><span class="n">lock_duration</span><span class="w"> </span><span class="k">from</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">performance_schema</span><span class="p">.</span><span class="n">metadata_locks</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>如果是5.7版本的数据库需要手动开启metadata_locks锁记录(临时生效)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">update</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;YES&#39;</span><span class="p">,</span><span class="n">timed</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;wait/lock/metadata/sql/mdl&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>永久生效在配置文件中加入以下内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 开启监控元数据锁
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="n">performance</span><span class="o">-</span><span class="k">schema</span><span class="o">-</span><span class="n">instrument</span><span class="o">=</span><span class="s1">&#39;wait/lock/metadata/sql/mdl=ON&#39;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/9463470a2f4f44a8994529b639aefe19/image.png?Expires=3304418366&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=qb%2F7UCLID%2FmTxTFeUekTiAsSCUQ%3D" alt="image.png"  />
+</p>
+<p>当在不同的连接窗口上时EXCLUSIVE锁是和其他锁互斥的。如果在同一连接窗口则会强制提交事务。</p>
+<h3 id="34意向锁"><strong>3.4意向锁</strong><a hidden class="anchor" aria-hidden="true" href="#34意向锁">#</a></h3>
+<p><strong>1）介绍</strong></p>
+<p>为了避免DML在执行时，加的行锁与表锁冲突，在InnoDB中引入了意向锁，使得表锁不用检查每行数据数据是否加锁，使用意向锁来减少表锁的检查。</p>
+<p>假如没有意向锁，客户端一对表加了行锁后，客户端二如何给表加表锁呢，来通过示意图简单分析一下：</p>
+<p>首先客户端一，开启一个事务，然后执行DML操作，在执行DML语句时，会对涉及到的行加行锁。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/b329edafabbf46b5a6814c5bf4a0a2bf/image.png?Expires=3304475777&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=MbUHjn4uzns30RwIbHjnZT4tpeE%3D" alt="image.png"  />
+</p>
+<p>当客户端二，想对这张表加表锁时，会检查当前表是否有对应的行锁，如果没有，则添加表锁，此时就会从第一行数据，检查到最后一行数据，效率较低。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/b4b287240ecc4f50afe9e71d381ffe18/image.png?Expires=3304475804&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=T6ZFaly%2FQPZ%2Foat4MiUgg40cfXA%3D" alt="image.png"  />
+</p>
+<p>有了意向锁之后 :
+客户端一，在执行DML操作时，会对涉及的行加行锁，同时也会对该表加上意向锁。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/92938a889a944f90b402e45412ec5404/image.png?Expires=3304475825&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=bPrAszhHH6anSJCVIHIEYqqR0hU%3D" alt="image.png"  />
+</p>
+<p>而其他客户端，在对这张表加表锁的时候，会根据该表上所加的意向锁来判定是否可以成功加表锁，而不用逐行判断行锁情况了。</p>
+<p><strong>2）分类</strong></p>
+<ul>
+<li>意向共享锁（IS）:由语句select &hellip; lock in share mode添加 。 与 表锁共享锁(read)兼容，与表锁排他锁(write)互斥。</li>
+<li>意向排他锁 （IX）：由insert、update、delete、select&hellip;for update添加。与表锁共享锁和排他锁都互斥，意向锁之间不会互斥。</li>
+</ul>
+<blockquote>
+<p>一旦事务提交了，意向共享锁、意向排他锁，都会自动释放。</p>
+</blockquote>
+<p>可以通过以下SQL，查看意向锁及行锁的加锁情况：（在Mysql8.0中能正常使用）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">object_schema</span><span class="p">,</span><span class="n">object_name</span><span class="p">,</span><span class="n">index_name</span><span class="p">,</span><span class="n">lock_type</span><span class="p">,</span><span class="n">lock_mode</span><span class="p">,</span><span class="n">lock_data</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">data_locks</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="四行级锁"><strong>四、行级锁</strong><a hidden class="anchor" aria-hidden="true" href="#四行级锁">#</a></h2>
+<h3 id="41介绍"><strong>4.1介绍</strong><a hidden class="anchor" aria-hidden="true" href="#41介绍">#</a></h3>
+<p>行级锁，每次操作锁住对应的行数据。锁定粒度最小，发生锁冲突的概率最低，并发度最高。应用在InnoDB存储引擎中。</p>
+<p>InnoDB的数据是基于索引组织的，行锁是通过对索引上的索引项加锁来实现的，而不是对记录加的锁。对于行级锁，主要分为以下三类：</p>
+<ul>
+<li>行锁（Record Lock）: 锁定单个行记录的锁，防止其他事务对此行进行update和delete。在RC、RR隔离级别下都支持。</li>
+</ul>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/419e627c869242c0931a2846247f0793/image.png?Expires=3304479490&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=vw23Mc8nrIkD5QD8nJfFJn8nUGA%3D" alt="image.png"  />
+</p>
+<ul>
+<li>间隙锁（Gap Lock）：锁定索引记录间隙（不含该记录），确保索引记录间隙不变，防止其他事务在这个间隙进行insert，产生幻读。在RR隔离级别下都支持。</li>
+</ul>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/332f3535458e443dac68a36eecb2f3ba/image.png?Expires=3304479632&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=Uxxbqqm0aBXgHb19SDpYHq99gzQ%3D" alt="image.png"  />
+</p>
+<ul>
+<li>临键锁（Next-Key Lock）：行锁和间隙锁的组合，同时锁住数据，并锁住数据前面的间隙Gap。在RR隔离级别下支持</li>
+</ul>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/25fb8594ef7843b9be206cd0c0ffe9e6/image.png?Expires=3304479752&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=gHU54AFiA7CBSHxPud%2FRaoS2tHA%3D" alt="image.png"  />
+</p>
+<h3 id="42行锁"><strong>4.2、行锁</strong><a hidden class="anchor" aria-hidden="true" href="#42行锁">#</a></h3>
+<p>1）介绍</p>
+<p>InnoDB实现了以下两种类型的行锁：</p>
+<ul>
+<li>共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。</li>
+<li>排他锁（X）：允许获取排他锁的事务更新数据，阻止其他事务获得相同数据集的共享锁和排他锁。</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"></th>
+          <th style="text-align: left">X</th>
+          <th style="text-align: left">IX</th>
+          <th style="text-align: left">S</th>
+          <th style="text-align: left">IS</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">X</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">互斥</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">IX</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">兼容</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">兼容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">S</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">兼容</td>
+          <td style="text-align: left">兼容</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">IS</td>
+          <td style="text-align: left">互斥</td>
+          <td style="text-align: left">兼容</td>
+          <td style="text-align: left">兼容</td>
+          <td style="text-align: left">兼容</td>
+      </tr>
+  </tbody>
+</table>
+<p>常见的SQL语句，在执行时，所加的行锁如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">SQL</th>
+          <th style="text-align: left">行锁类型</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">INSERT &hellip;</td>
+          <td style="text-align: left">排他锁</td>
+          <td style="text-align: left">自动加锁</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">UPDATE &hellip;</td>
+          <td style="text-align: left">排他锁</td>
+          <td style="text-align: left">自动加锁</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">DELETE &hellip;</td>
+          <td style="text-align: left">排他锁</td>
+          <td style="text-align: left">自动加锁</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SELECT（正常）</td>
+          <td style="text-align: left">不加任何锁</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SELECT &hellip; LOCK IN SHARE MODE</td>
+          <td style="text-align: left">共享锁</td>
+          <td style="text-align: left">需要手动在SELECT之后加LOCK IN SHARE  MODE</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">SELECT &hellip; FOR UPDATE</td>
+          <td style="text-align: left">排他锁</td>
+          <td style="text-align: left">需要手动在SELECT之后加FOR UPDATE</td>
+      </tr>
+  </tbody>
+</table>
+<p>2）演示</p>
+<ul>
+<li>共享锁（S）</li>
+</ul>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/892befe3cf384030a1d58062f45f775b/image.png?Expires=3304558246&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=wO3uz2dbG%2BY7v8gtsQm3TirzqxE%3D" alt="image.png"  />
+</p>
+<p>给id为1的加上共享锁后可以对数据进行查询，但是不能对数据进行更改。</p>
+<ul>
+<li>排他锁（X）</li>
+</ul>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/c4d9be6e987b4dc1b2d0b19dde074a9d/image.png?Expires=3304558616&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=XCNRe9nVisE9ef19WBfYXPHGvYA%3D" alt="image.png"  />
+</p>
+<p>给id=3的加上排他锁后可以对其他事务进行查询但是不能更改和在对它加其他的锁。</p>
+<h3 id="43间隙锁"><strong>4.3、间隙锁</strong><a hidden class="anchor" aria-hidden="true" href="#43间隙锁">#</a></h3>
+<p>只存在于可重复读隔离级别，目的是为了解决可重复读隔离级别下幻读的现象。</p>
+<p>假设，表中有一个范围id为（3，5）间隙锁，那么其他事务就无法插入id=4这条记录了，这样就有效
+的防止幻读现象的发生。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/fda9579c3897457596608b319a44285a/image.png?Expires=3304559467&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=8nf%2Fj7kKIIBcv%2BvlXUTwtJWSgsk%3D" alt="image.png"  />
+</p>
+<p>间隙锁虽然存在X型间隙锁和S型间隙锁，但是并没有什么区别，间隙锁之间是兼容的，即两个事务可以
+同时持有包含共同间隙范围的间隙锁，并不存在互斥关系，因为间隙锁的目的是防止插入幻影记录而提出
+的。</p>
+<h3 id="44临键锁">4.4、临键锁<a hidden class="anchor" aria-hidden="true" href="#44临键锁">#</a></h3>
+<p>Next-Key Lock 称为临键锁，是 Record Lock+ Gap Lock 的组合，锁定一个范围，并且锁定记录本身。</p>
+<p>假设，表中有一个范围 id 为（3，5]的 next-key lock，那么其他事务即不能插入 id= 4 记录，也不能修
+改id=5 这条记录。</p>
+<p><img loading="lazy" src="https://darwin-controller-pro.oss-cn-hangzhou.aliyuncs.com/dabafcf758aa4dd89bd6f10be8f7bf9d/image.png?Expires=3304559705&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=LLC9PZHPK88pGkZqy1syt5hF9ts%3D" alt="image.png"  />
+</p>
+<p>所以，next-key lock 即能保护该记录，又能阻止其他事务将新纪录插入到被保护记录前面的间隙中。
+next-keylock是包含间隙锁+记录锁的，如果一个事务获取了×型的next-keylock，那么另外一个事务
+在获取相同范围的×型的next-keylock时，是会被阻塞的。</p>
+<p><code>参考文档</code></p>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/innodb-locking.html">MySQL数据库官方文档-InnoDB Locking</a></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>MySQL触发器</span>
+  </a>
+</nav>
+
+  </footer><div id="tw-comment"></div>
+
+<script>
+  
+  const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+  const setGiscusTheme = () => {
+    const sendMessage = (message) => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+
+      }
+
+    }
+    sendMessage({ setConfig: { theme: getStoredTheme() } })
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "houjinghao123\/houjinghao123.github.io",
+      "data-repo-id": "R_kgDOMvdtTg",
+      "data-category": "Announcements",
+      "data-category-id": "DIC_kwDOMvdtTs4CiV_q",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": getStoredTheme(),
+      "data-lang": "zh-CN",
+      "data-loading": "lazy",
+      "crossorigin": "anonymous",
+    };
+
+    
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(
+      ([key, value]) => giscusScript.setAttribute(key, value));
+    document.querySelector("#tw-comment").appendChild(giscusScript);
+
+    
+    const themeSwitcher = document.querySelector("#theme-toggle");
+    if (themeSwitcher) {
+      themeSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+    const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+    if (themeFloatSwitcher) {
+      themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+
+  });
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://houjinghao123.github.io/">©2024 phjhq&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"
+  integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj+Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  var OSName = "unknown";
+  var navApp = navigator.userAgent.toLowerCase();
+  switch (true) {
+    case (navApp.indexOf("win") != -1):
+      OSName = "windows";
+      break;
+    case (navApp.indexOf("mac") != -1):
+      OSName = "apple";
+      break;
+    case (navApp.indexOf("linux") != -1):
+      OSName = "linux";
+      break;
+    case (navApp.indexOf("x11") != -1):
+      OSName = "unix";
+      break;
+  }
+
+  const images = Array.from(document.querySelectorAll(".post-content img"));
+  images.forEach(img => {
+    mediumZoom(img, {
+      margin: 1,    
+      scrollOffset: 40,  
+      container: null,  
+      template: null,  
+      
+    });
+  });
+
+  if (OSName == "windows") {
+    document.body.className += ' win11'
+  }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
