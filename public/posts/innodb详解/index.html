@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>InnoDB详解 | phjhq&#39;s Blog</title>
+<meta name="keywords" content="InnoDB">
+<meta name="description" content="1、逻辑存储结构
+
+
+1）表空间
+表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。">
+<meta name="author" content="phjhq">
+<link rel="canonical" href="http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
+<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+  rel="stylesheet">
+
+<script type="text/javascript" async
+  src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: {
+          equationNumbers: { autoNumber: "AMS" },
+          extensions: ["AMSmath.js", "AMSsymbols.js"]
+        }
+      }
+    });
+
+    MathJax.Hub.Queue(function () {
+      
+      
+      
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+<style>
+  code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+  }
+</style><meta property="og:title" content="InnoDB详解" />
+<meta property="og:description" content="1、逻辑存储结构
+
+
+1）表空间
+表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/" />
+<meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-02T18:17:59+08:00" />
+<meta property="article:modified_time" content="2024-10-02T18:17:59+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
+<meta name="twitter:title" content="InnoDB详解"/>
+<meta name="twitter:description" content="1、逻辑存储结构
+
+
+1）表空间
+表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "InnoDB详解",
+      "item": "http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "InnoDB详解",
+  "name": "InnoDB详解",
+  "description": "1、逻辑存储结构 1）表空间\n表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数 据。\n",
+  "keywords": [
+    "InnoDB"
+  ],
+  "articleBody": "1、逻辑存储结构 1）表空间\n表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数 据。\n2）段\n段，分为数据段（Leaf node segment）、索引段（Non-leaf node segment）、回滚段 （Rollback segment），InnoDB是索引组织表，数据段就是B+树的叶子节点， 索引段即为B+树的 非叶子节点。段用来管理多个Extent（区）。\n3） 区\n区，表空间的单元结构，每个区的大小为1M。 默认情况下， InnoDB存储引擎页大小为16K， 即一 个区中一共有64个连续的页。\n4）页\n页，是InnoDB 存储引擎磁盘管理的最小单元，每个页的大小默认为 16KB。为了保证页的连续性， InnoDB 存储引擎每次从磁盘申请 4-5 个区。\n5）行\n行，InnoDB 存储引擎数据是按行进行存放的。在行中，默认有两个隐藏字段：\nTrx_id:每行对某条数据进行改动时，都会把对应的事务id赋值给trx_id隐藏列。 Roll_pointer:每次对某条引记录进行改动时，都会把旧的版本写入到undo日志中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。 2、架构 2.1概述 MySQL5.5 版本开始，默认使用InnoDB存储引擎，它擅长事务处理，具有崩溃恢复特性，在日常开发 中使用非常广泛。下面是InnoDB架构图，左侧为内存结构，右侧为磁盘结构。 2.2内存架构 在左侧的内存结构中，主要分为这么四大块儿： Buffer Pool，Change Buffer,Adaptive Hash Index,Log Buffer。\nBuffer Pool InnoDB存储引擎基于磁盘文件存储，访问物理硬盘是在内存中进行访问，速度相差很大，为了尽可能 弥补这两者之间的I/O效率的差值，就需要把经常使用的数据加载到缓冲池中，避免每次访问都进行磁 盘I/O。\n在InnoDB的缓冲池中不仅缓存了索引页和数据页，还包含了undo页、插入缓存、自适应哈希索引以及 InnoDB的锁信息等等。\n缓冲池 Buffer Pool，是主内存中的一个区域，里面可以缓存磁盘上经常操作的真实数据，在执行增 删改查操作时，先操作缓冲池中的数据（若缓冲池没有数据，则从磁盘加载并缓存），然后再以一定频 率刷新到磁盘，从而减少磁盘IO，加快处理速度。\n缓冲池以Page页为单位，底层采用链表数据结构管理Page。根据状态，将Page分为三种类型：\nfree page:空闲page，未被使用 clean page：被使用page，数据没有被修改过。 dirty page：脏页，被使用page，数据被修改过，内存中的数据与磁盘的数据产生了不一致。 在专用服务器上，通常将多达80％的物理内存分配给缓冲池 。参数设置：\n1show variables like 'innodb_buffer_pool_size'; Change Buffer Change Buffer，更改缓冲区（针对于非唯一二级索引页），在执行DML语句时，如果这些数据Page 没有在Buffer Pool中，不会直接操作磁盘，而会将数据变更存在更改缓冲区 Change Buffer 中，在未来数据被读取时，再将数据合并恢复到Buffer Pool中，再将合并后的数据刷新到磁盘中。\nChange Buffer的意义是什么呢?\n与聚集索引不同，二级索引通常是非唯一的，并且以相对随机的顺序插入二级索引。同样，删除和更新 可能会影响索引树中不相邻的二级索引页，如果每一次都操作磁盘，会造成大量的磁盘IO。有了 ChangeBuffer之后，我们可以在缓冲池中进行合并处理，减少磁盘IO。\nAdaptive Hash Index 自适应hash索引，用于优化对Buffer Pool数据的查询。MySQL的innoDB引擎中虽然没有直接支持 hash索引，但是给我们提供了一个功能就是这个自适应hash索引。因为前面我们讲到过，hash索引在 进行等值匹配时，一般性能是要高于B+树的，因为hash索引一般只需要一次IO即可，而B+树，可能需 要几次匹配，所以hash索引的效率要高，但是hash索引又不适合做范围查询、模糊匹配等。 InnoDB存储引擎会监控对表上各索引页的查询，如果观察到在特定的条件下hash索引可以提升速度， 则建立hash索引，称之为自适应hash索引。\n自适应哈希索引，无需人工干预，是系统根据情况自动完成。\n参数： adaptive_hash_index\nLog Buffer Log Buffer：日志缓冲区，用来保存要写入到磁盘中的log日志数据（redo log 、undo log）， 默认大小为 16MB，日志缓冲区的日志会定期刷新到磁盘中。如果需要更新、插入或删除许多行的事 务，增加日志缓冲区的大小可以节省磁盘 I/O。\n参数：\ninnodb_log_buffer_size：缓冲区大小\ninnodb_flush_log_at_trx_commit：日志刷新到磁盘时机，取值主要包含以下三个：\n1: 日志在每次事务提交时写入并刷新到磁盘，默认值。\n0: 每秒将日志写入并刷新到磁盘一次。\n2: 日志在每次事务提交后写入，并每秒刷新到磁盘一次。\n2.3磁盘结构 接下来，再来看看InnoDB体系结构的右边部分，也就是磁盘结构：\nSystem Tablespace 系统表空间是更改缓冲区的存储区域。如果表是在系统表空间而不是每个表文件或通用表空间中创建 的，它也可能包含表和索引数据。(在MySQL5.x版本中还包含InnoDB数据字典、undolog等)\n参数：innodb_data_file_path\n系统表空间，默认的文件名叫 ibdata1。\nFile-Per-Table Tablespaces 如果开启了innodb_file_per_table开关 ，则每个表的文件表空间包含单个InnoDB表的数据和索 引 ，并存储在文件系统上的单个数据文件中。\n开关参数：innodb_file_per_table ，该参数默认开启。\nGeneral Tablespaces General Tablespaces允许用户将多个表的数据存储在一个共享的表空间文件中。这种方式有以下一些用途和优势：\n1.如果有很多小表，使用共享表空间可以帮助减少磁盘上的文件数量，使得文件管理更加简单。\n2.当需要将多个表的数据放在同一个物理设备上时，可以使用共享表空间来实现这一需求。\n3.在某些情况下，通过将频繁访问的表放在同一个高速存储设备上的共享表空间中，可以提高访问速度。 如果整个应用的多个表都需要一起备份或恢复，共享表空间可以简化这一过程。\nA. 创建表空间\n1create tablespace ts_name add datafile 'file_name' enginie =engine_name; B. 创建表时指定表空间\n1CREATE TABLE xxx ... TABLESPACE ts_name; Undo Tablespaces 撤销表空间，MySQL实例在初始化时会自动创建两个默认的undo表空间（初始大小16M），用于存储 undo log日志。\nTemporary Tablespaces InnoDB 使用会话临时表空间和全局临时表空间。存储用户创建的临时表等数据。\nDoublewrite Buffer Files 双写缓冲区，innoDB引擎将数据页从Buffer Pool刷新到磁盘前，先将数据页写入双写缓冲区文件 中，便于系统异常时恢复数据。\nRedo Log 重做日志，是用来实现事务的持久性。该日志文件由两部分组成：重做日志缓冲（redo log buffer）以及重做日志文件（redo log）,前者是在内存中，后者在磁盘中。当事务提交之后会把所 有修改信息都会存到该日志中, 用于在刷新脏页到磁盘时,发生错误时, 进行数据恢复使用。\n2.4后台线程 前面我们介绍了InnoDB的内存结构，以及磁盘结构，那么内存中我们所更新的数据，又是如何到磁盘 中的呢？ 此时，就涉及到一组后台线程，接下来，就来介绍一些InnoDB中涉及到的后台线程。\n在InnoDB的后台线程中，分为4类，分别是：Master Thread 、IO Thread、Purge Thread、 Page Cleaner Thread。\nMaster Thread 核心后台线程，负责调度其他线程，还负责将缓冲池中的数据异步刷新到磁盘中, 保持数据的一致性， 还包括脏页的刷新、合并插入缓存、undo页的回收 。\nIO Thread 在InnoDB存储引擎中大量使用了AIO来处理IO请求, 这样可以极大地提高数据库的性能，而IO Thread主要负责这些IO请求的回调。\n线程类型 默认个数 职责 Read thread 4 负责读操作 Write thread 4 负责写操作 Log thread 1 负责将日志缓冲区刷新到磁盘 Insert buffer thread 1 负责将写缓冲区内容刷新到磁盘 1show engine innodb status \\G; Purge Thread 主要用于回收事务已经提交了的undo log，在事务提交之后，undo log可能不用了，就用它来回收。\nPage Cleaner Thread 协助 Master Thread 刷新脏页到磁盘的线程，它可以减轻 Master Thread 的工作压力，减少阻塞。\n3、事务原理 3.1事务基础 什么是事务 事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系 统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。\n特性 原子性（Atomicity）： 事务是不可分割的最小操作单元，要么全部成功，要么全部失败。 一致性（Consistency）： 事务完成时，必须使所有的数据都保持一致状态。 隔离性（Isolation）： 数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环 境下运行。 持久性（Durabiity）： 事务一旦提交或回滚，它对数据库中的数据的改变就是永久的。 而对于这四大特性，实际上分为两个部分。 其中的原子性、一致性、持久化，实际上是由InnoDB中的 两份日志来保证的，一份是redo log日志，一份是undo log日志。 而持久性是通过数据库的锁， 加上MVCC来保证的。 3.2redo log(发生错误时, 进行数据恢复使用) 重做日志，记录的是事务提交时数据页的物理修改，是用来实现事务的持久性。\n该日志文件由两部分组成：重做日志缓冲（redo log buffer）以及重做日志文件（redo log file）,前者是在内存中，后者在磁盘中。当事务提交之后会把所有修改信息都存到该日志文件中, 用 于在刷新脏页到磁盘,发生错误时, 进行数据恢复使用。\n**没有redo log的情况下 **\n数据先是在缓冲池中进行增删改查等操作，如果没有就会到磁盘中进行操作，如果在缓冲池中能直接找到就直接在内存中进行修改，此时缓冲池中的数据页就是脏页，这些脏页也会在特定的时机刷新到磁盘中， 假如刷新到磁盘的过程出错了，而提示给用户事务提交成功，而数据却 没有持久化下来，这就出现问题了，没有保证事务的持久性。\n在InnoDB中提供了一份日志 redo log\n有了redolog之后，当对缓冲区的数据进行增删改之后，会首先将操作的数据页的变化，记录在redo log buffer中。在事务提交时，会将redo log buffer中的数据刷新到redo log磁盘文件中。 过一段时间之后，如果刷新缓冲区的脏页到磁盘时，发生错误，此时就可以借助于redo log进行数据恢复，这样就保证了事务的持久性。 而如果脏页成功刷新到磁盘或者涉及到的数据已经落盘，此时redolog就没有作用了，就可以删除了，所以存在的两个redolog文件是循环写的。\n那为什么每一次提交事务，要刷新redo log 到磁盘中呢，而不是直接将buffer pool中的脏页刷新 到磁盘呢 ?\n因为在业务操作中，我们操作数据一般都是 随机读写磁盘的，而不是 顺序读写磁盘。 而redo log在 往磁盘文件中写入数据，由于是日志文件，所以都是顺序写的。顺序写的效率，要远大于随机写。 这 种先写日志的方式，称之为 WAL（Write-Ahead Logging）。\n3.3undo log(事务回滚时使用+MVCC) 回滚日志，用于记录数据被修改前的信息 , 作用包含两个 : 提供回滚(保证事务的原子性) 和 MVCC(多版本并发控制) 。\nUndo log销毁：undo log在事务执行时产生，事务提交时，并不会立即删除undo log，因为这些 日志可能还用于MVCC。 Undo log存储：undo log采用段的方式进行管理和记录，存放在前面介绍的 rollback segment 回滚段中，内部包含1024个undo log segment。 3.4MVCC 3.4.1什么是MVCC 全称 Multi-Version Concurrency Control，多版本并发控制。指维护一个数据的多个版本， 使得读写操作没有冲突，快照读为MySQL实现MVCC提供了一个非阻塞读功能。MVCC的具体实现，还需要依赖于数据库记录中的三个隐式字段、undo log日志、readView。\n3.4.2MVCC相关概念 当前读\n读取的是记录的最新版本，读取时还要保证其他并发事务不能修改当前记录，会对读取的记录进行加锁。使用排他锁和共享锁就是一种当前锁。\n在测试中我们可以看到，即使是在默认的RR隔离级别下，事务A中依然可以读取到事务B最新提交的内 容，因为在查询语句后面加上了 lock in share mode 共享锁，此时是当前读操作。当然，当我们 加排他锁的时候，也是当前读操作。\n快照读 简单的select（不加锁）就是快照读，快照读，读取的是记录数据的可见版本，有可能是历史数据， 不加锁，是非阻塞读。\n• Read Committed：每次select，都生成一个快照读。\n• Repeatable Read：开启事务后第一个select语句才是快照读的地方。\n• Serializable：快照读会退化为当前读。\n3.4.3MVCC的组成之隐藏字段 当我们创建了一张表时，我们在查看表结构的时候，就可以显式的看到自己定义的字段。 实际上除了自己定义的字段以外，InnoDB还会自动的给我们添加三个隐藏字段及其含义分别是：\n隐藏字段 含义 DB_TRX_ID 最近修改事务ID，记录插入这条记录或最后一次修改该记录的事务ID。 DB_ROLL_PTR 回滚指针，指向这条记录的上一个版本，用于配合undo log，指向上一个版 本。 DB_ROW_ID 隐藏主键，如果表结构没有指定主键，将会生成该隐藏字段。 而上述的前两个字段是肯定会添加的， 是否添加最后一个字段DB_ROW_ID，得看当前表有没有主键， 如果有主键，则不会添加该隐藏字段。\n3.4.4MVCC的组成之undo log 介绍 回滚日志，在insert、update、delete的时候产生的便于数据回滚的日志。 当insert的时候，产生的undo log日志只在回滚时需要，在事务提交后，可被立即删除。 而update、delete的时候，产生的undo log日志不仅在回滚时需要，在快照读时也需要，不会立即 被删除。\n版本链 有一张表原始数据为：\nDB_TRX_ID : 代表最近修改事务ID，记录插入这条记录或最后一次修改该记录的事务ID，是自增的。 DB_ROLL_PTR ： 由于这条数据是才插入的，没有被更新过，所以该字段值为null。\n然后，有四个并发事务同时在访问这张表。\n上面的四个事务总共进行了三次修改，所以在undo log就记录了三条数据。\n最终我们发现，不同事务或相同事务对同一条记录进行修改，会导致该记录的undolog生成一条 记录版本链表，链表的头部是最新的旧记录，链表尾部是最早的旧记录。\n3.4.5MVCC的组成之ReadView ReadView（读视图）是 快照读 SQL执行时MVCC提取数据的依据，记录并维护系统当前活跃的事务 （未提交的）id。\nReadView中包含了四个核心字段：\n字段 含义 m_ids 当前活跃的事务ID集合 min_trx_id 最小活跃事务ID max_trx_id 预分配事务ID，当前最大事务ID+1（因为事务ID是自增的） creator_trx_id ReadView创建者的事务ID 而在readview中就规定了 版本链数据的访问规则： trx_id 代表当前undolog版本链对应事务ID\n条件 是否可以访问 说明 trx_id == creator_trx_id 可以访问该版本 成立，说明数据是当前这个事 务更改的。 trx_id \u003c min_trx_id 可以访问该版本 成立，说明数据已经提交了。 trx_id \u003e max_trx_id 不可以访问该版本 成立，说明该事务是在 ReadView生成后才开启 。 min_trx_id \u003c= trx_id \u003c=max_trx_id 如果trx_id不在m_ids中， 是可以访问该版本的 成立，说明数据已经提交 不同的隔离级别，生成ReadView的时机不同：\nREAD COMMITTED ：在事务中每一次执行快照读时生成ReadView。 REPEATABLE READ：仅在事务中第一次执行快照读时生成ReadView，后续复用该ReadView。 ReadView不同隔离级别分析 RC隔离级别 RC隔离级别下，在事务中每一次执行快照读时生成ReadView。\n我们就来分析事务5中，两次快照读读取数据，是如何获取数据的?\n在事务5中，查询了两次id为30的记录，由于隔离级别为Read Committed，所以每一次进行快照读 都会生成一个ReadView，那么两次生成的ReadView如下。\n那么这两次快照读在获取数据时，就需要根据所生成的ReadView以及ReadView的版本链访问规则， 到undolog版本链中匹配数据，最终决定此次快照读返回的数据。\n先来看第一次快照读具体的读取过程：\n在进行匹配时，会从undo log的版本链，从上到下进行挨个匹配：\nRR隔离级别 RR隔离级别下，仅在事务中第一次执行快照读时生成ReadView，后续复用该ReadView。 而RR 是可 重复读，在一个事务中，执行两次相同的select语句，查询到的结果是一样的。\n",
+  "wordCount" : "6574",
+  "inLanguage": "zh",
+  "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-10-02T18:17:59+08:00",
+  "dateModified": "2024-10-02T18:17:59+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "phjhq"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "phjhq's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/" title="首页">
+                    <span>首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/categories/" title="分类">
+                    <span>分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="关于">
+                    <span>关于</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      InnoDB详解
+    </h1>
+    <div class="post-meta"><span title='2024-10-02 18:17:59 +0800 CST'>2024-10-02</span>&nbsp;·&nbsp;14 分钟&nbsp;·&nbsp;phjhq
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1%e9%80%bb%e8%be%91%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84" aria-label="1、逻辑存储结构">1、逻辑存储结构</a></li>
+                <li>
+                    <a href="#2%e6%9e%b6%e6%9e%84" aria-label="2、架构">2、架构</a><ul>
+                        
+                <li>
+                    <a href="#21%e6%a6%82%e8%bf%b0" aria-label="2.1概述">2.1概述</a></li>
+                <li>
+                    <a href="#22%e5%86%85%e5%ad%98%e6%9e%b6%e6%9e%84" aria-label="2.2内存架构">2.2内存架构</a><ul>
+                        
+                <li>
+                    <a href="#buffer-pool" aria-label="Buffer Pool">Buffer Pool</a></li>
+                <li>
+                    <a href="#change-buffer" aria-label="Change Buffer">Change Buffer</a></li>
+                <li>
+                    <a href="#adaptive-hash-index" aria-label="Adaptive Hash Index">Adaptive Hash Index</a></li>
+                <li>
+                    <a href="#log-buffer" aria-label="Log Buffer">Log Buffer</a></li></ul>
+                </li>
+                <li>
+                    <a href="#23%e7%a3%81%e7%9b%98%e7%bb%93%e6%9e%84" aria-label="2.3磁盘结构">2.3磁盘结构</a><ul>
+                        
+                <li>
+                    <a href="#system-tablespace" aria-label="System Tablespace">System Tablespace</a></li>
+                <li>
+                    <a href="#file-per-table-tablespaces" aria-label="File-Per-Table Tablespaces">File-Per-Table Tablespaces</a></li>
+                <li>
+                    <a href="#general-tablespaces" aria-label="General Tablespaces">General Tablespaces</a></li>
+                <li>
+                    <a href="#undo-tablespaces" aria-label="Undo Tablespaces">Undo Tablespaces</a></li>
+                <li>
+                    <a href="#temporary-tablespaces" aria-label="Temporary Tablespaces">Temporary Tablespaces</a></li>
+                <li>
+                    <a href="#doublewrite-buffer-files" aria-label="Doublewrite Buffer Files">Doublewrite Buffer Files</a></li>
+                <li>
+                    <a href="#redo-log" aria-label="Redo Log">Redo Log</a></li></ul>
+                </li>
+                <li>
+                    <a href="#24%e5%90%8e%e5%8f%b0%e7%ba%bf%e7%a8%8b" aria-label="2.4后台线程">2.4后台线程</a><ul>
+                        
+                <li>
+                    <a href="#master-thread" aria-label="Master Thread">Master Thread</a></li>
+                <li>
+                    <a href="#io-thread" aria-label="IO Thread">IO Thread</a></li>
+                <li>
+                    <a href="#purge-thread" aria-label="Purge Thread">Purge Thread</a></li>
+                <li>
+                    <a href="#page-cleaner-thread" aria-label="Page Cleaner Thread">Page Cleaner Thread</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#3%e4%ba%8b%e5%8a%a1%e5%8e%9f%e7%90%86" aria-label="3、事务原理">3、事务原理</a><ul>
+                        
+                <li>
+                    <a href="#31%e4%ba%8b%e5%8a%a1%e5%9f%ba%e7%a1%80" aria-label="3.1事务基础">3.1事务基础</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%80%e4%b9%88%e6%98%af%e4%ba%8b%e5%8a%a1" aria-label="什么是事务">什么是事务</a></li>
+                <li>
+                    <a href="#%e7%89%b9%e6%80%a7" aria-label="特性">特性</a></li></ul>
+                </li>
+                <li>
+                    <a href="#32redo-log%e5%8f%91%e7%94%9f%e9%94%99%e8%af%af%e6%97%b6-%e8%bf%9b%e8%a1%8c%e6%95%b0%e6%8d%ae%e6%81%a2%e5%a4%8d%e4%bd%bf%e7%94%a8" aria-label="3.2redo log(发生错误时, 进行数据恢复使用)">3.2redo log(发生错误时, 进行数据恢复使用)</a></li>
+                <li>
+                    <a href="#33undo-log%e4%ba%8b%e5%8a%a1%e5%9b%9e%e6%bb%9a%e6%97%b6%e4%bd%bf%e7%94%a8mvcc" aria-label="3.3undo log(事务回滚时使用&#43;MVCC)">3.3undo log(事务回滚时使用+MVCC)</a></li>
+                <li>
+                    <a href="#34mvcc" aria-label="3.4MVCC">3.4MVCC</a><ul>
+                        
+                <li>
+                    <a href="#341%e4%bb%80%e4%b9%88%e6%98%afmvcc" aria-label="3.4.1什么是MVCC">3.4.1什么是MVCC</a></li>
+                <li>
+                    <a href="#342mvcc%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5" aria-label="3.4.2MVCC相关概念">3.4.2MVCC相关概念</a></li>
+                <li>
+                    <a href="#343mvcc%e7%9a%84%e7%bb%84%e6%88%90%e4%b9%8b%e9%9a%90%e8%97%8f%e5%ad%97%e6%ae%b5" aria-label="3.4.3MVCC的组成之隐藏字段">3.4.3MVCC的组成之隐藏字段</a></li>
+                <li>
+                    <a href="#344mvcc%e7%9a%84%e7%bb%84%e6%88%90%e4%b9%8bundo-log" aria-label="3.4.4MVCC的组成之undo log">3.4.4MVCC的组成之undo log</a></li>
+                <li>
+                    <a href="#345mvcc%e7%9a%84%e7%bb%84%e6%88%90%e4%b9%8breadview" aria-label="3.4.5MVCC的组成之ReadView">3.4.5MVCC的组成之ReadView</a></li>
+                <li>
+                    <a href="#readview%e4%b8%8d%e5%90%8c%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab%e5%88%86%e6%9e%90" aria-label="ReadView不同隔离级别分析">ReadView不同隔离级别分析</a><ul>
+                        
+                <li>
+                    <a href="#rc%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" aria-label="RC隔离级别">RC隔离级别</a></li>
+                <li>
+                    <a href="#rr%e9%9a%94%e7%a6%bb%e7%ba%a7%e5%88%ab" aria-label="RR隔离级别">RR隔离级别</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="1逻辑存储结构">1、逻辑存储结构<a hidden class="anchor" aria-hidden="true" href="#1逻辑存储结构">#</a></h2>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727766135694-2cc9063a-a21b-45b9-ad26-34c9691c6f26.png" alt=""  />
+</p>
+<p>1）表空间</p>
+<p>表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727766324137-3f22afbd-feee-4b63-b39e-df1f36ff9286.png" alt=""  />
+</p>
+<p>2）段</p>
+<p>段，分为数据段（Leaf node segment）、索引段（Non-leaf node segment）、回滚段 （Rollback segment），InnoDB是索引组织表，数据段就是B+树的叶子节点， 索引段即为B+树的 非叶子节点。段用来管理多个Extent（区）。</p>
+<p>3） 区</p>
+<p>区，表空间的单元结构，每个区的大小为1M。 默认情况下， InnoDB存储引擎页大小为16K， 即一 个区中一共有64个连续的页。</p>
+<p>4）页</p>
+<p>页，是InnoDB 存储引擎磁盘管理的最小单元，每个页的大小默认为 16KB。为了保证页的连续性， InnoDB 存储引擎每次从磁盘申请 4-5 个区。</p>
+<p>5）行</p>
+<p>行，InnoDB 存储引擎数据是按行进行存放的。在行中，默认有两个隐藏字段：</p>
+<ul>
+<li>Trx_id:每行对某条数据进行改动时，都会把对应的事务id赋值给trx_id隐藏列。</li>
+<li>Roll_pointer:每次对某条引记录进行改动时，都会把旧的版本写入到undo日志中，然后这个隐藏列就相当于一个指针，可以通过它来找到该记录修改前的信息。</li>
+</ul>
+<h2 id="2架构">2、架构<a hidden class="anchor" aria-hidden="true" href="#2架构">#</a></h2>
+<h3 id="21概述">2.1概述<a hidden class="anchor" aria-hidden="true" href="#21概述">#</a></h3>
+<p>MySQL5.5 版本开始，默认使用InnoDB存储引擎，它擅长事务处理，具有崩溃恢复特性，在日常开发 中使用非常广泛。下面是InnoDB架构图，左侧为内存结构，右侧为磁盘结构。  <img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727766719433-86e21b73-518b-4a79-a14f-26582b17a504.png" alt=""  />
+</p>
+<h3 id="22内存架构">2.2内存架构<a hidden class="anchor" aria-hidden="true" href="#22内存架构">#</a></h3>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727776209436-78edcc3c-ce80-44b0-ae73-ac7604571602.png" alt=""  />
+</p>
+<p>在左侧的内存结构中，主要分为这么四大块儿：  Buffer Pool，Change Buffer,Adaptive Hash Index,Log Buffer。</p>
+<h4 id="buffer-pool">Buffer Pool<a hidden class="anchor" aria-hidden="true" href="#buffer-pool">#</a></h4>
+<p>InnoDB存储引擎基于磁盘文件存储，访问物理硬盘是在内存中进行访问，速度相差很大，为了尽可能 弥补这两者之间的I/O效率的差值，就需要把经常使用的数据加载到缓冲池中，避免每次访问都进行磁 盘I/O。</p>
+<p>在InnoDB的缓冲池中不仅缓存了索引页和数据页，还包含了undo页、插入缓存、自适应哈希索引以及 InnoDB的锁信息等等。</p>
+<p>缓冲池 Buffer Pool，是主内存中的一个区域，里面可以缓存磁盘上经常操作的真实数据，在执行增 删改查操作时，先操作缓冲池中的数据（若缓冲池没有数据，则从磁盘加载并缓存），然后再以一定频 率刷新到磁盘，从而减少磁盘IO，加快处理速度。</p>
+<p>缓冲池以Page页为单位，底层采用链表数据结构管理Page。根据状态，将Page分为三种类型：</p>
+<ul>
+<li>free page:空闲page，未被使用</li>
+<li>clean page：被使用page，数据没有被修改过。</li>
+<li>dirty page：脏页，被使用page，数据被修改过，内存中的数据与磁盘的数据产生了不一致。</li>
+</ul>
+<p>在专用服务器上，通常将多达80％的物理内存分配给缓冲池 。参数设置：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;innodb_buffer_pool_size&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727776772359-555b5b5c-2497-4703-93b7-92e3f33215cb.png" alt=""  />
+</p>
+<hr>
+<h4 id="change-buffer">Change Buffer<a hidden class="anchor" aria-hidden="true" href="#change-buffer">#</a></h4>
+<p>Change Buffer，更改缓冲区（针对于非唯一二级索引页），在执行DML语句时，如果这些数据Page 没有在Buffer Pool中，不会直接操作磁盘，而会将数据变更存在更改缓冲区 Change Buffer 中，在未来数据被读取时，再将数据合并恢复到Buffer Pool中，再将合并后的数据刷新到磁盘中。</p>
+<p>Change Buffer的意义是什么呢?</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727777017493-48aa0270-8f12-4a15-b72a-56f10efa2a48.png" alt=""  />
+</p>
+<p>与聚集索引不同，二级索引通常是非唯一的，并且以相对随机的顺序插入二级索引。同样，删除和更新 可能会影响索引树中不相邻的二级索引页，如果每一次都操作磁盘，会造成大量的磁盘IO。有了 ChangeBuffer之后，我们可以在缓冲池中进行合并处理，减少磁盘IO。</p>
+<h4 id="adaptive-hash-index">Adaptive Hash Index<a hidden class="anchor" aria-hidden="true" href="#adaptive-hash-index">#</a></h4>
+<p>自适应hash索引，用于优化对Buffer Pool数据的查询。MySQL的innoDB引擎中虽然没有直接支持 hash索引，但是给我们提供了一个功能就是这个自适应hash索引。因为前面我们讲到过，hash索引在 进行等值匹配时，一般性能是要高于B+树的，因为hash索引一般只需要一次IO即可，而B+树，可能需 要几次匹配，所以hash索引的效率要高，但是hash索引又不适合做范围查询、模糊匹配等。 InnoDB存储引擎会监控对表上各索引页的查询，如果观察到在特定的条件下hash索引可以提升速度， 则建立hash索引，称之为自适应hash索引。</p>
+<p><strong>自适应哈希索引，无需人工干预，是系统根据情况自动完成。</strong></p>
+<p>参数： adaptive_hash_index</p>
+<h4 id="log-buffer">Log Buffer<a hidden class="anchor" aria-hidden="true" href="#log-buffer">#</a></h4>
+<p>Log Buffer：日志缓冲区，用来保存要写入到磁盘中的log日志数据（redo log 、undo log）， 默认大小为 16MB，日志缓冲区的日志会定期刷新到磁盘中。如果需要更新、插入或删除许多行的事 务，增加日志缓冲区的大小可以节省磁盘 I/O。</p>
+<p>参数：</p>
+<p>innodb_log_buffer_size：缓冲区大小</p>
+<p>innodb_flush_log_at_trx_commit：日志刷新到磁盘时机，取值主要包含以下三个：</p>
+<p>1: 日志在每次事务提交时写入并刷新到磁盘，默认值。</p>
+<p>0: 每秒将日志写入并刷新到磁盘一次。</p>
+<p>2: 日志在每次事务提交后写入，并每秒刷新到磁盘一次。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727777756184-1982c62d-8288-4d9c-9bb2-e8e769c0f0d7.png" alt=""  />
+</p>
+<h3 id="23磁盘结构">2.3磁盘结构<a hidden class="anchor" aria-hidden="true" href="#23磁盘结构">#</a></h3>
+<p>接下来，再来看看InnoDB体系结构的右边部分，也就是磁盘结构：</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727777944227-af8f02e8-16b9-4c00-a0f3-79a91aec7667.png" alt=""  />
+</p>
+<h4 id="system-tablespace">System Tablespace<a hidden class="anchor" aria-hidden="true" href="#system-tablespace">#</a></h4>
+<p>系统表空间是更改缓冲区的存储区域。如果表是在系统表空间而不是每个表文件或通用表空间中创建 的，它也可能包含表和索引数据。(在MySQL5.x版本中还包含InnoDB数据字典、undolog等)</p>
+<p>参数：innodb_data_file_path</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727778251171-7f547908-f89b-44ba-922b-a60f7294707e.png" alt=""  />
+</p>
+<p>系统表空间，默认的文件名叫 ibdata1。</p>
+<h4 id="file-per-table-tablespaces">File-Per-Table Tablespaces<a hidden class="anchor" aria-hidden="true" href="#file-per-table-tablespaces">#</a></h4>
+<p>如果开启了innodb_file_per_table开关 ，则每个表的文件表空间包含单个InnoDB表的数据和索 引 ，并存储在文件系统上的单个数据文件中。</p>
+<p>开关参数：innodb_file_per_table ，该参数默认开启。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727778346938-d2682771-abd6-4317-be93-eae443491bda.png" alt=""  />
+</p>
+<h4 id="general-tablespaces">General Tablespaces<a hidden class="anchor" aria-hidden="true" href="#general-tablespaces">#</a></h4>
+<p>General Tablespaces允许用户将多个表的数据存储在一个共享的表空间文件中。这种方式有以下一些用途和优势：</p>
+<p>1.如果有很多小表，使用共享表空间可以帮助减少磁盘上的文件数量，使得文件管理更加简单。</p>
+<p>2.当需要将多个表的数据放在同一个物理设备上时，可以使用共享表空间来实现这一需求。</p>
+<p>3.在某些情况下，通过将频繁访问的表放在同一个高速存储设备上的共享表空间中，可以提高访问速度。
+如果整个应用的多个表都需要一起备份或恢复，共享表空间可以简化这一过程。</p>
+<p>A. 创建表空间</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="n">tablespace</span><span class="w"> </span><span class="n">ts_name</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">datafile</span><span class="w"> </span><span class="s1">&#39;file_name&#39;</span><span class="w"> </span><span class="n">enginie</span><span class="w"> </span><span class="o">=</span><span class="n">engine_name</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727778573996-ef829332-f594-4ba3-b952-6b560c82075e.png" alt=""  />
+</p>
+<p>B. 创建表时指定表空间</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">xxx</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="n">TABLESPACE</span><span class="w"> </span><span class="n">ts_name</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727778713471-28b0b393-0466-4e2a-957f-408b3eb381c9.png" alt=""  />
+</p>
+<h4 id="undo-tablespaces">Undo Tablespaces<a hidden class="anchor" aria-hidden="true" href="#undo-tablespaces">#</a></h4>
+<p>撤销表空间，MySQL实例在初始化时会自动创建两个默认的undo表空间（初始大小16M），用于存储 undo log日志。</p>
+<h4 id="temporary-tablespaces">Temporary Tablespaces<a hidden class="anchor" aria-hidden="true" href="#temporary-tablespaces">#</a></h4>
+<p>InnoDB 使用会话临时表空间和全局临时表空间。存储用户创建的临时表等数据。</p>
+<h4 id="doublewrite-buffer-files">Doublewrite Buffer Files<a hidden class="anchor" aria-hidden="true" href="#doublewrite-buffer-files">#</a></h4>
+<p>双写缓冲区，innoDB引擎将数据页从Buffer Pool刷新到磁盘前，先将数据页写入双写缓冲区文件 中，便于系统异常时恢复数据。</p>
+<h4 id="redo-log">Redo Log<a hidden class="anchor" aria-hidden="true" href="#redo-log">#</a></h4>
+<p>重做日志，是用来实现事务的持久性。该日志文件由两部分组成：重做日志缓冲（redo log buffer）以及重做日志文件（redo log）,前者是在内存中，后者在磁盘中。当事务提交之后会把所 有修改信息都会存到该日志中, 用于在刷新脏页到磁盘时,发生错误时, 进行数据恢复使用。</p>
+<h3 id="24后台线程">2.4后台线程<a hidden class="anchor" aria-hidden="true" href="#24后台线程">#</a></h3>
+<p>前面我们介绍了InnoDB的内存结构，以及磁盘结构，那么内存中我们所更新的数据，又是如何到磁盘 中的呢？ 此时，就涉及到一组后台线程，接下来，就来介绍一些InnoDB中涉及到的后台线程。</p>
+<p>在InnoDB的后台线程中，分为4类，分别是：Master Thread 、IO Thread、Purge Thread、 Page Cleaner Thread。</p>
+<h4 id="master-thread">Master Thread<a hidden class="anchor" aria-hidden="true" href="#master-thread">#</a></h4>
+<p>核心后台线程，负责调度其他线程，还负责将缓冲池中的数据异步刷新到磁盘中, 保持数据的一致性， 还包括脏页的刷新、合并插入缓存、undo页的回收 。</p>
+<h4 id="io-thread">IO Thread<a hidden class="anchor" aria-hidden="true" href="#io-thread">#</a></h4>
+<p>在InnoDB存储引擎中大量使用了AIO来处理IO请求, 这样可以极大地提高数据库的性能，而IO Thread主要负责这些IO请求的回调。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">线程类型</th>
+          <th style="text-align: left">默认个数</th>
+          <th style="text-align: left">职责</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Read thread</td>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">负责读操作</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Write thread</td>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">负责写操作</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Log thread</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">负责将日志缓冲区刷新到磁盘</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Insert buffer thread</td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">负责将写缓冲区内容刷新到磁盘</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="n">innodb</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="err">\</span><span class="k">G</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727779549695-0cb9d842-e7e0-4126-9413-e2f60fed5b61.png" alt=""  />
+</p>
+<h4 id="purge-thread">Purge Thread<a hidden class="anchor" aria-hidden="true" href="#purge-thread">#</a></h4>
+<p>主要用于回收事务已经提交了的undo log，在事务提交之后，undo log可能不用了，就用它来回收。</p>
+<h4 id="page-cleaner-thread">Page Cleaner Thread<a hidden class="anchor" aria-hidden="true" href="#page-cleaner-thread">#</a></h4>
+<p>协助 Master Thread 刷新脏页到磁盘的线程，它可以减轻 Master Thread 的工作压力，减少阻塞。</p>
+<h2 id="3事务原理">3、事务原理<a hidden class="anchor" aria-hidden="true" href="#3事务原理">#</a></h2>
+<h3 id="31事务基础">3.1事务基础<a hidden class="anchor" aria-hidden="true" href="#31事务基础">#</a></h3>
+<h4 id="什么是事务">什么是事务<a hidden class="anchor" aria-hidden="true" href="#什么是事务">#</a></h4>
+<p>事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系 统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。</p>
+<h4 id="特性">特性<a hidden class="anchor" aria-hidden="true" href="#特性">#</a></h4>
+<ul>
+<li>原子性（Atomicity）： 事务是不可分割的最小操作单元，要么全部成功，要么全部失败。</li>
+<li>一致性（Consistency）： 事务完成时，必须使所有的数据都保持一致状态。</li>
+<li>隔离性（Isolation）： 数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环 境下运行。</li>
+<li>持久性（Durabiity）：  事务一旦提交或回滚，它对数据库中的数据的改变就是永久的。</li>
+</ul>
+<p>而对于这四大特性，实际上分为两个部分。 其中的原子性、一致性、持久化，实际上是由InnoDB中的 两份日志来保证的，一份是redo log日志，一份是undo log日志。 而持久性是通过数据库的锁， 加上MVCC来保证的。  <img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727779914377-7cf8df0f-ca5e-48dd-afd9-d9afcd236d64.png" alt=""  />
+</p>
+<h3 id="32redo-log发生错误时-进行数据恢复使用">3.2redo log(发生错误时, 进行数据恢复使用)<a hidden class="anchor" aria-hidden="true" href="#32redo-log发生错误时-进行数据恢复使用">#</a></h3>
+<p>重做日志，记录的是事务提交时数据页的物理修改，是用来实现事务的持久性。</p>
+<p>该日志文件由两部分组成：重做日志缓冲（redo log buffer）以及重做日志文件（redo log file）,前者是在内存中，后者在磁盘中。当事务提交之后会把所有修改信息都存到该日志文件中, 用 于在刷新脏页到磁盘,发生错误时, 进行数据恢复使用。</p>
+<p>**没有redo log的情况下 **</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727860544274-cd3ebbb1-c636-4fca-9a79-69e0dfc1c2d7.png" alt=""  />
+</p>
+<p>数据先是在缓冲池中进行增删改查等操作，如果没有就会到磁盘中进行操作，如果在缓冲池中能直接找到就直接在内存中进行修改，此时缓冲池中的数据页就是脏页，这些脏页也会在特定的时机刷新到磁盘中， 假如刷新到磁盘的过程出错了，而提示给用户事务提交成功，而数据却 没有持久化下来，这就出现问题了，没有保证事务的持久性。</p>
+<p><strong>在InnoDB中提供了一份日志 redo log</strong></p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727860900331-460b659d-f5a0-4b0d-a16a-1bd498b5025f.png" alt=""  />
+</p>
+<p>有了redolog之后，当对缓冲区的数据进行增删改之后，会首先将操作的数据页的变化，记录在redo log buffer中。在事务提交时，会将redo log buffer中的数据刷新到redo log磁盘文件中。 过一段时间之后，如果刷新缓冲区的脏页到磁盘时，发生错误，此时就可以借助于redo log进行数据恢复，这样就保证了事务的持久性。 而如果脏页成功刷新到磁盘或者涉及到的数据已经落盘，此时redolog就没有作用了，就可以删除了，所以存在的两个redolog文件是循环写的。</p>
+<p>那为什么每一次提交事务，要刷新redo log 到磁盘中呢，而不是直接将buffer pool中的脏页刷新 到磁盘呢 ?</p>
+<p>因为在业务操作中，我们操作数据一般都是 <code>随机读写磁盘</code>的，而不是 <code>顺序读写磁盘</code>。 而redo log在 往磁盘文件中写入数据，由于是日志文件，所以都是顺序写的。顺序写的效率，要远大于随机写。 这 种先写日志的方式，称之为 WAL（Write-Ahead Logging）。</p>
+<h3 id="33undo-log事务回滚时使用mvcc">3.3undo log(事务回滚时使用+MVCC)<a hidden class="anchor" aria-hidden="true" href="#33undo-log事务回滚时使用mvcc">#</a></h3>
+<p>回滚日志，用于记录数据被修改前的信息 , 作用包含两个 : 提供回滚(保证事务的原子性) 和 MVCC(多版本并发控制) 。</p>
+<ul>
+<li>Undo log销毁：undo log在事务执行时产生，事务提交时，并不会立即删除undo log，因为这些 日志可能还用于MVCC。</li>
+<li>Undo log存储：undo log采用段的方式进行管理和记录，存放在前面介绍的 rollback segment 回滚段中，内部包含1024个undo log segment。</li>
+</ul>
+<h3 id="34mvcc">3.4MVCC<a hidden class="anchor" aria-hidden="true" href="#34mvcc">#</a></h3>
+<h4 id="341什么是mvcc">3.4.1什么是MVCC<a hidden class="anchor" aria-hidden="true" href="#341什么是mvcc">#</a></h4>
+<p>全称 Multi-Version Concurrency Control，多版本并发控制。指维护一个数据的多个版本， 使得读写操作没有冲突，快照读为MySQL实现MVCC提供了一个非阻塞读功能。MVCC的具体实现，还需要依赖于数据库记录中的三个隐式字段、undo log日志、readView。</p>
+<h4 id="342mvcc相关概念">3.4.2MVCC相关概念<a hidden class="anchor" aria-hidden="true" href="#342mvcc相关概念">#</a></h4>
+<ul>
+<li>
+<p><strong>当前读</strong></p>
+<p>读取的是记录的最新版本，读取时还要保证其他并发事务不能修改当前记录，会对读取的记录进行加锁。使用排他锁和共享锁就是一种当前锁。</p>
+</li>
+</ul>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727862475695-0249750e-cecb-4dbc-a07e-3c0e6b1395fa.png" alt=""  />
+</p>
+<p>在测试中我们可以看到，即使是在默认的RR隔离级别下，事务A中依然可以读取到事务B最新提交的内 容，因为在查询语句后面加上了 lock in share mode 共享锁，此时是当前读操作。当然，当我们 加排他锁的时候，也是当前读操作。</p>
+<ul>
+<li><strong>快照读</strong></li>
+</ul>
+<p>简单的select（不加锁）就是快照读，快照读，读取的是记录数据的可见版本，有可能是历史数据， 不加锁，是非阻塞读。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727862823082-d6eeaa7f-39bf-4bd1-994f-d16ace0404bf.png" alt=""  />
+</p>
+<p>• Read Committed：每次select，都生成一个快照读。</p>
+<p>• Repeatable Read：开启事务后第一个select语句才是快照读的地方。</p>
+<p>• Serializable：快照读会退化为当前读。</p>
+<h4 id="343mvcc的组成之隐藏字段">3.4.3MVCC的组成之隐藏字段<a hidden class="anchor" aria-hidden="true" href="#343mvcc的组成之隐藏字段">#</a></h4>
+<p>当我们创建了一张表时，我们在查看表结构的时候，就可以显式的看到自己定义的字段。 实际上除了自己定义的字段以外，InnoDB还会自动的给我们添加三个隐藏字段及其含义分别是：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">隐藏字段</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">DB_TRX_ID</td>
+          <td style="text-align: left">最近修改事务ID，记录插入这条记录或最后一次修改该记录的事务ID。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">DB_ROLL_PTR</td>
+          <td style="text-align: left">回滚指针，指向这条记录的上一个版本，用于配合undo log，指向上一个版 本。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">DB_ROW_ID</td>
+          <td style="text-align: left">隐藏主键，如果表结构没有指定主键，将会生成该隐藏字段。</td>
+      </tr>
+  </tbody>
+</table>
+<p>而上述的前两个字段是肯定会添加的， 是否添加最后一个字段DB_ROW_ID，得看当前表有没有主键， 如果有主键，则不会添加该隐藏字段。</p>
+<h4 id="344mvcc的组成之undo-log">3.4.4MVCC的组成之undo log<a hidden class="anchor" aria-hidden="true" href="#344mvcc的组成之undo-log">#</a></h4>
+<ul>
+<li><strong>介绍</strong></li>
+</ul>
+<p>回滚日志，在insert、update、delete的时候产生的便于数据回滚的日志。 当insert的时候，产生的undo log日志只在回滚时需要，在事务提交后，可被立即删除。 而update、delete的时候，产生的undo log日志不仅在回滚时需要，在快照读时也需要，不会立即 被删除。</p>
+<ul>
+<li><strong>版本链</strong></li>
+</ul>
+<p>有一张表原始数据为：</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727863248547-db524f48-ae9c-4914-a240-efea0623a9fe.png" alt=""  />
+</p>
+<blockquote>
+<p>DB_TRX_ID : 代表最近修改事务ID，记录插入这条记录或最后一次修改该记录的事务ID，是自增的。 DB_ROLL_PTR ： 由于这条数据是才插入的，没有被更新过，所以该字段值为null。</p>
+</blockquote>
+<p>然后，有四个并发事务同时在访问这张表。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727863293946-142a70ee-271f-40fa-9cea-7aaff21b4828.png" alt=""  />
+<img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727863384695-395626ff-a372-4077-bb0f-251d99ec6a00.png" alt=""  />
+</p>
+<p>上面的四个事务总共进行了三次修改，所以在undo log就记录了三条数据。</p>
+<blockquote>
+<p>最终我们发现，不同事务或相同事务对同一条记录进行修改，会导致该记录的undolog生成一条 记录版本链表，链表的头部是最新的旧记录，链表尾部是最早的旧记录。</p>
+</blockquote>
+<h4 id="345mvcc的组成之readview">3.4.5MVCC的组成之ReadView<a hidden class="anchor" aria-hidden="true" href="#345mvcc的组成之readview">#</a></h4>
+<p>ReadView（读视图）是 快照读 SQL执行时MVCC提取数据的依据，记录并维护系统当前活跃的事务 （未提交的）id。</p>
+<p>ReadView中包含了四个核心字段：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">字段</th>
+          <th style="text-align: left">含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">m_ids</td>
+          <td style="text-align: left">当前活跃的事务ID集合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">min_trx_id</td>
+          <td style="text-align: left">最小活跃事务ID</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">max_trx_id</td>
+          <td style="text-align: left">预分配事务ID，当前最大事务ID+1（因为事务ID是自增的）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">creator_trx_id</td>
+          <td style="text-align: left">ReadView创建者的事务ID</td>
+      </tr>
+  </tbody>
+</table>
+<p>而在readview中就规定了 <code>版本链数据的访问规则</code>： trx_id 代表当前undolog版本链对应事务ID</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">条件</th>
+          <th style="text-align: left">是否可以访问</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">trx_id == creator_trx_id</td>
+          <td style="text-align: left">可以访问该版本</td>
+          <td style="text-align: left">成立，说明数据是当前这个事 务更改的。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">trx_id &lt; min_trx_id</td>
+          <td style="text-align: left">可以访问该版本</td>
+          <td style="text-align: left">成立，说明数据已经提交了。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">trx_id &gt; max_trx_id</td>
+          <td style="text-align: left">不可以访问该版本</td>
+          <td style="text-align: left">成立，说明该事务是在 ReadView生成后才开启  。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">min_trx_id &lt;= trx_id &lt;=max_trx_id</td>
+          <td style="text-align: left">如果trx_id不在m_ids中， 是可以访问该版本的</td>
+          <td style="text-align: left">成立，说明数据已经提交</td>
+      </tr>
+  </tbody>
+</table>
+<p>不同的隔离级别，生成ReadView的时机不同：</p>
+<ul>
+<li>READ COMMITTED ：在事务中每一次执行快照读时生成ReadView。</li>
+<li>REPEATABLE READ：仅在事务中第一次执行快照读时生成ReadView，后续复用该ReadView。</li>
+</ul>
+<h4 id="readview不同隔离级别分析">ReadView不同隔离级别分析<a hidden class="anchor" aria-hidden="true" href="#readview不同隔离级别分析">#</a></h4>
+<h5 id="rc隔离级别">RC隔离级别<a hidden class="anchor" aria-hidden="true" href="#rc隔离级别">#</a></h5>
+<p>RC隔离级别下，在事务中每一次执行快照读时生成ReadView。</p>
+<p>我们就来分析事务5中，两次快照读读取数据，是如何获取数据的?</p>
+<p>在事务5中，查询了两次id为30的记录，由于隔离级别为Read Committed，所以每一次进行快照读 都会生成一个ReadView，那么两次生成的ReadView如下。</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727863952185-a54507ac-61ad-4b47-bb15-a49db7659965.png" alt=""  />
+</p>
+<p>那么这两次快照读在获取数据时，就需要根据所生成的ReadView以及ReadView的版本链访问规则， 到undolog版本链中匹配数据，最终决定此次快照读返回的数据。</p>
+<p>先来看第一次快照读具体的读取过程：</p>
+<p><img loading="lazy" src="https://cdn.nlark.com/yuque/0/2024/png/49057062/1727864056918-2ef29022-6822-4963-854e-06d18fa9b77d.png" alt=""  />
+</p>
+<p>在进行匹配时，会从undo log的版本链，从上到下进行挨个匹配：</p>
+<h5 id="rr隔离级别">RR隔离级别<a hidden class="anchor" aria-hidden="true" href="#rr隔离级别">#</a></h5>
+<p>RR隔离级别下，仅在事务中第一次执行快照读时生成ReadView，后续复用该ReadView。 而RR 是可 重复读，在一个事务中，执行两次相同的select语句，查询到的结果是一样的。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/innodb/">InnoDB</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/posts/mysql%E9%94%81/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>MySQL锁</span>
+  </a>
+</nav>
+
+  </footer><div id="tw-comment"></div>
+
+<script>
+  
+  const getStoredTheme = () => localStorage.getItem("pref-theme") === "light" ? "light" : "dark";
+  const setGiscusTheme = () => {
+    const sendMessage = (message) => {
+      const iframe = document.querySelector('iframe.giscus-frame');
+      if (iframe) {
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+
+      }
+
+    }
+    sendMessage({ setConfig: { theme: getStoredTheme() } })
+
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const giscusAttributes = {
+      "src": "https://giscus.app/client.js",
+      "data-repo": "houjinghao123\/houjinghao123.github.io",
+      "data-repo-id": "R_kgDOMvdtTg",
+      "data-category": "Announcements",
+      "data-category-id": "DIC_kwDOMvdtTs4CiV_q",
+      "data-mapping": "pathname",
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "bottom",
+      "data-theme": getStoredTheme(),
+      "data-lang": "zh-CN",
+      "data-loading": "lazy",
+      "crossorigin": "anonymous",
+    };
+
+    
+    const giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(
+      ([key, value]) => giscusScript.setAttribute(key, value));
+    document.querySelector("#tw-comment").appendChild(giscusScript);
+
+    
+    const themeSwitcher = document.querySelector("#theme-toggle");
+    if (themeSwitcher) {
+      themeSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+    const themeFloatSwitcher = document.querySelector("#theme-toggle-float");
+    if (themeFloatSwitcher) {
+      themeFloatSwitcher.addEventListener("click", setGiscusTheme);
+
+    }
+
+  });
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span><a href="https://houjinghao123.github.io/">©2024 phjhq&rsquo;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-zoom/1.1.0/medium-zoom.min.js"
+  integrity="sha512-9ZKhgaFdKlsELap/dGw3Iaz5Bj+Las0XXZiRKYZaN9QArg6FtkD5rULNmNH4rTCTFxjPiBGr3MX8smRADRorDA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  var OSName = "unknown";
+  var navApp = navigator.userAgent.toLowerCase();
+  switch (true) {
+    case (navApp.indexOf("win") != -1):
+      OSName = "windows";
+      break;
+    case (navApp.indexOf("mac") != -1):
+      OSName = "apple";
+      break;
+    case (navApp.indexOf("linux") != -1):
+      OSName = "linux";
+      break;
+    case (navApp.indexOf("x11") != -1):
+      OSName = "unix";
+      break;
+  }
+
+  const images = Array.from(document.querySelectorAll(".post-content img"));
+  images.forEach(img => {
+    mediumZoom(img, {
+      margin: 1,    
+      scrollOffset: 40,  
+      container: null,  
+      template: null,  
+      
+    });
+  });
+
+  if (OSName == "windows") {
+    document.body.className += ' win11'
+  }
+</script>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

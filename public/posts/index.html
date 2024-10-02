@@ -183,6 +183,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">InnoDB详解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1、逻辑存储结构 1）表空间
+表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数 据。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-10-02 18:17:59 +0800 CST'>2024-10-02</span>&nbsp;·&nbsp;14 分钟&nbsp;·&nbsp;phjhq</footer>
+  <a class="entry-link" aria-label="post link to InnoDB详解" href="http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">MySQL锁
     </h2>
   </header>
@@ -270,20 +284,6 @@
   </div>
   <footer class="entry-footer"><span title='2024-09-20 14:04:10 +0800 CST'>2024-09-20</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq</footer>
   <a class="entry-link" aria-label="post link to Mysql事务" href="http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Mysql常用函数
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Mysql常用函数 聚合函数 函数 功能 count 统计数量 max 最大值 min 最小值 avg 平均值 sum 求和 字符串函数 函数 功能 CONCAT(S1,S2,…Sn) 字符串拼接，将S1，S2，… Sn拼接成一个字符串 LOWER(str) 将字符串str全部转为小写 UPPER(str) 将字符串str全部转为大写 LPAD(str,n,pad) 左填充，用字符串pad对str的左边进行填充，达到n个字符串长度 RPAD(str,n,pad) 右填充，用字符串pad对str的右边进行填充，达到n个字符串长度 TRIM(str) 去掉字符串头部和尾部的空格 SUBSTRING(str,start,len) 返回从字符串str从start位置起的len个长度的字符串 数值函数 函数 功能 CEIL(x) 向上取整 FLOOR(x) 向下取整 MOD(x,y) 返回x/y的模 RAND() 返回0~1内的随机数 ROUND(x,y) 求参数x的四舍五入的值，保留y位小数 例题：
-通过数据库的函数，生成一个六位数的随机验证码。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-09-19 20:02:09 +0800 CST'>2024-09-19</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq</footer>
-  <a class="entry-link" aria-label="post link to Mysql常用函数" href="http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
