@@ -1,6 +1,8 @@
 +++
-title = 'Docker安装'
+title = 'Ubuntu上Docker安装'
 date = 2024-10-05T17:31:39+08:00
+categories = ["docker"]
+tags= ["docker","Ubuntu"]
 +++
 ## 概述
 ### 什么是docker
