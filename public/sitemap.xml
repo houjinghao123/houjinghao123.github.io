@@ -2,17 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</loc>
-    <lastmod>2024-10-05T17:31:39+08:00</lastmod>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/docker/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/docker/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-10-05T17:31:39+08:00</lastmod>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2024-10-05T17:31:39+08:00</lastmod>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-10-02T18:17:59+08:00</lastmod>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ubuntu/</loc>
+    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2024-10-05T17:31:39+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/innodb/</loc>
     <lastmod>2024-10-02T18:17:59+08:00</lastmod>
@@ -21,9 +36,6 @@
     <lastmod>2024-10-02T18:17:59+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/mysql/</loc>
-    <lastmod>2024-10-02T18:17:59+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-10-02T18:17:59+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/mysql%E9%94%81/</loc>

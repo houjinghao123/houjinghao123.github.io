@@ -12,10 +12,23 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 05 Oct 2024 17:31:39 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 05 Oct 2024 17:49:22 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Docker安装</title>
+      <title>Docker命令</title>
+      <link>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 05 Oct 2024 17:49:22 +0800</pubDate>
+      <guid>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</guid>
+      <description>&lt;h2 id=&#34;镜像和容器相关命令&#34;&gt;镜像和容器相关命令&lt;/h2&gt;
+&lt;h3 id=&#34;搜索镜像&#34;&gt;搜索镜像&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;使用Docker自带的搜索命令可能会因为网络问题搜索失败&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker search contains name:vesion
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+    </item>
+    <item>
+      <title>Ubuntu上Docker安装</title>
       <link>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sat, 05 Oct 2024 17:31:39 +0800</pubDate>
       <guid>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</guid>
