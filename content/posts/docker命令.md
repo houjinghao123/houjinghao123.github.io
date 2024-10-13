@@ -73,23 +73,63 @@ docker pull [镜像仓库地址/]镜像名[:标签]
 
 ### 进入容器执行命令
 
-- docker exec [选项] 容器ID或容器名 命令 [参数...]
+**docker exec [选项] 容器ID或容器名 命令 [参数...]**
 
 后台运行一个nginx镜像的容器，然后尝试以交互式的方式进入该容器内部执行 curl 指令测试nginx是否启动成功
 
 ![](https://i.postimg.cc/1X3MWGmq/screenshot-33.png)
 
+- docker exec -it  容器id bash
 
+![](https://i.postimg.cc/fTqKH6Mv/screenshot-36.png)
 
+这个命令是进入正在运行的容器， -it参数是可交互命令行，bash是所使用的命令行方式。
 
+-i 以交互模式运行容器，通常与 -t 同时使用
 
+-t 启动容器后，为容器分配一个命令行，通常与 -i 同时使用
 
+### 查看容器日志
 
+**docker logs[选项]容器ID或容器名**
 
+- 查看容器日志并且是持续输出
 
+​	docker logs -f 容器id 
 
+- 查看容器的最近20条日志
 
+​	docker logs -n 20 容器id
 
+### 容器文件拷贝
 
+我们可以使用 docker cp 命令来实现容器和宿主机之间 文件和目录的相互拷贝
 
+- 命令
+
+​	把容器中的文件拷贝到宿主机中
+
+​	docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH
+
+注意开放权限
+
+![](https://i.postimg.cc/Wp7zPkY9/screenshot-37.png)
+
+​	把宿主机的文件拷贝到容器中
+
+​	docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH
+
+![](https://i.postimg.cc/L5Pr2L2x/screenshot-40.png)
+
+### 停止容器
+
+- 命令
+
+  docker stop [选项] [容器ID或容器名...]
+
+### 运行容器
+
+- 命令
+
+​	docker start [选项] 容器ID或容器名
 
