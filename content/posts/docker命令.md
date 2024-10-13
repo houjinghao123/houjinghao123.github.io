@@ -1,8 +1,8 @@
 +++
 title = 'Docker命令'
 date = 2024-10-05T17:49:22+08:00
-categories = ["docker"]
-tags= ["docker","Ubuntu"]
+categories = ["Docker"]
+tags= ["Docker","Ubuntu"]
 +++
 
 
@@ -95,7 +95,7 @@ docker pull [镜像仓库地址/]镜像名[:标签]
 
 - 查看容器日志并且是持续输出
 
-​	docker logs -f 容器id 
+​	docker logs -f 容器id
 
 - 查看容器的最近20条日志
 

@@ -1,7 +1,8 @@
 +++
 title = 'Docker Run命令详解'
 date = 2024-10-13T16:48:15+08:00
-
+categories = ["Docker"]
+tags= ["Docker"]
 +++
 
 #Run命令详解
@@ -187,12 +188,12 @@ docker run --restart 重启策略 镜像名
 ### 练习
 
 - 后台运行nginx容器
-- 容器命名为 nginx-test 
+- 容器命名为 nginx-test
 - 发布一个最简单的静态页面到Nginx，让我们能够通过浏览器去访问这个静态页面
 
 - 该容器在退出后可以自动重启
 
 ```shell
-docker run -d --name nginx-test -p 83:80 -v /home/cp_test/index.html:/usr/share/nginx/html/index.html --restart unless-stopped nginx 
+docker run -d --name nginx-test -p 83:80 -v /home/cp_test/index.html:/usr/share/nginx/html/index.html --restart unless-stopped nginx
 ```
 
