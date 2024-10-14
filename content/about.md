@@ -1,8 +1,9 @@
 ---
-title: "关于"
+title: "目前学习项目"
 layout: "about"
 url: "/about/"
 summary: about
 ---
 
-这里就可以写一些关于的相关信息了。gt
+- docker 学习进行中
+- 安卓学习进行中

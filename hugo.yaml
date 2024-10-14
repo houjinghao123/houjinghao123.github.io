@@ -43,7 +43,7 @@ languages:
         - name: 搜索
           pageRef: search/
           weight: 20
-        - name: 关于
+        - name: 学习计划
           pageRef: about/
           weight: 21
 

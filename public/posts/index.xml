@@ -12,8 +12,18 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sat, 05 Oct 2024 17:49:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 13 Oct 2024 16:48:15 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Run命令详解</title>
+      <link>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Sun, 13 Oct 2024 16:48:15 +0800</pubDate>
+      <guid>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+      <description>&lt;p&gt;#Run命令详解&lt;/p&gt;
+&lt;h2 id=&#34;-p-端口对外发布端口映射&#34;&gt;-p 端口对外发布（端口映射）&lt;/h2&gt;
+&lt;h3 id=&#34;解释&#34;&gt;解释&lt;/h3&gt;
+&lt;p&gt;为了使外部网络能够访问到容器&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Docker命令</title>
       <link>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</link>
@@ -266,6 +276,15 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、创建自己的数据库&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datebase&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据库名字&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/posts/kotlin%E5%85%A5%E9%97%A8%E4%B9%8B%E5%8F%98%E9%87%8F%E4%B8%8E%E5%87%BD%E6%95%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/kotlin%E5%85%A5%E9%97%A8%E4%B9%8B%E5%8F%98%E9%87%8F%E4%B8%8E%E5%87%BD%E6%95%B0/</guid>
+      <description>&lt;h1 id=&#34;kotlin入门之变量与基本的程序结构&#34;&gt;Kotlin入门之变量与基本的程序结构&lt;/h1&gt;
+&lt;h2 id=&#34;变量&#34;&gt;变量&lt;/h2&gt;
+&lt;p&gt;在Kontlin中变量的声明和基本使用是和Java不太相同的。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

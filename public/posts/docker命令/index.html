@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Docker命令 | phjhq&#39;s Blog</title>
-<meta name="keywords" content="docker, Ubuntu">
+<meta name="keywords" content="Docker, Ubuntu">
 <meta name="description" content="镜像和容器相关命令
 搜索镜像
 
@@ -128,10 +128,10 @@
   "name": "Docker命令",
   "description": "镜像和容器相关命令 搜索镜像 使用Docker自带的搜索命令可能会因为网络问题搜索失败 1docker search contains name:vesion ",
   "keywords": [
-    "docker", "Ubuntu"
+    "Docker", "Ubuntu"
   ],
-  "articleBody": "镜像和容器相关命令 搜索镜像 使用Docker自带的搜索命令可能会因为网络问题搜索失败 1docker search contains name:vesion 我们可以使用docker search去搜索镜像，也可以去Docker-Hub找自己需要的镜像。(推荐) 下载镜像 1docker pull [镜像仓库地址/]镜像名[:标签] 列出镜像信息 docker images [选项] 相关操作 列出镜像的镜像id docker images -q 列出所有镜像的的镜像id docker images -aq 或者 docker images -a -q 列出所有镜像名为mysql的镜像id docker images -aq –filter=reference=mysql 列出容器信息 docker ps [选项]默认显示正在运行的容器信息\n相关操作\n列出当前正在运行的容器 docker ps 列出所有容器，无论是否在运行 docker ps -a 列出所有退出状态的容器 docker ps -f status=exited 列出所有退出状态的容器id docker ps -f status=exited -q 创建并运行容器 docker run [OPTIONS] IMAGE [COMMAND] [ARG…] docker stop[ids] 停止容器的运行 容器的运行方式 默认的运行方式 docker run nginx:latest 后台运行 docker run -d nginx:latest 交互式运行 docker run -it nginx:latest bash 删除容器 docker rm [选项] [容器ID或容器名…] 相关操作 删除hello-world的容器 docker rm 2d1ec2bba545 尝试删除一个运行的nginx容器 docker rm -f fa8075110f21 尝试删除所有容器 docker rm -f $(docker ps -aq ) 尝试删除所有非运行状态的容器 docker ps -f status=exited -q 或者 docker rm $(docker ps -f status=exited -q) 进入容器执行命令 docker exec [选项] 容器ID或容器名 命令 [参数…] 后台运行一个nginx镜像的容器，然后尝试以交互式的方式进入该容器内部执行 curl 指令测试nginx是否启动成功\n",
-  "wordCount" : "542",
+  "articleBody": "镜像和容器相关命令 搜索镜像 使用Docker自带的搜索命令可能会因为网络问题搜索失败 1docker search contains name:vesion 我们可以使用docker search去搜索镜像，也可以去Docker-Hub找自己需要的镜像。(推荐) 下载镜像 1docker pull [镜像仓库地址/]镜像名[:标签] 列出镜像信息 docker images [选项] 相关操作 列出镜像的镜像id docker images -q 列出所有镜像的的镜像id docker images -aq 或者 docker images -a -q 列出所有镜像名为mysql的镜像id docker images -aq –filter=reference=mysql 列出容器信息 docker ps [选项]默认显示正在运行的容器信息\n相关操作\n列出当前正在运行的容器 docker ps 列出所有容器，无论是否在运行 docker ps -a 列出所有退出状态的容器 docker ps -f status=exited 列出所有退出状态的容器id docker ps -f status=exited -q 创建并运行容器 docker run [OPTIONS] IMAGE [COMMAND] [ARG…] docker stop[ids] 停止容器的运行 容器的运行方式 默认的运行方式 docker run nginx:latest 后台运行 docker run -d nginx:latest 交互式运行 docker run -it nginx:latest bash 删除容器 docker rm [选项] [容器ID或容器名…] 相关操作 删除hello-world的容器 docker rm 2d1ec2bba545 尝试删除一个运行的nginx容器 docker rm -f fa8075110f21 尝试删除所有容器 docker rm -f $(docker ps -aq ) 尝试删除所有非运行状态的容器 docker ps -f status=exited -q 或者 docker rm $(docker ps -f status=exited -q) 进入容器执行命令 docker exec [选项] 容器ID或容器名 命令 [参数…]\n后台运行一个nginx镜像的容器，然后尝试以交互式的方式进入该容器内部执行 curl 指令测试nginx是否启动成功\ndocker exec -it 容器id bash 这个命令是进入正在运行的容器， -it参数是可交互命令行，bash是所使用的命令行方式。\n-i 以交互模式运行容器，通常与 -t 同时使用\n-t 启动容器后，为容器分配一个命令行，通常与 -i 同时使用\n查看容器日志 docker logs[选项]容器ID或容器名\n查看容器日志并且是持续输出 ​\tdocker logs -f 容器id\n查看容器的最近20条日志 ​\tdocker logs -n 20 容器id\n容器文件拷贝 我们可以使用 docker cp 命令来实现容器和宿主机之间 文件和目录的相互拷贝\n命令 ​\t把容器中的文件拷贝到宿主机中\n​\tdocker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH\n注意开放权限\n​\t把宿主机的文件拷贝到容器中\n​\tdocker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH\n停止容器 命令\ndocker stop [选项] [容器ID或容器名…]\n运行容器 命令 ​\tdocker start [选项] 容器ID或容器名\n",
+  "wordCount" : "840",
   "inLanguage": "zh",
   "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-10-05T17:49:22+08:00",
   "dateModified": "2024-10-05T17:49:22+08:00",
@@ -217,8 +217,8 @@
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="关于">
-                    <span>关于</span>
+                <a href="http://localhost:1313/about/" title="学习计划">
+                    <span>学习计划</span>
                 </a>
             </li>
         </ul>
@@ -262,7 +262,15 @@
                 <li>
                     <a href="#%e5%88%a0%e9%99%a4%e5%ae%b9%e5%99%a8" aria-label="删除容器">删除容器</a></li>
                 <li>
-                    <a href="#%e8%bf%9b%e5%85%a5%e5%ae%b9%e5%99%a8%e6%89%a7%e8%a1%8c%e5%91%bd%e4%bb%a4" aria-label="进入容器执行命令">进入容器执行命令</a>
+                    <a href="#%e8%bf%9b%e5%85%a5%e5%ae%b9%e5%99%a8%e6%89%a7%e8%a1%8c%e5%91%bd%e4%bb%a4" aria-label="进入容器执行命令">进入容器执行命令</a></li>
+                <li>
+                    <a href="#%e6%9f%a5%e7%9c%8b%e5%ae%b9%e5%99%a8%e6%97%a5%e5%bf%97" aria-label="查看容器日志">查看容器日志</a></li>
+                <li>
+                    <a href="#%e5%ae%b9%e5%99%a8%e6%96%87%e4%bb%b6%e6%8b%b7%e8%b4%9d" aria-label="容器文件拷贝">容器文件拷贝</a></li>
+                <li>
+                    <a href="#%e5%81%9c%e6%ad%a2%e5%ae%b9%e5%99%a8" aria-label="停止容器">停止容器</a></li>
+                <li>
+                    <a href="#%e8%bf%90%e8%a1%8c%e5%ae%b9%e5%99%a8" aria-label="运行容器">运行容器</a>
                 </li>
             </ul>
             </li>
@@ -336,12 +344,54 @@
 <p><img loading="lazy" src="https://i.postimg.cc/MHW8PQR2/screenshot-32.png" alt=""  />
 </p>
 <h3 id="进入容器执行命令">进入容器执行命令<a hidden class="anchor" aria-hidden="true" href="#进入容器执行命令">#</a></h3>
-<ul>
-<li>docker exec [选项] 容器ID或容器名 命令 [参数&hellip;]</li>
-</ul>
+<p><strong>docker exec [选项] 容器ID或容器名 命令 [参数&hellip;]</strong></p>
 <p>后台运行一个nginx镜像的容器，然后尝试以交互式的方式进入该容器内部执行 curl 指令测试nginx是否启动成功</p>
 <p><img loading="lazy" src="https://i.postimg.cc/1X3MWGmq/screenshot-33.png" alt=""  />
 </p>
+<ul>
+<li>docker exec -it  容器id bash</li>
+</ul>
+<p><img loading="lazy" src="https://i.postimg.cc/fTqKH6Mv/screenshot-36.png" alt=""  />
+</p>
+<p>这个命令是进入正在运行的容器， -it参数是可交互命令行，bash是所使用的命令行方式。</p>
+<p>-i 以交互模式运行容器，通常与 -t 同时使用</p>
+<p>-t 启动容器后，为容器分配一个命令行，通常与 -i 同时使用</p>
+<h3 id="查看容器日志">查看容器日志<a hidden class="anchor" aria-hidden="true" href="#查看容器日志">#</a></h3>
+<p><strong>docker logs[选项]容器ID或容器名</strong></p>
+<ul>
+<li>查看容器日志并且是持续输出</li>
+</ul>
+<p>​	docker logs -f 容器id</p>
+<ul>
+<li>查看容器的最近20条日志</li>
+</ul>
+<p>​	docker logs -n 20 容器id</p>
+<h3 id="容器文件拷贝">容器文件拷贝<a hidden class="anchor" aria-hidden="true" href="#容器文件拷贝">#</a></h3>
+<p>我们可以使用 docker cp 命令来实现容器和宿主机之间 文件和目录的相互拷贝</p>
+<ul>
+<li>命令</li>
+</ul>
+<p>​	把容器中的文件拷贝到宿主机中</p>
+<p>​	docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH</p>
+<p>注意开放权限</p>
+<p><img loading="lazy" src="https://i.postimg.cc/Wp7zPkY9/screenshot-37.png" alt=""  />
+</p>
+<p>​	把宿主机的文件拷贝到容器中</p>
+<p>​	docker cp [OPTIONS] SRC_PATH CONTAINER:DEST_PATH</p>
+<p><img loading="lazy" src="https://i.postimg.cc/L5Pr2L2x/screenshot-40.png" alt=""  />
+</p>
+<h3 id="停止容器">停止容器<a hidden class="anchor" aria-hidden="true" href="#停止容器">#</a></h3>
+<ul>
+<li>
+<p>命令</p>
+<p>docker stop [选项] [容器ID或容器名&hellip;]</p>
+</li>
+</ul>
+<h3 id="运行容器">运行容器<a hidden class="anchor" aria-hidden="true" href="#运行容器">#</a></h3>
+<ul>
+<li>命令</li>
+</ul>
+<p>​	docker start [选项] 容器ID或容器名</p>
 
 
   </div>
@@ -352,6 +402,11 @@
       <li><a href="http://localhost:1313/tags/ubuntu/">Ubuntu</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>Docker Run命令详解</span>
+  </a>
   <a class="next" href="http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/">
     <span class="title">下一页 »</span>
     <br>
