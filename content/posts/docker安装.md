@@ -141,6 +141,14 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
+测试是否安装成功
+
+```shell
+docker run hello-world
+```
+
+![](https://postimg.cc/mPPZKV7T)
+
 `参考文档`
 
 [docker的安装](https://blog.csdn.net/u011278722/article/details/137673353)
