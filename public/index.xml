@@ -12,8 +12,41 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Sun, 13 Oct 2024 16:48:15 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Oct 2024 13:53:02 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DockerFile基本使用</title>
+      <link>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Wed, 16 Oct 2024 13:53:02 +0800</pubDate>
+      <guid>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h1 id=&#34;dockerfile的基本使用&#34;&gt;DockerFile的基本使用&lt;/h1&gt;
+&lt;h2 id=&#34;为什么要使用&#34;&gt;为什么要使用&lt;/h2&gt;
+&lt;p&gt;之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker在Ubuntu上部署项目案例</title>
+      <link>http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</link>
+      <pubDate>Tue, 15 Oct 2024 11:47:16 +0800</pubDate>
+      <guid>http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</guid>
+      <description>&lt;h1 id=&#34;使用三更的博客项目进行部署测试&#34;&gt;使用三更的博客项目进行部署测试&lt;/h1&gt;
+&lt;h2 id=&#34;安装mysql&#34;&gt;安装Mysql&lt;/h2&gt;
+&lt;p&gt;安装前明确需求&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用的镜像是mysql5.7&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Docker 数据卷 网桥</title>
+      <link>http://localhost:1313/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/</link>
+      <pubDate>Mon, 14 Oct 2024 19:55:51 +0800</pubDate>
+      <guid>http://localhost:1313/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/</guid>
+      <description>&lt;h1 id=&#34;镜像&#34;&gt;镜像&lt;/h1&gt;
+&lt;h2 id=&#34;如何查看镜像的详细信息&#34;&gt;如何查看镜像的详细信息&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;方法&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker image inspect &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;OPTIONS&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; IMAGE &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;IMAGE...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker image inspect 镜像id
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+    </item>
     <item>
       <title>Docker Run命令详解</title>
       <link>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>

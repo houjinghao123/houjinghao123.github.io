@@ -126,12 +126,18 @@ groupadd -f docker
 在 /etc/docker/daemon.json添加可以用的镜像(10.5可用)
 
 ```json
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
 {
     "registry-mirrors": [
+        	"https://cf-workers-docker-io-7s3.pages.dev",
             "https://docker.aityp.com/",
-            "https://dockerproxy.cn"
+        	"https://dockerproxy.cn"
     ]
 }
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 ```
 
 重启docker
@@ -154,3 +160,5 @@ docker run hello-world
 [docker的安装](https://blog.csdn.net/u011278722/article/details/137673353)
 
 [配置docker镜像](https://www.cnblogs.com/xydchen/p/18258781)
+
+[CF-Workers-docker.io：Docker仓库镜像代理工具](https://blog.cmliussss.com/p/CF-Workers-docker.io)
