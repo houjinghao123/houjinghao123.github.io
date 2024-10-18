@@ -1,7 +1,8 @@
 +++
 title = 'Docker在Ubuntu上部署项目案例'
 date = 2024-10-15T11:47:16+08:00
-
+categories = ["Docker"]
+tags = ["Docker","Ubuntu"]
 +++
 # 使用三更的博客项目进行部署测试
 
@@ -19,13 +20,13 @@ date = 2024-10-15T11:47:16+08:00
 
 - 设置root的密码 -e
 
-- 停止后自动重启 --restart 
+- 停止后自动重启 --restart
 
-- 加入一个网络 --network 
+- 加入一个网络 --network
 
 - 容器命名为blog_mysql
 
-  
+
 
 ```shell
 docker run -d \
@@ -83,7 +84,7 @@ docker run \
 --restart always \
 --network blog_net \
 --name sg_blog \
-java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar 
+java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar
 ```
 
 使用上面的方式启动会报错，因为没有设置数据库和redis的连接方式
@@ -98,7 +99,7 @@ docker run \
 --name sg_blog \
 java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar \
 "--spring.datasource.url=jdbc:mysql://blog_mysql:3306/sg_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai" \
-"--spring.datasource.username=root" \ 
+"--spring.datasource.username=root" \
 "--spring.datasource.password=1234" \
 "--spring.redis.host=blog_redis" \
 ```
