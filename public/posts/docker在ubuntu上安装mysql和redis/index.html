@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Docker在Ubuntu上部署项目案例 | phjhq&#39;s Blog</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="Docker, Ubuntu">
 <meta name="description" content="使用三更的博客项目进行部署测试
 安装Mysql
 安装前明确需求
@@ -125,7 +125,7 @@
   "name": "Docker在Ubuntu上部署项目案例",
   "description": "使用三更的博客项目进行部署测试 安装Mysql 安装前明确需求\n使用的镜像是mysql5.7\n",
   "keywords": [
-    
+    "Docker", "Ubuntu"
   ],
   "articleBody": "使用三更的博客项目进行部署测试 安装Mysql 安装前明确需求\n使用的镜像是mysql5.7\n后台运行 -d\n数据需要持久化存储 -v 使用别名mysql_data\n开放3306端口 -p\n设置root的密码 -e\n停止后自动重启 –restart\n加入一个网络 –network\n容器命名为blog_mysql\n1docker run -d \\ 2-v mysql_data:/var/lib/mysql \\ 3-p 3306:3306 \\ 4-e MYSQL_ROOT_PASSWORD=PaiTcgDK0VUZCM \\ 5--restart always \\ 6--network blog_net \\ 7--name blog_mysql \\ 8mysql:5.7 安装Redis 安装前明确需求\n版本 redis 7 后台运行 开启aof持久化 数据需要持久化存储 redis-server –appendonly yes 开放端口 停止后自动重启 容器命名为blog_reids 加入网络 blog_net 1docker run -d \\ 2-v reids_data:/data \\ 3-p 6379:6379 \\ 4--restart always \\ 5--name blog_redis \\ 6--network blog_net \\ 7redis:7.0 redis-server --appendonly yes 安装OpenJDK 运行jar包 需求\nopenjdk 8u111版本 后台运行 -d 端口为7777 -p 使用数据卷用于存放jar包 -v 退出后重新运行 –restart 加入blog_net 网络 –network 容器名字是 sb_blog –name 1docker run \\ 2-p 7777:7777 \\ 3-d \\ 4-v /usr/blog:/usr/blog \\ 5--restart always \\ 6--network blog_net \\ 7--name sg_blog \\ 8java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar 使用上面的方式启动会报错，因为没有设置数据库和redis的连接方式\n1docker run \\ 2-p 7777:7777 \\ 3-d \\ 4--network blog_net \\ 5-v /usr/blog:/usr/blog \\ 6--restart always \\ 7--name sg_blog \\ 8java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar \\ 9\"--spring.datasource.url=jdbc:mysql://blog_mysql:3306/sg_blog?characterEncoding=utf-8\u0026serverTimezone=Asia/Shanghai\" \\ 10\"--spring.datasource.username=root\" \\ 11\"--spring.datasource.password=1234\" \\ 12\"--spring.redis.host=blog_redis\" \\ 使用nginx部署前端项目 分析需求\n后台运行 -d 开放端口 -p 使用数据卷的方式同步静态资源 -v 停止后自动重启 –restart 容器命名sg_blog_vue 1docker run -d \\ 2-p 80:80 \\ 3-v /usr/blog/sg-blog-vue/dist:/usr/share/nginx/html \\ 4--restart always \\ 5--name sg_blog_vue \\ 6nginx:1.21.5 ",
   "wordCount" : "492",
@@ -214,8 +214,8 @@
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="学习计划">
-                    <span>学习计划</span>
+                <a href="http://localhost:1313/about/" title="友链">
+                    <span>友链</span>
                 </a>
             </li>
         </ul>
@@ -332,7 +332,7 @@
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>--restart always <span class="se">\
 </span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="se"></span>--network blog_net <span class="se">\
 </span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="se"></span>--name sg_blog <span class="se">\
-</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="se"></span>java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar 
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="se"></span>java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar
 </span></span></code></pre></div><p>使用上面的方式启动会报错，因为没有设置数据库和redis的连接方式</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln"> 1</span><span class="cl">docker run <span class="se">\
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="se"></span>-p 7777:7777 <span class="se">\
@@ -343,8 +343,8 @@
 </span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="se"></span>--name sg_blog <span class="se">\
 </span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="se"></span>java:openjdk-8u111 java -jar /usr/blog/sangeng-blog-1.0-SNAPSHOT.jar <span class="se">\
 </span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="se"></span><span class="s2">&#34;--spring.datasource.url=jdbc:mysql://blog_mysql:3306/sg_blog?characterEncoding=utf-8&amp;serverTimezone=Asia/Shanghai&#34;</span> <span class="se">\
-</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="se"></span><span class="s2">&#34;--spring.datasource.username=root&#34;</span> <span class="se">\ </span>
-</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s2">&#34;--spring.datasource.password=1234&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="se"></span><span class="s2">&#34;--spring.datasource.username=root&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="se"></span><span class="s2">&#34;--spring.datasource.password=1234&#34;</span> <span class="se">\
 </span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="se"></span><span class="s2">&#34;--spring.redis.host=blog_redis&#34;</span> <span class="se">\
 </span></span></span></code></pre></div><h2 id="使用nginx部署前端项目">使用nginx部署前端项目<a hidden class="anchor" aria-hidden="true" href="#使用nginx部署前端项目">#</a></h2>
 <p>分析需求</p>
@@ -367,12 +367,14 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:1313/tags/ubuntu/">Ubuntu</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
     <span class="title">« 上一页</span>
     <br>
-    <span>DockerFile基本使用</span>
+    <span>DockerFile和DockerCompose基本使用</span>
   </a>
   <a class="next" href="http://localhost:1313/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/">
     <span class="title">下一页 »</span>

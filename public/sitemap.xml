@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2024-10-16T13:53:02+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/docker/</loc>
+    <lastmod>2024-10-16T13:53:02+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/docker/</loc>
+    <lastmod>2024-10-16T13:53:02+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2024-10-16T13:53:02+08:00</lastmod>
   </url><url>
@@ -11,31 +20,22 @@
     <loc>http://localhost:1313/posts/</loc>
     <lastmod>2024-10-16T13:53:02+08:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-10-16T13:53:02+08:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</loc>
+    <lastmod>2024-10-15T11:47:16+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ubuntu/</loc>
     <lastmod>2024-10-15T11:47:16+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/</loc>
     <lastmod>2024-10-14T19:55:51+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-10-13T16:48:15+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/docker/</loc>
-    <lastmod>2024-10-13T16:48:15+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/docker/</loc>
-    <lastmod>2024-10-13T16:48:15+08:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2024-10-13T16:48:15+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-10-13T16:48:15+08:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2024-10-05T17:49:22+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/ubuntu/</loc>
     <lastmod>2024-10-05T17:49:22+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</loc>
@@ -123,8 +123,8 @@
   </url><url>
     <loc>http://localhost:1313/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
-  </url><url>
     <loc>http://localhost:1313/search/</loc>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
   </url>
 </urlset>
