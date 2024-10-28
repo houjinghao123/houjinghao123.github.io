@@ -1,6 +1,8 @@
 +++
 title = 'SpringSecurity学习'
 date = 2024-10-24T23:30:35+08:00
+categories = ["Spring Security"]
+tags= ["SpringBoot","Spring Security"]
 +++
 
 # SpringSecurity学习
@@ -389,3 +391,46 @@ public class LoginServcieImpl implements LoginServcie {
     }
 }
 ```
+在定义完该接后我们还需要对securityConfig进行一些相关设置使/user/login接口不需要登录
+```java
+ */
+@Configuration
+public class securityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private AuthenticationSuccessHandler successHandler;
+
+    //设置密码编码格式
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //启用默认的登录表单
+        http.formLogin();
+        http
+                //关闭csrf
+                .csrf().disable()
+                //不通过Session获取SecurityContext
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                // 对于登录接口 允许匿名访问
+                .antMatchers("/user/login").anonymous()
+                // 除上面外的所有请求全部需要鉴权认证
+                .anyRequest().authenticated();
+
+
+    }
+}
+```
+我们这里定义的登录接口是使用post方法并且需要携带参数所以就使用postman进行测试
+
+- 这是我们正常请求登录时
+![](https://i.postimg.cc/zvmHrKZm/screenshot-57.png)
+
+- 但是请求其他接口时都需要进行登录验证
+
+![](https://i.postimg.cc/43ShWjWx/screenshot-56.png)
+
