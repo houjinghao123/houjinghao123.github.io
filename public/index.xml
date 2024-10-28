@@ -12,8 +12,17 @@
     <generator>Hugo -- 0.134.1</generator>
     <language>zh</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Wed, 16 Oct 2024 13:53:02 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 24 Oct 2024 23:30:35 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SpringSecurity学习</title>
+      <link>http://localhost:1313/posts/springsecurity%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Thu, 24 Oct 2024 23:30:35 +0800</pubDate>
+      <guid>http://localhost:1313/posts/springsecurity%E5%AD%A6%E4%B9%A0/</guid>
+      <description>&lt;h1 id=&#34;springsecurity学习&#34;&gt;SpringSecurity学习&lt;/h1&gt;
+&lt;h2 id=&#34;1什么是springsecurity&#34;&gt;1、什么是SpringSecurity&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Spring Security&lt;/strong&gt; 是 Spring 家族中的一个安全管理框架。相比与另外一个安全框架&lt;strong&gt;Shiro&lt;/strong&gt;，它提供了更丰富的功能，社区资源也比Shiro丰富。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>DockerFile和DockerCompose基本使用</title>
       <link>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
