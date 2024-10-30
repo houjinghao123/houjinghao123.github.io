@@ -637,7 +637,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ![](https://i.postimg.cc/YS2rcNpP/screenshot-61.png)
 
-### [3.1导入相关数据](https://postimages.org/)
+### 3.1导入相关数据
 
 ```sql
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`sg_security` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
