@@ -7,9 +7,7 @@ date = 2024-10-28T15:35:20+08:00
 
 ## 1、准备基本环境
 
-
 使用基础版的项目环境、然后我们在redis中存储用户相关信息，将用户信息存入到token中
-
 
 ### 导入相关依赖
 
@@ -490,7 +488,7 @@ public class LoginServiceImpl implements LoginServcie {
 
     @Override
     public ResponseResult login(User user) {
-      
+  
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if(Objects.isNull(authenticate)){
@@ -509,7 +507,6 @@ public class LoginServiceImpl implements LoginServcie {
     }
 }
 ```
-
 
 上面这段代码就是我们通过用户名和密码登录后生成jwt并且将用户的信息以id未键的形式存入到redis中
 
@@ -530,8 +527,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 ```
 
 在接口中我们通过AuthenticationManager的authenticate方法来进行用户认证,所以需要在SecurityConfig中配置把AuthenticationManager注入容器。
-
-
 
 ### 2.2自定义认证过滤器
 
@@ -583,9 +578,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
 - 在配置文件中使用这个认证过滤器
 
-
-
-
 ```java
   @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -627,7 +619,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-
 ### 2.3进行测试
 
 - 查看正常登录后是否会返回token
@@ -636,27 +627,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 <a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/gkx3pdTd/screenshot-58.png' border='0' alt='screenshot-58'/>
 
-[](https://postimages.org/)
-
 当我们携带token访问其他接口时
 
-![]()
-
-![](https://i.postimg.cc/2jhxJnVm/screenshot-59.png)
-
+[![](https://i.postimg.cc/2jhxJnVm/screenshot-59.png)](https://postimages.org/)
 
 ## 3、授权
 
 授权我们一般使用的是数据库中的权限信息，而在数据库中对与权限的管理也有专门的模型RBAC权限模型（Role-Based Access Control）即：基于角色的权限控制。这是目前最常被开发者使用也是相对易用、通用权限模型。
 
-![]()
-
 ![](https://i.postimg.cc/YS2rcNpP/screenshot-61.png)
 
-### 3.1导入相关数据
+### [3.1导入相关数据](https://postimages.org/)
 
 ```sql
-
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`sg_security` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `sg_security`;
@@ -743,11 +726,7 @@ CREATE TABLE `sys_user_role` (
   `role_id` bigint(200) NOT NULL DEFAULT '0' COMMENT '角色id',
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 ```
-
-查询用户权限并且菜单表和角色表是可用的状态（0可用 1）
-
 
 ```sql
 SELECT 
@@ -768,11 +747,8 @@ WHERE
 
 菜单表(Menu)实体类
 
-
-
 ```java
-/**
- * 菜单表(Menu)实体类
+* 菜单表(Menu)实体类
  *
  * @author makejava
  * @since 2021-11-24 15:30:08
@@ -832,13 +808,14 @@ public class Menu implements Serializable {
     */
     private String remark;
 }
+
 ```
 
 ### 3.2代码实现
-
 
 我们只需要根据用户id去查询到其所对应的权限信息即可。
 
 所以我们可以先定义个mapper，其中提供一个方法可以根据userid查询权限信息。
 
-[](https://postimg.cc/RqCfJ67b)
+
+
