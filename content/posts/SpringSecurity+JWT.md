@@ -530,7 +530,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ### 2.2自定义认证过滤器
 
-现在我们已经完成用户登录接口但是对于其他的接口访问却没有做好，需要我们自己定义一个过滤器，这个过滤器需要在请求发送时就接口所有请求然后查看这些请求头是v否携带了token，如果携带了token可以从请求头总取出然后经过jwt工具类获取用户id然后根据用户的id从redis中获取用户信息，存入到SecurityContextHolder，这里的SecurityContextHolder时security提供的上下文工具类，能在同一线程中传递用户信息。
+现在我们已经完成用户登录接口但是对于其他的接口访问却没有做好，需要我们自己定义一个过滤器，这个过滤器需要在请求发送时查看这些请求头是否携带了token，如果携带了token可以从请求头总取出然后经过jwt工具类获取用户id然后根据用户的id从redis中获取用户信息，存入到SecurityContextHolder，这里的SecurityContextHolder时security提供的上下文工具类，能在同一线程中传递用户信息。
 
 - 自定义认证过滤器
 
@@ -623,9 +623,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 - 查看正常登录后是否会返回token
 
-![]()
-
-<a href='https://postimages.org/' target='_blank'><img src='https://i.postimg.cc/gkx3pdTd/screenshot-58.png' border='0' alt='screenshot-58'/>
+<img src='https://i.postimg.cc/gkx3pdTd/screenshot-58.png' border='0' alt='screenshot-58'/>
 
 当我们携带token访问其他接口时
 
@@ -728,6 +726,8 @@ CREATE TABLE `sys_user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
+这是根据用户id获取他的权限
+
 ```sql
 SELECT 
 		DISTINCT sm.`perms`
@@ -815,7 +815,259 @@ public class Menu implements Serializable {
 
 我们只需要根据用户id去查询到其所对应的权限信息即可。
 
-所以我们可以先定义个mapper，其中提供一个方法可以根据userid查询权限信息。
+所以我们可以创建个MenuMapper接口，其中提供一个方法可以根据userid查询权限信息。然后在对应的xml中编写查询语句，在进行这项工作之前我们先在application.yml中配置mapperXML文件的位置
+
+```yaml
+  redis:
+    host: localhost
+    port: 6379
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml 
+```
 
 
+
+测试能否正常查询用户的权限,在测试之前要导入测试相关的依赖并在UserMapper文件中编写对应的方法
+
+```xml
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+```
+
+UserMapper.java
+
+```java
+@Mapper
+public interface UserMapper extends BaseMapper<User> {
+    //通过用户id查询用户权限
+    List<String> selectPermsByUserId(Long id);
+}
+```
+
+UserMapper.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sg.mapper.UserMapper">
+    <select id="selectPermsByUserId" resultType="String">
+        SELECT
+        DISTINCT sm.`perms`
+        FROM
+        sys_user_role sur
+        LEFT JOIN `sys_role` sr ON sur.`role_id`= sr.`id`
+        LEFT JOIN `sys_role_menu` srm ON srm.`role_id`= sr.`id`
+        LEFT JOIN `sys_menu` sm ON srm.`menu_id`= sm.`id`
+
+        <where>
+            sur.`user_id`=#{id}
+            AND sr.`status`= 0
+            AND sm.`status`= 0
+        </where>
+    </select>
+</mapper>
+```
+
+在测试类中编程测试代码
+
+```java
+@SpringBootTest
+public class TestObject {
+
+@Autowired
+private UserMapper userMapper;
+    @Test
+    public void Test1() {
+
+        List<String> permissions =userMapper.selectPermsByUserId(1L);
+        System.out.println(permissions);
+    }
+}
+```
+
+![](https://i.postimg.cc/DwBS1Phc/screenshot-62.png)
+
+出现这个说明我们的查询方法没有问题，我们现在已经查询到了用户的权限但是我们还没有把他放入到整个spring security的授权流程中，在这里我们只需要在把LoginUser中的getAuthorities这个方法修改一下。
+
+```java
+package com.sg.domain;
+
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * ClassName: LoginUser
+ * Package: com.sg.domain
+ * Description:
+ *
+ * @Author hjh
+ * @Create 2024/10/28 8:41
+ * @Version 1.0
+ */
+@Data
+@NoArgsConstructor
+public class LoginUser implements UserDetails {
+    private User user;
+    private List<String> permissions;
+
+    public LoginUser(User user,List<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
+    //存储SpringSecurity所需要的权限信息的集合
+    /*
+   权限GrantedAuthority集合没法序列化，每次从redis获取那个权限集合都是空，每次调用获取权限的方法，都需要重新包装对象里面的权限集合,所以使用注解不进行序列化
+    */
+    @JSONField(serialize = false)
+    private List<GrantedAuthority> authorities;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(authorities!=null){
+            return authorities;
+        }
+        //把permissions中字符串类型的权限信息转换成GrantedAuthority对象存入authorities中
+        authorities = permissions.stream().
+                map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getUserName();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+}
+```
+
+这里直接用构造函数将权限信息封装到当前类中，然后我们还需要去完成之前用户UserDetailsServiceImpl类中未完成的用户权限获取方法。
+
+```java
+@Component
+public class UserDetailsServiceImpl implements UserDetailsService {
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //根据用户名查询用户信息
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getUserName, username);
+        User user = userMapper.selectOne(wrapper);
+        //如果查询不到数据就通过抛出异常来给出提示
+        if (Objects.isNull(user)) {
+            throw new RuntimeException("用户名或密码错误");
+        }
+        //根据用户查询权限信息 添加到LoginUser中
+        List<String> permissionKeyList = userMapper.selectPermsByUserId(user.getId());
+        //封装成UserDetails对象返回
+        return new LoginUser(user, permissionKeyList);
+    }
+}
+```
+
+这里完成后在登录校验中我们还需要把用户的权限信息存入到Authentication中，在JwtAuthenticationTokenFilter中完成。
+
+```java
+@Component
+public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
+    @Autowired
+    private RedisCache redisCache;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        //获取token
+        String token = request.getHeader("token");
+        if (!StringUtils.hasText(token)) {
+            //放行
+            filterChain.doFilter(request, response);
+            return;
+        }
+        //解析token
+        String userid;
+        try {
+            Claims claims = JwtUtil.parseJWT(token);
+            userid = claims.getSubject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("token非法");
+        }
+        //从redis中获取用户信息
+        String redisKey = "login:" + userid;
+        LoginUser loginUser = redisCache.getCacheObject(redisKey);
+        if(Objects.isNull(loginUser)){
+            throw new RuntimeException("用户未登录");
+        }
+        //存入SecurityContextHolder
+        //TODO 获取权限信息封装到Authentication中
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        //放行
+        filterChain.doFilter(request, response);
+    }
+```
+
+这里我们基本完成了一大半现在还剩最后的使用注解来标识，每个方法的访问权限。
+
+在spring security的配置文件中添加注解，开启相关配置。
+
+```
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+```
+
+在我们需要权限效验的方法上添加@PreAuthorize()来配置权限。
+
+```java
+@RestController
+public class HelloController {
+
+    @RequestMapping("/hello")
+    @PreAuthorize("hasAuthority('test')")
+    public String hello(){
+        return "hello";
+    }
+}
+```
+
+当我们在去访问时就需要查询是否有相应权限，有才会放行没有就会报错
 
