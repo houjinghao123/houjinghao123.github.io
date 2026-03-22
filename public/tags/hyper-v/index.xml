@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hyper-V on phjhq&#39;s Blog</title>
     <link>http://localhost:1313/tags/hyper-v/</link>
     <description>Recent content in Hyper-V on phjhq&#39;s Blog</description>
-    <image>
-      <title>phjhq&#39;s Blog</title>
-      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
-      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
-    </image>
-    <generator>Hugo -- 0.134.1</generator>
-    <language>zh</language>
-    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>[©2024 phjhq&#39;s Blog](https://houjinghao123.github.io/)</copyright>
     <lastBuildDate>Thu, 12 Sep 2024 14:38:59 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/hyper-v/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -19,10 +14,7 @@
       <link>http://localhost:1313/posts/stop-hyper-v/</link>
       <pubDate>Thu, 12 Sep 2024 14:38:59 +0800</pubDate>
       <guid>http://localhost:1313/posts/stop-hyper-v/</guid>
-      <description>&lt;h1 id=&#34;配置硬件加速&#34;&gt;配置硬件加速&lt;/h1&gt;
-&lt;h2 id=&#34;使用sdk-管理器安装&#34;&gt;使用SDK 管理器安装&lt;/h2&gt;
-&lt;p&gt;1.选择Tools&amp;gt;SDK Manger&lt;br&gt;
-&lt;img src=&#34;https://i.postimg.cc/g2zgzhDN/screenshot-9.png&#34; /&gt;&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;配置硬件加速&#34;&gt;配置硬件加速&lt;/h1&gt;&#xA;&lt;h2 id=&#34;使用sdk-管理器安装&#34;&gt;使用SDK 管理器安装&lt;/h2&gt;&#xA;&lt;p&gt;1.选择Tools&amp;gt;SDK Manger&lt;br&gt;&#xA;&lt;img src=&#34;https://i.postimg.cc/g2zgzhDN/screenshot-9.png&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;2.点击 SDK Tools 标签页，然后选择 Android Emulator Hypervisor Driver&lt;br&gt;&#xA;&lt;img src=&#34;https://i.postimg.cc/YCCxKHrP/screenshot-10.png&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;3.点击 OK，以下载并安装 Android Emulator Hypervisor Driver。&lt;br&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

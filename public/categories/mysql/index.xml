@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>MYSQL on phjhq&#39;s Blog</title>
+    <title>MySQL on phjhq&#39;s Blog</title>
     <link>http://localhost:1313/categories/mysql/</link>
-    <description>Recent content in MYSQL on phjhq&#39;s Blog</description>
-    <image>
-      <title>phjhq&#39;s Blog</title>
-      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
-      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
-    </image>
-    <generator>Hugo -- 0.134.1</generator>
-    <language>zh</language>
-    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
+    <description>Recent content in MySQL on phjhq&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>[©2024 phjhq&#39;s Blog](https://houjinghao123.github.io/)</copyright>
     <lastBuildDate>Wed, 02 Oct 2024 18:17:59 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -19,194 +14,56 @@
       <link>http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Wed, 02 Oct 2024 18:17:59 +0800</pubDate>
       <guid>http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/</guid>
-      <description>&lt;h2 id=&#34;1逻辑存储结构&#34;&gt;1、逻辑存储结构&lt;/h2&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://cdn.nlark.com/yuque/0/2024/png/49057062/1727766135694-2cc9063a-a21b-45b9-ad26-34c9691c6f26.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;p&gt;1）表空间&lt;/p&gt;
-&lt;p&gt;表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;1逻辑存储结构&#34;&gt;1、逻辑存储结构&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://cdn.nlark.com/yuque/0/2024/png/49057062/1727766135694-2cc9063a-a21b-45b9-ad26-34c9691c6f26.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;1）表空间&lt;/p&gt;&#xA;&lt;p&gt;表空间是InnoDB存储引擎逻辑结构的最高层， 如果用户启用了参数 innodb_file_per_table(在 8.0版本中默认开启) ，则每张表都会有一个表空间（xxx.ibd），一个mysql实例可以对应多个表空 间，用于存储记录、索引等数   据。&lt;/p&gt;</description>
     </item>
     <item>
       <title>MySQL触发器</title>
       <link>http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</link>
       <pubDate>Sun, 29 Sep 2024 17:34:22 +0800</pubDate>
       <guid>http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/</guid>
-      <description>&lt;h1 id=&#34;触发器&#34;&gt;&lt;strong&gt;触发器&lt;/strong&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;1介绍&#34;&gt;&lt;strong&gt;1.介绍&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;触发器是与表有关的数据库对象，指在insert/update/delete之前(BEFORE)或之后(AFTER)，触发并执行触发器中定义的SQL语句集合。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;触发器&#34;&gt;&lt;strong&gt;触发器&lt;/strong&gt;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1介绍&#34;&gt;&lt;strong&gt;1.介绍&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt;触发器是与表有关的数据库对象，指在insert/update/delete之前(BEFORE)或之后(AFTER)，触发并执行触发器中定义的SQL语句集合。&lt;/p&gt;</description>
     </item>
     <item>
       <title>MySQL视图和存储过程</title>
       <link>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sun, 29 Sep 2024 15:21:23 +0800</pubDate>
       <guid>http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</guid>
-      <description>&lt;h1 id=&#34;视图-存储过程&#34;&gt;&lt;strong&gt;视图-存储过程&lt;/strong&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;一视图&#34;&gt;&lt;strong&gt;一、视图&lt;/strong&gt;&lt;/h2&gt;
-&lt;h3 id=&#34;11介绍&#34;&gt;&lt;strong&gt;1.1介绍&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;视图-存储过程&#34;&gt;&lt;strong&gt;视图-存储过程&lt;/strong&gt;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;一视图&#34;&gt;&lt;strong&gt;一、视图&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;11介绍&#34;&gt;&lt;strong&gt;1.1介绍&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;p&gt;视图（View）是一种虚拟存在的表。视图中的数据并不在数据库中实际存在，行和列数据来自定义视图的查询中使用的表，并且是在使用视图时动态生成的。&lt;/p&gt;</description>
     </item>
     <item>
       <title>SQL优化</title>
       <link>http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/</link>
       <pubDate>Fri, 27 Sep 2024 09:13:15 +0800</pubDate>
       <guid>http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/</guid>
-      <description>&lt;h1 id=&#34;sql优化&#34;&gt;&lt;strong&gt;SQL优化&lt;/strong&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;插入数据&#34;&gt;&lt;strong&gt;插入数据&lt;/strong&gt;&lt;/h2&gt;
-&lt;h3 id=&#34;insert&#34;&gt;&lt;strong&gt;insert&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;假设我们需要插入大量数据，那么有哪些方法呢？&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;批量插入数据&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tb_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Cat&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Jerry&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+      <description>&lt;h1 id=&#34;sql优化&#34;&gt;&lt;strong&gt;SQL优化&lt;/strong&gt;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;插入数据&#34;&gt;&lt;strong&gt;插入数据&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;insert&#34;&gt;&lt;strong&gt;insert&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;p&gt;假设我们需要插入大量数据，那么有哪些方法呢？&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;批量插入数据&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tb_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Cat&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Jerry&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;手动控制事务的提交&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;start&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transaction&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tb_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Cat&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Jerry&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;INSERT&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;INTO&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tb_test&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Cat&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Jerry&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;commit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、&lt;/p&gt;</description>
     </item>
     <item>
       <title>Mysql存储引擎</title>
       <link>http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/</link>
       <pubDate>Sat, 21 Sep 2024 14:04:10 +0800</pubDate>
       <guid>http://localhost:1313/posts/mysql%E5%BC%95%E6%93%8E%E4%BB%8B%E7%BB%8D/</guid>
-      <description>&lt;h1 id=&#34;一mysql存储引擎&#34;&gt;&lt;strong&gt;一、Mysql存储引擎&lt;/strong&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;1mysql的体系结构&#34;&gt;&lt;strong&gt;1.Mysql的体系结构&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://i.postimg.cc/MpV3xV4W/screenshot-16.png&#34; alt=&#34;&#34;  /&gt;
-&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;连接层&lt;/li&gt;
-&lt;li&gt;服务层&lt;/li&gt;
-&lt;li&gt;引擎层&lt;/li&gt;
-&lt;li&gt;存储层&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;2存储引擎介绍&#34;&gt;&lt;strong&gt;2.存储引擎介绍&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，&lt;code&gt;所以存储引擎也可被称为表类型&lt;/code&gt; 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;一mysql存储引擎&#34;&gt;&lt;strong&gt;一、Mysql存储引擎&lt;/strong&gt;&lt;/h1&gt;&#xA;&lt;h2 id=&#34;1mysql的体系结构&#34;&gt;&lt;strong&gt;1.Mysql的体系结构&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/MpV3xV4W/screenshot-16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;连接层&lt;/li&gt;&#xA;&lt;li&gt;服务层&lt;/li&gt;&#xA;&lt;li&gt;引擎层&lt;/li&gt;&#xA;&lt;li&gt;存储层&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;2存储引擎介绍&#34;&gt;&lt;strong&gt;2.存储引擎介绍&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;p&gt;存储引擎就是存储数据、建立索引、更新/查询数据等技术的实现方式 。存储引擎是基于表的，而不是基于库的，&lt;code&gt;所以存储引擎也可被称为表类型&lt;/code&gt; 。我们可以在创建表的时候，来指定选择的存储引擎，如果没有指定将自动选择默认的存储引擎(InnoDB)。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Mysql事务</title>
       <link>http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/</link>
       <pubDate>Fri, 20 Sep 2024 14:04:10 +0800</pubDate>
       <guid>http://localhost:1313/posts/mysql%E4%BA%8B%E5%8A%A1/</guid>
-      <description>&lt;h1 id=&#34;事务&#34;&gt;事务&lt;/h1&gt;
-&lt;p&gt;事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;事务&#34;&gt;事务&lt;/h1&gt;&#xA;&lt;p&gt;事务 是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功，要么同时失败。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Mysql常用函数</title>
       <link>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</link>
       <pubDate>Thu, 19 Sep 2024 20:02:09 +0800</pubDate>
       <guid>http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</guid>
-      <description>&lt;h1 id=&#34;mysql常用函数&#34;&gt;Mysql常用函数&lt;/h1&gt;
-&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/cJQ332yQ/screenshot-12.png&#34; /&gt;&lt;br&gt;&lt;/p&gt;
-&lt;h2 id=&#34;聚合函数&#34;&gt;&lt;strong&gt;聚合函数&lt;/strong&gt;&lt;/h2&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;count&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;统计数量&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;max&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;最大值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;min&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;最小值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;avg&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;平均值&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;sum&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;求和&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;字符串函数&#34;&gt;&lt;strong&gt;字符串函数&lt;/strong&gt;&lt;/h2&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;CONCAT(S1,S2,&amp;hellip;Sn)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;字符串拼接，将S1，S2，&amp;hellip; Sn拼接成一个字符串&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;LOWER(str)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;将字符串str全部转为小写&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;UPPER(str)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;将字符串str全部转为大写&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;LPAD(str,n,pad)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;左填充，用字符串pad对str的左边进行填充，达到n个字符串长度&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;RPAD(str,n,pad)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;右填充，用字符串pad对str的右边进行填充，达到n个字符串长度&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;TRIM(str)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;去掉字符串头部和尾部的空格&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;SUBSTRING(str,start,len)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;返回从字符串str从start位置起的len个长度的字符串&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;数值函数&#34;&gt;&lt;strong&gt;数值函数&lt;/strong&gt;&lt;/h2&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;函数&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;功能&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;CEIL(x)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;向上取整&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;FLOOR(x)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;向下取整&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;MOD(x,y)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;返回x/y的模&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;RAND()&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;返回0~1内的随机数&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;ROUND(x,y)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;求参数x的四舍五入的值，保留y位小数&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;例题：&lt;br&gt;
-通过数据库的函数，生成一个六位数的随机验证码。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;mysql常用函数&#34;&gt;Mysql常用函数&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://i.postimg.cc/cJQ332yQ/screenshot-12.png&#34; /&gt;&lt;br&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;聚合函数&#34;&gt;&lt;strong&gt;聚合函数&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;函数&lt;/th&gt;&#xA;          &lt;th&gt;功能&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;count&lt;/td&gt;&#xA;          &lt;td&gt;统计数量&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;max&lt;/td&gt;&#xA;          &lt;td&gt;最大值&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;min&lt;/td&gt;&#xA;          &lt;td&gt;最小值&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;avg&lt;/td&gt;&#xA;          &lt;td&gt;平均值&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;sum&lt;/td&gt;&#xA;          &lt;td&gt;求和&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;字符串函数&#34;&gt;&lt;strong&gt;字符串函数&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;函数&lt;/th&gt;&#xA;          &lt;th&gt;功能&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;CONCAT(S1,S2,&amp;hellip;Sn)&lt;/td&gt;&#xA;          &lt;td&gt;字符串拼接，将S1，S2，&amp;hellip; Sn拼接成一个字符串&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;LOWER(str)&lt;/td&gt;&#xA;          &lt;td&gt;将字符串str全部转为小写&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;UPPER(str)&lt;/td&gt;&#xA;          &lt;td&gt;将字符串str全部转为大写&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;LPAD(str,n,pad)&lt;/td&gt;&#xA;          &lt;td&gt;左填充，用字符串pad对str的左边进行填充，达到n个字符串长度&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;RPAD(str,n,pad)&lt;/td&gt;&#xA;          &lt;td&gt;右填充，用字符串pad对str的右边进行填充，达到n个字符串长度&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;TRIM(str)&lt;/td&gt;&#xA;          &lt;td&gt;去掉字符串头部和尾部的空格&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;SUBSTRING(str,start,len)&lt;/td&gt;&#xA;          &lt;td&gt;返回从字符串str从start位置起的len个长度的字符串&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;数值函数&#34;&gt;&lt;strong&gt;数值函数&lt;/strong&gt;&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;函数&lt;/th&gt;&#xA;          &lt;th&gt;功能&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;CEIL(x)&lt;/td&gt;&#xA;          &lt;td&gt;向上取整&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;FLOOR(x)&lt;/td&gt;&#xA;          &lt;td&gt;向下取整&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;MOD(x,y)&lt;/td&gt;&#xA;          &lt;td&gt;返回x/y的模&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;RAND()&lt;/td&gt;&#xA;          &lt;td&gt;返回0~1内的随机数&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;ROUND(x,y)&lt;/td&gt;&#xA;          &lt;td&gt;求参数x的四舍五入的值，保留y位小数&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;例题：&lt;br&gt;&#xA;通过数据库的函数，生成一个六位数的随机验证码。&lt;/p&gt;</description>
     </item>
     <item>
       <title>MySQL的基本操作</title>
       <link>http://localhost:1313/posts/my-first-post/</link>
       <pubDate>Tue, 10 Sep 2024 16:55:14 +0800</pubDate>
       <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>&lt;h1 id=&#34;mysql的基本操作&#34;&gt;MySQL的基本操作&lt;/h1&gt;
-&lt;p&gt;1、查看所有的数据库&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datebases&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、创建自己的数据库&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datebase&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据库名字&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
+      <description>&lt;h1 id=&#34;mysql的基本操作&#34;&gt;MySQL的基本操作&lt;/h1&gt;&#xA;&lt;p&gt;1、查看所有的数据库&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;show&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datebases&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2、创建自己的数据库&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;create&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;datebase&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据库名字&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3、使用自己的数据库&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-mysql&#34; data-lang=&#34;mysql&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;use&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;数据库名字&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;说明：如果没有使用use语句，后面针对数据库的操作也没有加“数据名”的限定，那么会报“ERROR 1046 (3D000): No database selected”（没有选择数据库） 使用完use语句之后，如果接下来的SQL都是针对一个数据库操作的，那就不用重复use了，如果要针对另 一个数据库操作，那么要重新use。&lt;/p&gt;</description>
     </item>
     <item>
       <title>测试</title>

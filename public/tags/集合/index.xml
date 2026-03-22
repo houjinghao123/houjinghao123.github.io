@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>集合 on phjhq&#39;s Blog</title>
     <link>http://localhost:1313/tags/%E9%9B%86%E5%90%88/</link>
     <description>Recent content in 集合 on phjhq&#39;s Blog</description>
-    <image>
-      <title>phjhq&#39;s Blog</title>
-      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
-      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
-    </image>
-    <generator>Hugo -- 0.134.1</generator>
-    <language>zh</language>
-    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>[©2024 phjhq&#39;s Blog](https://houjinghao123.github.io/)</copyright>
     <lastBuildDate>Wed, 11 Sep 2024 13:57:35 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/%E9%9B%86%E5%90%88/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -19,9 +14,7 @@
       <link>http://localhost:1313/posts/java%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/</link>
       <pubDate>Wed, 11 Sep 2024 13:57:35 +0800</pubDate>
       <guid>http://localhost:1313/posts/java%E9%9B%86%E5%90%88%E5%A4%8D%E4%B9%A0/</guid>
-      <description>&lt;h1 id=&#34;java集合简介&#34;&gt;java集合简介&lt;/h1&gt;
-&lt;h2 id=&#34;一集合基本的关系结构&#34;&gt;一、集合基本的关系结构&lt;/h2&gt;
-&lt;p&gt;Collection 接口的接口 对象的集合（单列集合）&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;java集合简介&#34;&gt;java集合简介&lt;/h1&gt;&#xA;&lt;h2 id=&#34;一集合基本的关系结构&#34;&gt;一、集合基本的关系结构&lt;/h2&gt;&#xA;&lt;p&gt;Collection 接口的接口 对象的集合（单列集合）&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;List 接口：元素按进入先后有序保存，可重复&#xA;&lt;ul&gt;&#xA;&lt;li&gt;LinkedList 接口实现类， 链表， 插入删除， 没有同步， 线程不安全&lt;/li&gt;&#xA;&lt;li&gt;ArrayList 接口实现类， 数组， 随机访问， 没有同步， 线程不安全&lt;/li&gt;&#xA;&lt;li&gt;Vector 接口实现类 数组， 同步， 线程安全&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Stack 是Vector类的实现类&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Set 接口： 仅接收一次，不可重复，并做内部排序&#xA;&lt;ul&gt;&#xA;&lt;li&gt;HashSet 使用hash表（数组）存储元素&lt;/li&gt;&#xA;&lt;li&gt;LinkedHashSet 链表维护元素的插入次序&lt;/li&gt;&#xA;&lt;li&gt;TreeSet 底层实现为二叉树，元素排好序&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;img src=&#34;https://i.postimg.cc/V66ZdcmS/image-20220407203244029.png&#34;/&gt;&#xD;&#xA;&lt;p&gt;Map 接口 键值对的集合 （双列集合）&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
