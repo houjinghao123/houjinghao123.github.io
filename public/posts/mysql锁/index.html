@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63558&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -11,16 +11,16 @@
 1、概述
 如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/mysql%E9%94%81/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
-<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<link rel="canonical" href="http://localhost:63558/posts/mysql%E9%94%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4d7d1b00b3e9dfbefdbf8c49c30f9c2093ef02d2ea38594e3f7cba208f5feea.css" integrity="sha256-5NfRsAs&#43;nfvv2/jEnDD5wgk&#43;8C0uo4WU4/fLogj1/uo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63558/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63558/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63558/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63558/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63558/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mysql%E9%94%81/">
+<link rel="alternate" hreflang="zh" href="http://localhost:63558/posts/mysql%E9%94%81/">
 <noscript>
     <style>
         #theme-toggle,
@@ -74,7 +74,7 @@
 1、概述
 如何保证数据并发访问的一致性、有效性是所有数据库必须解决的一个问题，锁冲突也是影响数据库并发访问性能的一个重要因素。从这个角度来说，锁对数据库而言显得尤其重要，也更加复杂。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/mysql%E9%94%81/" />
+<meta property="og:url" content="http://localhost:63558/posts/mysql%E9%94%81/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-10-01T13:21:57+08:00" />
@@ -97,13 +97,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://localhost:63558/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "MySQL锁",
-      "item": "http://localhost:1313/posts/mysql%E9%94%81/"
+      "item": "http://localhost:63558/posts/mysql%E9%94%81/"
     }
   ]
 }
@@ -129,14 +129,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/mysql%E9%94%81/"
+    "@id": "http://localhost:63558/posts/mysql%E9%94%81/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "phjhq's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.png"
+      "url": "http://localhost:63558/favicon.png"
     }
   }
 }
@@ -154,7 +154,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <a href="http://localhost:63558/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -180,32 +180,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="http://localhost:63558/" title="phjhq&#39;s Blog">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="http://localhost:63558/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="分类">
+                <a href="http://localhost:63558/categories/" title="Categories">
                     <span>分类</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="http://localhost:63558/tags/" title="Tags">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="http://localhost:63558/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="友链">
+                <a href="http://localhost:63558/about/" title="友链">
                     <span>友链</span>
                 </a>
             </li>
@@ -377,31 +377,31 @@
 <table>
   <thead>
       <tr>
-          <th style="text-align: left"><strong>对应SQL</strong></th>
-          <th style="text-align: left"><strong>锁类型</strong></th>
-          <th style="text-align: left"><strong>说明</strong></th>
+          <th><strong>对应SQL</strong></th>
+          <th><strong>锁类型</strong></th>
+          <th><strong>说明</strong></th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">lock tables xxx read/write</td>
-          <td style="text-align: left">SHARED_READ_ONLY/SHARED_NO_READ_WRITE</td>
-          <td style="text-align: left"></td>
+          <td>lock tables xxx read/write</td>
+          <td>SHARED_READ_ONLY/SHARED_NO_READ_WRITE</td>
+          <td></td>
       </tr>
       <tr>
-          <td style="text-align: left">select 、select&hellip;lock in share mode</td>
-          <td style="text-align: left">SHARED_READ</td>
-          <td style="text-align: left">与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
+          <td>select 、select&hellip;lock in share mode</td>
+          <td>SHARED_READ</td>
+          <td>与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
       </tr>
       <tr>
-          <td style="text-align: left">insert 、update、delete、select&hellip; forupdate</td>
-          <td style="text-align: left">SHARED_WRITE</td>
-          <td style="text-align: left">与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
+          <td>insert 、update、delete、select&hellip; forupdate</td>
+          <td>SHARED_WRITE</td>
+          <td>与SHARED_READ、SHARED_WRITE兼容，与EXCLUSIVE互斥</td>
       </tr>
       <tr>
-          <td style="text-align: left">alter table&hellip;</td>
-          <td style="text-align: left">EXCLUSIVE</td>
-          <td style="text-align: left">与其他的MDL都互斥</td>
+          <td>alter table&hellip;</td>
+          <td>EXCLUSIVE</td>
+          <td>与其他的MDL都互斥</td>
       </tr>
   </tbody>
 </table>
@@ -409,12 +409,12 @@
 <p>当执行SELECT语句时，添加的是元数据共享锁（SHARED_READ），会阻塞元数据排他锁（EXCLUSIVE），之间是互斥的。</p>
 <p>我们可以通过下面的SQL,来查看数据库中的元数据锁的情况:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">select</span><span class="w"> </span><span class="n">object_type</span><span class="p">,</span><span class="n">object_schema</span><span class="p">,</span><span class="n">object_name</span><span class="p">,</span><span class="n">lock_type</span><span class="p">,</span><span class="n">lock_duration</span><span class="w"> </span><span class="k">from</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="n">performance_schema</span><span class="p">.</span><span class="n">metadata_locks</span><span class="w"> </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">performance_schema</span><span class="p">.</span><span class="n">metadata_locks</span><span class="w"> </span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>如果是5.7版本的数据库需要手动开启metadata_locks锁记录(临时生效)</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">update</span><span class="w"> </span><span class="n">performance_schema</span><span class="p">.</span><span class="n">setup_instruments</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;YES&#39;</span><span class="p">,</span><span class="n">timed</span><span class="o">=</span><span class="s1">&#39;YES&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;wait/lock/metadata/sql/mdl&#39;</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>永久生效在配置文件中加入以下内容</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 开启监控元数据锁
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="n">performance</span><span class="o">-</span><span class="k">schema</span><span class="o">-</span><span class="n">instrument</span><span class="o">=</span><span class="s1">&#39;wait/lock/metadata/sql/mdl=ON&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="n">performance</span><span class="o">-</span><span class="k">schema</span><span class="o">-</span><span class="n">instrument</span><span class="o">=</span><span class="s1">&#39;wait/lock/metadata/sql/mdl=ON&#39;</span><span class="w">
 </span></span></span></code></pre></div><p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/9463470a2f4f44a8994529b639aefe19/image.png?Expires=3304418366&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=qb%2F7UCLID%2FmTxTFeUekTiAsSCUQ%3D" alt="image.png"  />
 </p>
 <p>当在不同的连接窗口上时EXCLUSIVE锁是和其他锁互斥的。如果在同一连接窗口则会强制提交事务。</p>
@@ -472,41 +472,41 @@
 <table>
   <thead>
       <tr>
-          <th style="text-align: left"></th>
-          <th style="text-align: left">X</th>
-          <th style="text-align: left">IX</th>
-          <th style="text-align: left">S</th>
-          <th style="text-align: left">IS</th>
+          <th></th>
+          <th>X</th>
+          <th>IX</th>
+          <th>S</th>
+          <th>IS</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">X</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">互斥</td>
+          <td>X</td>
+          <td>互斥</td>
+          <td>互斥</td>
+          <td>互斥</td>
+          <td>互斥</td>
       </tr>
       <tr>
-          <td style="text-align: left">IX</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">兼容</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">兼容</td>
+          <td>IX</td>
+          <td>互斥</td>
+          <td>兼容</td>
+          <td>互斥</td>
+          <td>兼容</td>
       </tr>
       <tr>
-          <td style="text-align: left">S</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">兼容</td>
-          <td style="text-align: left">兼容</td>
+          <td>S</td>
+          <td>互斥</td>
+          <td>互斥</td>
+          <td>兼容</td>
+          <td>兼容</td>
       </tr>
       <tr>
-          <td style="text-align: left">IS</td>
-          <td style="text-align: left">互斥</td>
-          <td style="text-align: left">兼容</td>
-          <td style="text-align: left">兼容</td>
-          <td style="text-align: left">兼容</td>
+          <td>IS</td>
+          <td>互斥</td>
+          <td>兼容</td>
+          <td>兼容</td>
+          <td>兼容</td>
       </tr>
   </tbody>
 </table>
@@ -514,41 +514,41 @@
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">SQL</th>
-          <th style="text-align: left">行锁类型</th>
-          <th style="text-align: left">说明</th>
+          <th>SQL</th>
+          <th>行锁类型</th>
+          <th>说明</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">INSERT &hellip;</td>
-          <td style="text-align: left">排他锁</td>
-          <td style="text-align: left">自动加锁</td>
+          <td>INSERT &hellip;</td>
+          <td>排他锁</td>
+          <td>自动加锁</td>
       </tr>
       <tr>
-          <td style="text-align: left">UPDATE &hellip;</td>
-          <td style="text-align: left">排他锁</td>
-          <td style="text-align: left">自动加锁</td>
+          <td>UPDATE &hellip;</td>
+          <td>排他锁</td>
+          <td>自动加锁</td>
       </tr>
       <tr>
-          <td style="text-align: left">DELETE &hellip;</td>
-          <td style="text-align: left">排他锁</td>
-          <td style="text-align: left">自动加锁</td>
+          <td>DELETE &hellip;</td>
+          <td>排他锁</td>
+          <td>自动加锁</td>
       </tr>
       <tr>
-          <td style="text-align: left">SELECT（正常）</td>
-          <td style="text-align: left">不加任何锁</td>
-          <td style="text-align: left"></td>
+          <td>SELECT（正常）</td>
+          <td>不加任何锁</td>
+          <td></td>
       </tr>
       <tr>
-          <td style="text-align: left">SELECT &hellip; LOCK IN SHARE MODE</td>
-          <td style="text-align: left">共享锁</td>
-          <td style="text-align: left">需要手动在SELECT之后加LOCK IN SHARE  MODE</td>
+          <td>SELECT &hellip; LOCK IN SHARE MODE</td>
+          <td>共享锁</td>
+          <td>需要手动在SELECT之后加LOCK IN SHARE  MODE</td>
       </tr>
       <tr>
-          <td style="text-align: left">SELECT &hellip; FOR UPDATE</td>
-          <td style="text-align: left">排他锁</td>
-          <td style="text-align: left">需要手动在SELECT之后加FOR UPDATE</td>
+          <td>SELECT &hellip; FOR UPDATE</td>
+          <td>排他锁</td>
+          <td>需要手动在SELECT之后加FOR UPDATE</td>
       </tr>
   </tbody>
 </table>
@@ -593,12 +593,12 @@ next-keylock是包含间隙锁+记录锁的，如果一个事务获取了×型�
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/innodb%E8%AF%A6%E8%A7%A3/">
+  <a class="prev" href="http://localhost:63558/posts/innodb%E8%AF%A6%E8%A7%A3/">
     <span class="title">« 上一页</span>
     <br>
     <span>InnoDB详解</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+  <a class="next" href="http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
     <span class="title">下一页 »</span>
     <br>
     <span>MySQL触发器</span>

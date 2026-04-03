@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63558&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -9,18 +9,21 @@
 <meta name="keywords" content="Docker">
 <meta name="description" content="DockerFile的基本使用
 为什么要使用
-之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。">
+之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。
+使用dockerFile可以自定义镜像
+快速入门
+构建一个最简单的HelloWorld镜像">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
-<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<link rel="canonical" href="http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4d7d1b00b3e9dfbefdbf8c49c30f9c2093ef02d2ea38594e3f7cba208f5feea.css" integrity="sha256-5NfRsAs&#43;nfvv2/jEnDD5wgk&#43;8C0uo4WU4/fLogj1/uo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63558/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63558/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63558/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63558/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63558/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+<link rel="alternate" hreflang="zh" href="http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
 <noscript>
     <style>
         #theme-toggle,
@@ -72,9 +75,12 @@
 </style><meta property="og:title" content="DockerFile和DockerCompose基本使用" />
 <meta property="og:description" content="DockerFile的基本使用
 为什么要使用
-之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。" />
+之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。
+使用dockerFile可以自定义镜像
+快速入门
+构建一个最简单的HelloWorld镜像" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
+<meta property="og:url" content="http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-10-16T13:53:02+08:00" />
@@ -85,7 +91,10 @@
 <meta name="twitter:title" content="DockerFile和DockerCompose基本使用"/>
 <meta name="twitter:description" content="DockerFile的基本使用
 为什么要使用
-之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。"/>
+之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。
+使用dockerFile可以自定义镜像
+快速入门
+构建一个最简单的HelloWorld镜像"/>
 
 
 <script type="application/ld+json">
@@ -97,13 +106,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://localhost:63558/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "DockerFile和DockerCompose基本使用",
-      "item": "http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
+      "item": "http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
     }
   ]
 }
@@ -114,11 +123,11 @@
   "@type": "BlogPosting",
   "headline": "DockerFile和DockerCompose基本使用",
   "name": "DockerFile和DockerCompose基本使用",
-  "description": "DockerFile的基本使用 为什么要使用 之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。\n",
+  "description": "DockerFile的基本使用 为什么要使用 之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。\n使用dockerFile可以自定义镜像\n快速入门 构建一个最简单的HelloWorld镜像\n",
   "keywords": [
     "Docker"
   ],
-  "articleBody": "DockerFile的基本使用 为什么要使用 之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。\n使用dockerFile可以自定义镜像\n快速入门 构建一个最简单的HelloWorld镜像\n创建一个文件 1sudo mkdir images 在文件中编写相关指令 FROM ubuntu:22.04 CMD [\"echo\",\"helloworld\"] 编译镜像 1docker build -t hello:1.0 -f HelloWorld . 容器运行测试 1docker run hello:1.0 指令学习 FROM 作用\n定义基础镜像\n用法\nFROM 镜像名:标签名\nFROM ubuntu：22.04\n作用时机\n构建镜像的时候\nCMD 作用\n用来定义容器运行时的默认命令。可以在使用docker run的时候覆盖掉CMD中定义的命令\n用法\nCMD [“命令1”，“参数1”,“参数2”]\nCMD echo $HOME\n注意\n一个DockerFile中写多个CMD的时候只有最后一个CMD会去作用\nENV 作用\n用来定义环境变量\n用法\nENV 变量名=“变量值”\n作用时机\n构建镜像的时候\n脚本\n1#第一种使用参数的方法 2FROM ubuntu:22.04 3ENV CONTENT hello 4CMD [\"sh\",\"-c\",\"echo $CONTENT\"] 5#第二种使用参数的方法 6FROM ubuntu:22.04 7ENV CONTENT=\"helloword\" 8CMD echo $CONTENT RUN 作用\n它是用来定义构建过程中要执行的命令的\n用法\nRUN 命令\n例如：RUN echo sg\n作用时机\n构建镜像的时候\nWORKDIR 作用\n用于设置当前工作的目录，如果该目录不存在会自动创建。\n用法\nWORKDIR 目录\nWORKDIR /root/app\n作用时机\n构建镜像的时候\n案例：\n定义一个CONTENT变量，默认值为hellodocker，在镜像的/app目录下创建一个sg目录，在其中创建一个content.txt文件，文件的内容为CONTENT变量的值。容器启动时打印content.txt的内容\n在Linux环境下执行这些命令\n1export CONTENT=hellodocker 2mkdir /app 3cd /app 4mkdir sg 5cd sg 6echo $CONTINT\u003econtent.txt 7cat content.txt 使用dockerfile构建响应的容器\n1FROM ubuntu:22.04 2ENV CONTINT=\"hellodocker\" 3WORKDIR /app/sg 4RUN echo $CONTINT\u003econtent.txt 5CMD [\"cat\",\"content.txt\"] 构建 1docker build -t test:2.0 -f Test1 . 运行 1docekr run test:2.0 ADD 作用\n把构建上下文中的文件或者网络文件添加到镜像中，如果文件是一个压缩包会自动解压，如果是网络中的文件并不会自动解压\n用法\nADD 原路径 目标路径\nADD sg-blog-vue.tar.gz .\n作用时机\n构建镜像的时候\nEXPOSE 作用\n暴露需要发布的端口，让镜像使用者知道应该发布哪些端口\n用法\nEXPOSE 端口号1 端口号2 ….\nEXPOSE 80 8080\n作用时机\n构建镜像的时候\nCOPY 作用\n从构建上下文中复制内容到镜像中\n用法\nCOPY 原路径 目标路径\nCOPY sg-blog-vue.tar.gz .\nENTRYPOINT 作用\n用来定义容器运行时的默认命令。docker run的时候无法覆盖ENTRYPOINT里的内容。\n作用时机\n运行容器的时候\n用法\nENTRYPOINT [“命令1”,“参数1”,“参数2”]\nENTRYPOINT [“echo”,“helloworld”]\n解释\n与CMD结合，把不希望被覆盖的命令用ENTRYPOINNT定义，其他部分用CMD定义，这样启动容器的时候只会覆盖CMD的部分\n例\nENTRYPOINT [“java”,\"-jar\"] CMD [“app.jar”]\n上述写法的app.jar就是可以被覆盖的，而java -jar就是不能被覆盖\n上传镜像 注册账号\n上传镜像需要有dockerhub的账号\n本地登录验证\ndocker login\n然后输入用户名和密码\n给镜像打标签\ndocker tag username/镜像名:tag #username是DockerHub的用户名\n推送镜像\ndocker push username/镜像名:tag\nDockerCompose的基本使用 概述 为什么要学习 我们在部署运行一个项目的时候可能需要运行多个容器。 还要去处理这些容器的网络，数据卷等。 如果用docker命令一个个去处理还是不方便。 DockerCompose就是去解决这个问题的。\nDockerCompose是用来定义和运行一个或多个容器(通常都是多个)运行和应用的工具\n可以使用 YAML 文件来配置应用程序的服务。然后，使用单个命令，您可以根据配置创建并启动所有服务。\n检查是否安装DockerCompose 使用docker compose version 可以查看版本\n快速入门 编写docker-compose.yaml模板文件 运行 docker compose up -d 停止 docker compose down 默认运行的文件时docker-compose，当使用docker compose up时会自动寻找docker-compose.yaml这个文件，如果更改文件名需要添加新的参数进行指定文件位置\n1docker-compose -f docker-compose.override.yml up 模板文件中的元素 command 覆盖容器启动后的默认指令 environment 指定环境变量，相当于run的-e选项 image 用来指定镜像 networks 指定网络，相当于run的–network ports 用来指定要发布的端口，相当于run的-p volumes 用来指定数据卷，相当于-v restart 用来指定重启策略，相当于–restart 案例\n在之前自定义镜像版本的基础上，用DockerCompose来部署\n1services: 2 # mysql 3 blog_mysql: 4 image: mysql:5.7 5 volumes: 6 - mysql_data:/var/lib/mysql 7 ports: 8 - 3306:3306 9 environment: 10 MYSQL_ROOT_PASSWORD: ******* 11 restart: always 12 networks: 13 - blog_net 14 # redis 15 blog_redis: 16 image: redis:7.0 17 volumes: 18 - redis_data:/data 19 ports: 20 - 6379:6379 21 restart: always 22 command: ['redis-server','--appendonly','yes'] 23 networks: 24 - blog_net 25 # 后端服务 26 sg_blog: 27 image: sg_blog:01 28 ports: 29 - 7777:7777 30 networks: 31 - blog_net 32 restart: always 33 # 前端服务 34 sg_blog_vue: 35 image: sg_blog_vue:01 36 ports: 37 - 80:80 38 restart: always 39 40networks: 41 blog_net: 42 43volumes: 44 mysql_data: 45 #使用已经存在的数据卷 46 external: true 47 redis_data: 48 external: true ",
+  "articleBody": "DockerFile的基本使用 为什么要使用 之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。\n使用dockerFile可以自定义镜像\n快速入门 构建一个最简单的HelloWorld镜像\n创建一个文件 1sudo mkdir images 在文件中编写相关指令 FROM ubuntu:22.04\rCMD [\"echo\",\"helloworld\"] 编译镜像 1docker build -t hello:1.0 -f HelloWorld . 容器运行测试 1docker run hello:1.0 指令学习 FROM 作用\n定义基础镜像\n用法\nFROM 镜像名:标签名\nFROM ubuntu：22.04\n作用时机\n构建镜像的时候\nCMD 作用\n用来定义容器运行时的默认命令。可以在使用docker run的时候覆盖掉CMD中定义的命令\n用法\nCMD [“命令1”，“参数1”,“参数2”]\nCMD echo $HOME\n注意\n一个DockerFile中写多个CMD的时候只有最后一个CMD会去作用\nENV 作用\n用来定义环境变量\n用法\nENV 变量名=“变量值”\n作用时机\n构建镜像的时候\n脚本\n1#第一种使用参数的方法 2FROM ubuntu:22.04 3ENV CONTENT hello 4CMD [\"sh\",\"-c\",\"echo $CONTENT\"] 5#第二种使用参数的方法 6FROM ubuntu:22.04 7ENV CONTENT=\"helloword\" 8CMD echo $CONTENT RUN 作用\n它是用来定义构建过程中要执行的命令的\n用法\nRUN 命令\n例如：RUN echo sg\n作用时机\n构建镜像的时候\nWORKDIR 作用\n用于设置当前工作的目录，如果该目录不存在会自动创建。\n用法\nWORKDIR 目录\nWORKDIR /root/app\n作用时机\n构建镜像的时候\n案例：\n定义一个CONTENT变量，默认值为hellodocker，在镜像的/app目录下创建一个sg目录，在其中创建一个content.txt文件，文件的内容为CONTENT变量的值。容器启动时打印content.txt的内容\n在Linux环境下执行这些命令\n1export CONTENT=hellodocker 2mkdir /app 3cd /app 4mkdir sg 5cd sg 6echo $CONTINT\u003econtent.txt 7cat content.txt 使用dockerfile构建响应的容器\n1FROM ubuntu:22.04 2ENV CONTINT=\"hellodocker\" 3WORKDIR /app/sg 4RUN echo $CONTINT\u003econtent.txt 5CMD [\"cat\",\"content.txt\"] 构建 1docker build -t test:2.0 -f Test1 . 运行 1docekr run test:2.0 ADD 作用\n把构建上下文中的文件或者网络文件添加到镜像中，如果文件是一个压缩包会自动解压，如果是网络中的文件并不会自动解压\n用法\nADD 原路径 目标路径\nADD sg-blog-vue.tar.gz .\n作用时机\n构建镜像的时候\nEXPOSE 作用\n暴露需要发布的端口，让镜像使用者知道应该发布哪些端口\n用法\nEXPOSE 端口号1 端口号2 ….\nEXPOSE 80 8080\n作用时机\n构建镜像的时候\nCOPY 作用\n从构建上下文中复制内容到镜像中\n用法\nCOPY 原路径 目标路径\nCOPY sg-blog-vue.tar.gz .\nENTRYPOINT 作用\n用来定义容器运行时的默认命令。docker run的时候无法覆盖ENTRYPOINT里的内容。\n作用时机\n运行容器的时候\n用法\nENTRYPOINT [“命令1”,“参数1”,“参数2”]\nENTRYPOINT [“echo”,“helloworld”]\n解释\n与CMD结合，把不希望被覆盖的命令用ENTRYPOINNT定义，其他部分用CMD定义，这样启动容器的时候只会覆盖CMD的部分\n例\nENTRYPOINT [“java”,\"-jar\"] CMD [“app.jar”]\n上述写法的app.jar就是可以被覆盖的，而java -jar就是不能被覆盖\n上传镜像 注册账号\n上传镜像需要有dockerhub的账号\n本地登录验证\ndocker login\n然后输入用户名和密码\n给镜像打标签\ndocker tag username/镜像名:tag #username是DockerHub的用户名\n推送镜像\ndocker push username/镜像名:tag\nDockerCompose的基本使用 概述 为什么要学习 我们在部署运行一个项目的时候可能需要运行多个容器。 还要去处理这些容器的网络，数据卷等。 如果用docker命令一个个去处理还是不方便。 DockerCompose就是去解决这个问题的。\nDockerCompose是用来定义和运行一个或多个容器(通常都是多个)运行和应用的工具\n可以使用 YAML 文件来配置应用程序的服务。然后，使用单个命令，您可以根据配置创建并启动所有服务。\n检查是否安装DockerCompose 使用docker compose version 可以查看版本\n快速入门 编写docker-compose.yaml模板文件 运行 docker compose up -d 停止 docker compose down 默认运行的文件时docker-compose，当使用docker compose up时会自动寻找docker-compose.yaml这个文件，如果更改文件名需要添加新的参数进行指定文件位置\n1docker-compose -f docker-compose.override.yml up 模板文件中的元素 command 覆盖容器启动后的默认指令 environment 指定环境变量，相当于run的-e选项 image 用来指定镜像 networks 指定网络，相当于run的–network ports 用来指定要发布的端口，相当于run的-p volumes 用来指定数据卷，相当于-v restart 用来指定重启策略，相当于–restart 案例\n在之前自定义镜像版本的基础上，用DockerCompose来部署\n1services: 2 # mysql 3 blog_mysql: 4 image: mysql:5.7 5 volumes: 6 - mysql_data:/var/lib/mysql 7 ports: 8 - 3306:3306 9 environment: 10 MYSQL_ROOT_PASSWORD: ******* 11 restart: always 12 networks: 13 - blog_net 14 # redis 15 blog_redis: 16 image: redis:7.0 17 volumes: 18 - redis_data:/data 19 ports: 20 - 6379:6379 21 restart: always 22 command: ['redis-server','--appendonly','yes'] 23 networks: 24 - blog_net 25 # 后端服务 26 sg_blog: 27 image: sg_blog:01 28 ports: 29 - 7777:7777 30 networks: 31 - blog_net 32 restart: always 33 # 前端服务 34 sg_blog_vue: 35 image: sg_blog_vue:01 36 ports: 37 - 80:80 38 restart: always 39 40networks: 41 blog_net: 42 43volumes: 44 mysql_data: 45 #使用已经存在的数据卷 46 external: true 47 redis_data: 48 external: true ",
   "wordCount" : "1876",
   "inLanguage": "zh",
   "image": "https://i.postimg.cc/7hwBy7VS/calcr.png","datePublished": "2024-10-16T13:53:02+08:00",
@@ -129,14 +138,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
+    "@id": "http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "phjhq's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.png"
+      "url": "http://localhost:63558/favicon.png"
     }
   }
 }
@@ -154,7 +163,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <a href="http://localhost:63558/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -180,32 +189,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="http://localhost:63558/" title="phjhq&#39;s Blog">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="http://localhost:63558/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="分类">
+                <a href="http://localhost:63558/categories/" title="Categories">
                     <span>分类</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="http://localhost:63558/tags/" title="Tags">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="http://localhost:63558/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="友链">
+                <a href="http://localhost:63558/about/" title="友链">
                     <span>友链</span>
                 </a>
             </li>
@@ -429,11 +438,11 @@ CMD [&#34;echo&#34;,&#34;helloworld&#34;]
 <p>使用dockerfile构建响应的容器</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">FROM</span><span class="s"> ubuntu:22.04</span><span class="err">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="err"></span><span class="k">ENV</span> <span class="nv">CONTINT</span><span class="o">=</span><span class="s2">&#34;hellodocker&#34;</span><span class="err">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app/sg</span><span class="err">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="err"></span><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$CONTINT</span>&gt;content.txt<span class="err">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="err"></span><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;cat&#34;</span><span class="p">,</span><span class="s2">&#34;content.txt&#34;</span><span class="p">]</span><span class="err">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span><span class="err">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">ENV</span> <span class="nv">CONTINT</span><span class="o">=</span><span class="s2">&#34;hellodocker&#34;</span><span class="err">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app/sg</span><span class="err">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="k">RUN</span> <span class="nb">echo</span> <span class="nv">$CONTINT</span>&gt;content.txt<span class="err">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="k">CMD</span> <span class="p">[</span><span class="s2">&#34;cat&#34;</span><span class="p">,</span><span class="s2">&#34;content.txt&#34;</span><span class="p">]</span><span class="err">
 </span></span></span></code></pre></div><ul>
 <li>构建</li>
 </ul>
@@ -623,10 +632,10 @@ CMD [&#34;echo&#34;,&#34;helloworld&#34;]
 </span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span>- <span class="m">80</span><span class="p">:</span><span class="m">80</span><span class="w">
 </span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
 </span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="nt">networks</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">  </span><span class="nt">blog_net</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">  </span><span class="nt">mysql_data</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">    </span><span class="c">#使用已经存在的数据卷</span><span class="w">
 </span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
@@ -640,15 +649,15 @@ CMD [&#34;echo&#34;,&#34;helloworld&#34;]
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:63558/tags/docker/">Docker</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/springsecurity%E5%AD%A6%E4%B9%A0/">
+  <a class="prev" href="http://localhost:63558/posts/springsecurity%E5%AD%A6%E4%B9%A0/">
     <span class="title">« 上一页</span>
     <br>
     <span>SpringSecurity学习</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/">
+  <a class="next" href="http://localhost:63558/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/">
     <span class="title">下一页 »</span>
     <br>
     <span>Docker在Ubuntu上部署项目案例</span>

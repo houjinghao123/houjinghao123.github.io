@@ -82,6 +82,7 @@ params:
       下面是是我其他网站的连接
       <br>
   # 社交帐号的按钮
+  social: {}
   socialIcons:
     - name: github
       title: Follow my Github
@@ -103,10 +104,6 @@ params:
   # 设置网站的标签页的图标，即 favicon
   assets:
       favicon: "favicon.png"
-      favicon16x16: "favicon.png"
-      favicon32x32: "favicon.png"
-      apple_touch_icon: "favicon.png"
-      safari_pinned_tab: "favicon.png"
       disableHLJS: true
 
   # 评论的设置

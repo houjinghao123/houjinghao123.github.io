@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63558&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -11,16 +11,16 @@
 1.介绍
 触发器是与表有关的数据库对象，指在insert/update/delete之前(BEFORE)或之后(AFTER)，触发并执行触发器中定义的SQL语句集合。">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
-<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<link rel="canonical" href="http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4d7d1b00b3e9dfbefdbf8c49c30f9c2093ef02d2ea38594e3f7cba208f5feea.css" integrity="sha256-5NfRsAs&#43;nfvv2/jEnDD5wgk&#43;8C0uo4WU4/fLogj1/uo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63558/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63558/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63558/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63558/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63558/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
+<link rel="alternate" hreflang="zh" href="http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/">
 <noscript>
     <style>
         #theme-toggle,
@@ -74,7 +74,7 @@
 1.介绍
 触发器是与表有关的数据库对象，指在insert/update/delete之前(BEFORE)或之后(AFTER)，触发并执行触发器中定义的SQL语句集合。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/" />
+<meta property="og:url" content="http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-09-29T17:34:22+08:00" />
@@ -97,13 +97,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://localhost:63558/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "MySQL触发器",
-      "item": "http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/"
+      "item": "http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/"
     }
   ]
 }
@@ -129,14 +129,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/"
+    "@id": "http://localhost:63558/posts/mysql%E8%A7%A6%E5%8F%91%E5%99%A8/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "phjhq's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.png"
+      "url": "http://localhost:63558/favicon.png"
     }
   }
 }
@@ -154,7 +154,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <a href="http://localhost:63558/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -180,32 +180,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="http://localhost:63558/" title="phjhq&#39;s Blog">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="http://localhost:63558/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="分类">
+                <a href="http://localhost:63558/categories/" title="Categories">
                     <span>分类</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="http://localhost:63558/tags/" title="Tags">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="http://localhost:63558/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="友链">
+                <a href="http://localhost:63558/about/" title="友链">
                     <span>友链</span>
                 </a>
             </li>
@@ -254,80 +254,80 @@
 <table>
   <thead>
       <tr>
-          <th style="text-align: left"><strong>触发器类型</strong></th>
-          <th style="text-align: left"><strong>NEW和 OLD</strong></th>
+          <th><strong>触发器类型</strong></th>
+          <th><strong>NEW和 OLD</strong></th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">INSERT型触发器</td>
-          <td style="text-align: left">NEW表示将要或者已经新增的数据</td>
+          <td>INSERT型触发器</td>
+          <td>NEW表示将要或者已经新增的数据</td>
       </tr>
       <tr>
-          <td style="text-align: left">UPDATE型触发器</td>
-          <td style="text-align: left">OLD表示修改之前的数据, NEW表示将要或已经修改后的数据</td>
+          <td>UPDATE型触发器</td>
+          <td>OLD表示修改之前的数据, NEW表示将要或已经修改后的数据</td>
       </tr>
       <tr>
-          <td style="text-align: left">DELETE型触发器</td>
-          <td style="text-align: left">OLD表示将要或者已经删除的数据</td>
+          <td>DELETE型触发器</td>
+          <td>OLD表示将要或者已经删除的数据</td>
       </tr>
   </tbody>
 </table>
 <h2 id="2语法"><strong>2.语法</strong><a hidden class="anchor" aria-hidden="true" href="#2语法">#</a></h2>
 <p>1）创建</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">trigger_name</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">before</span><span class="o">/</span><span class="n">after</span><span class="w"> </span><span class="k">insert</span><span class="o">/</span><span class="k">update</span><span class="o">/</span><span class="k">delete</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">on</span><span class="w"> </span><span class="n">tbl_name</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">--</span><span class="err">行级触发器</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">before</span><span class="o">/</span><span class="n">after</span><span class="w"> </span><span class="k">insert</span><span class="o">/</span><span class="k">update</span><span class="o">/</span><span class="k">delete</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">on</span><span class="w"> </span><span class="n">tbl_name</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">--</span><span class="err">行级触发器</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="n">begin</span><span class="w">
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">  </span><span class="n">trigger_stmt</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="n">end</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>2)查看</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">triggers</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>3)删除</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="p">[</span><span class="n">schema_name</span><span class="p">.]</span><span class="n">trigger_name</span><span class="p">;</span><span class="w"> </span><span class="o">--</span><span class="err">如果没有指定</span><span class="n">schema_name</span><span class="p">,</span><span class="err">默认为当前数据库。</span><span class="w">
 </span></span></span></code></pre></div><h2 id="案例"><strong>案例</strong><a hidden class="anchor" aria-hidden="true" href="#案例">#</a></h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">-- 通过触发器记录 tb_user 表的数据变更日志，将变更日志插入到日志表user_logs中, 包含增加,修改 , 删除 ;
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="c1">-- 插入数据触发器
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_insert_trigger</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1">-- 插入数据触发器
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_insert_trigger</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">    </span><span class="n">after</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">row</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">begin</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">user_logs</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">operate_time</span><span class="p">,</span><span class="w"> </span><span class="n">operate_id</span><span class="p">,</span><span class="w"> </span><span class="n">operate_params</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">        </span><span class="k">values</span><span class="p">(</span><span class="no">null</span><span class="p">,</span><span class="s1">&#39;insert&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">(),</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="nf">concat</span><span class="p">(</span><span class="s1">&#39;插入的数据内容为:
 </span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s1">id=&#39;</span><span class="p">,</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="s1">&#39;,name=&#39;</span><span class="p">,</span><span class="n">new</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, phone=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, email=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;,
 </span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s1">profession=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">profession</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">end</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 修改数据触发器
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_update_trigger</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_update_trigger</span><span class="w">
 </span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">    </span><span class="n">after</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">row</span><span class="w">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="n">begin</span><span class="w">
 </span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">user_logs</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">operate_time</span><span class="p">,</span><span class="w"> </span><span class="n">operate_id</span><span class="p">,</span><span class="w"> </span><span class="n">operate_params</span><span class="p">)</span><span class="k">values</span><span class="p">(</span><span class="no">null</span><span class="p">,</span><span class="s1">&#39;update&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">(),</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="nf">concat</span><span class="p">(</span><span class="s1">&#39;更新之前的数据:id=&#39;</span><span class="p">,</span><span class="n">old</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="s1">&#39;,name=&#39;</span><span class="p">,</span><span class="n">old</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, phone=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">old</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, email=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">old</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, profession=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">old</span><span class="p">.</span><span class="n">profession</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; | 更新之后的数据: id=&#39;</span><span class="p">,</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="s1">&#39;,name=&#39;</span><span class="p">,</span><span class="n">new</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, phone=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, email=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, profession=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">NEW</span><span class="p">.</span><span class="n">profession</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="n">end</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 删除数据触发器
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_delete_trigger</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">tb_user_delete_trigger</span><span class="w">
 </span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w">    </span><span class="n">after</span><span class="w"> </span><span class="k">delete</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">tb_user</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">each</span><span class="w"> </span><span class="n">row</span><span class="w">
-</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w"></span><span class="n">begin</span><span class="w">
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="n">begin</span><span class="w">
 </span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w">    </span><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="nf">user_logs</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">operation</span><span class="p">,</span><span class="w"> </span><span class="n">operate_time</span><span class="p">,</span><span class="w"> </span><span class="n">operate_id</span><span class="p">,</span><span class="w"> </span><span class="n">operate_params</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="w">        </span><span class="nf">value</span><span class="w"> </span><span class="p">(</span><span class="no">null</span><span class="p">,</span><span class="s1">&#39;delete&#39;</span><span class="p">,</span><span class="nf">now</span><span class="p">(),</span><span class="n">old</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="w">        </span><span class="nf">concat</span><span class="p">(</span><span class="s1">&#39;删除之前的数据: id=&#39;</span><span class="p">,</span><span class="n">old</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="s1">&#39;,name=&#39;</span><span class="p">,</span><span class="n">old</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, phone=&#39;</span><span class="p">,</span><span class="n">old</span><span class="p">.</span><span class="n">phone</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, email=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">old</span><span class="p">.</span><span class="n">email</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;, profession=&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">old</span><span class="p">.</span><span class="n">profession</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="w"></span><span class="n">end</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="n">end</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div>
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/mysql/">Mysql</a></li>
-      <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+      <li><a href="http://localhost:63558/tags/mysql/">Mysql</a></li>
+      <li><a href="http://localhost:63558/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/mysql%E9%94%81/">
+  <a class="prev" href="http://localhost:63558/posts/mysql%E9%94%81/">
     <span class="title">« 上一页</span>
     <br>
     <span>MySQL锁</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+  <a class="next" href="http://localhost:63558/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
     <span class="title">下一页 »</span>
     <br>
     <span>MySQL视图和存储过程</span>

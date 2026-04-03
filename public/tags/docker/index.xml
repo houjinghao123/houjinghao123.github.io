@@ -1,48 +1,177 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Docker on phjhq&#39;s Blog</title>
-    <link>http://localhost:1313/tags/docker/</link>
+    <link>http://localhost:63558/tags/docker/</link>
     <description>Recent content in Docker on phjhq&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <image>
+      <title>phjhq&#39;s Blog</title>
+      <url>https://i.postimg.cc/7hwBy7VS/calcr.png</url>
+      <link>https://i.postimg.cc/7hwBy7VS/calcr.png</link>
+    </image>
+    <generator>Hugo -- 0.158.0</generator>
     <language>zh-cn</language>
-    <copyright>[©2024 phjhq&#39;s Blog](https://houjinghao123.github.io/)</copyright>
+    <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
     <lastBuildDate>Wed, 16 Oct 2024 13:53:02 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:63558/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DockerFile和DockerCompose基本使用</title>
-      <link>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+      <link>http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Wed, 16 Oct 2024 13:53:02 +0800</pubDate>
-      <guid>http://localhost:1313/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
-      <description>&lt;h1 id=&#34;dockerfile的基本使用&#34;&gt;DockerFile的基本使用&lt;/h1&gt;&#xA;&lt;h2 id=&#34;为什么要使用&#34;&gt;为什么要使用&lt;/h2&gt;&#xA;&lt;p&gt;之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。&lt;/p&gt;&#xA;&lt;p&gt;使用dockerFile可以自定义镜像&lt;/p&gt;&#xA;&lt;h2 id=&#34;快速入门&#34;&gt;快速入门&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;构建一个最简单的HelloWorld镜像&lt;/strong&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:63558/posts/dockerfile%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+      <description>&lt;h1 id=&#34;dockerfile的基本使用&#34;&gt;DockerFile的基本使用&lt;/h1&gt;
+&lt;h2 id=&#34;为什么要使用&#34;&gt;为什么要使用&lt;/h2&gt;
+&lt;p&gt;之前的方式去部署应用还是有点繁琐，因为之前使用的镜像并不能很好的符合我们自己的需求。&lt;/p&gt;
+&lt;p&gt;使用dockerFile可以自定义镜像&lt;/p&gt;
+&lt;h2 id=&#34;快速入门&#34;&gt;快速入门&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;构建一个最简单的HelloWorld镜像&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker在Ubuntu上部署项目案例</title>
-      <link>http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</link>
+      <link>http://localhost:63558/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</link>
       <pubDate>Tue, 15 Oct 2024 11:47:16 +0800</pubDate>
-      <guid>http://localhost:1313/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</guid>
-      <description>&lt;h1 id=&#34;使用三更的博客项目进行部署测试&#34;&gt;使用三更的博客项目进行部署测试&lt;/h1&gt;&#xA;&lt;h2 id=&#34;安装mysql&#34;&gt;安装Mysql&lt;/h2&gt;&#xA;&lt;p&gt;安装前明确需求&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;使用的镜像是mysql5.7&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;后台运行 -d&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;数据需要持久化存储 -v 使用别名mysql_data&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;开放3306端口 -p&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;设置root的密码 -e&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;停止后自动重启 &amp;ndash;restart&lt;/p&gt;</description>
+      <guid>http://localhost:63558/posts/docker%E5%9C%A8ubuntu%E4%B8%8A%E5%AE%89%E8%A3%85mysql%E5%92%8Credis/</guid>
+      <description>&lt;h1 id=&#34;使用三更的博客项目进行部署测试&#34;&gt;使用三更的博客项目进行部署测试&lt;/h1&gt;
+&lt;h2 id=&#34;安装mysql&#34;&gt;安装Mysql&lt;/h2&gt;
+&lt;p&gt;安装前明确需求&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用的镜像是mysql5.7&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;后台运行 -d&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据需要持久化存储 -v 使用别名mysql_data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;开放3306端口 -p&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;设置root的密码 -e&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止后自动重启 &amp;ndash;restart&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker Run命令详解</title>
-      <link>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
+      <link>http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Sun, 13 Oct 2024 16:48:15 +0800</pubDate>
-      <guid>http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
-      <description>&lt;p&gt;#Run命令详解&lt;/p&gt;&#xA;&lt;h2 id=&#34;-p-端口对外发布端口映射&#34;&gt;-p 端口对外发布（端口映射）&lt;/h2&gt;&#xA;&lt;h3 id=&#34;解释&#34;&gt;解释&lt;/h3&gt;&#xA;&lt;p&gt;为了使外部网络能够访问到容器&lt;/p&gt;&#xA;&lt;p&gt;将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。&lt;/p&gt;&#xA;&lt;h3 id=&#34;使用方法&#34;&gt;使用方法&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker run -p 宿主机端口:容器端口 镜像名   &lt;span class=&#34;c1&#34;&gt;#发布一个端口&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名   &lt;span class=&#34;c1&#34;&gt;#发布多个端口&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以通过&lt;a href=&#34;https://hub.docker.com/&#34;&gt;DockerHub&lt;/a&gt;或者DockerFile来确定不同容器发布的端口&lt;/p&gt;</description>
+      <guid>http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</guid>
+      <description>&lt;p&gt;#Run命令详解&lt;/p&gt;
+&lt;h2 id=&#34;-p-端口对外发布端口映射&#34;&gt;-p 端口对外发布（端口映射）&lt;/h2&gt;
+&lt;h3 id=&#34;解释&#34;&gt;解释&lt;/h3&gt;
+&lt;p&gt;为了使外部网络能够访问到容器&lt;/p&gt;
+&lt;p&gt;将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。&lt;/p&gt;
+&lt;h3 id=&#34;使用方法&#34;&gt;使用方法&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker run -p 宿主机端口:容器端口 镜像名   &lt;span class=&#34;c1&#34;&gt;#发布一个端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名   &lt;span class=&#34;c1&#34;&gt;#发布多个端口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;可以通过&lt;a href=&#34;https://hub.docker.com/&#34;&gt;DockerHub&lt;/a&gt;或者DockerFile来确定不同容器发布的端口&lt;/p&gt;</description>
     </item>
     <item>
       <title>Docker命令</title>
-      <link>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</link>
+      <link>http://localhost:63558/posts/docker%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Sat, 05 Oct 2024 17:49:22 +0800</pubDate>
-      <guid>http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/</guid>
-      <description>&lt;h2 id=&#34;镜像和容器相关命令&#34;&gt;镜像和容器相关命令&lt;/h2&gt;&#xA;&lt;h3 id=&#34;搜索镜像&#34;&gt;搜索镜像&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;使用Docker自带的搜索命令可能会因为网络问题搜索失败&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker search contains name:vesion&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;我们可以使用docker search去搜索镜像，也可以去Docker-Hub找自己需要的镜像。(推荐)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;下载镜像&#34;&gt;下载镜像&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker pull &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;镜像仓库地址/&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;镜像名&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;:标签&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;列出镜像信息&#34;&gt;列出镜像信息&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;docker images [选项]&#xA;&lt;img src=&#34;https://i.postimg.cc/Y24gPRLr/screenshot-31.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;&#xA;&lt;li&gt;相关操作&#xA;&lt;ul&gt;&#xA;&lt;li&gt;列出镜像的镜像id docker images -q&lt;/li&gt;&#xA;&lt;li&gt;列出所有镜像的的镜像id docker images -aq 或者 docker images -a -q&lt;/li&gt;&#xA;&lt;li&gt;列出所有镜像名为mysql的镜像id docker images -aq &amp;ndash;filter=reference=mysql&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;列出容器信息&#34;&gt;列出容器信息&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;docker ps [选项]默认显示正在运行的容器信息&lt;/p&gt;</description>
+      <guid>http://localhost:63558/posts/docker%E5%91%BD%E4%BB%A4/</guid>
+      <description>&lt;h2 id=&#34;镜像和容器相关命令&#34;&gt;镜像和容器相关命令&lt;/h2&gt;
+&lt;h3 id=&#34;搜索镜像&#34;&gt;搜索镜像&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;使用Docker自带的搜索命令可能会因为网络问题搜索失败&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker search contains name:vesion
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;我们可以使用docker search去搜索镜像，也可以去Docker-Hub找自己需要的镜像。(推荐)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;下载镜像&#34;&gt;下载镜像&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;docker pull &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;镜像仓库地址/&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;镜像名&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;:标签&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;列出镜像信息&#34;&gt;列出镜像信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;docker images [选项]
+&lt;img loading=&#34;lazy&#34; src=&#34;https://i.postimg.cc/Y24gPRLr/screenshot-31.png&#34; alt=&#34;&#34;  /&gt;
+&lt;/li&gt;
+&lt;li&gt;相关操作
+&lt;ul&gt;
+&lt;li&gt;列出镜像的镜像id docker images -q&lt;/li&gt;
+&lt;li&gt;列出所有镜像的的镜像id docker images -aq 或者 docker images -a -q&lt;/li&gt;
+&lt;li&gt;列出所有镜像名为mysql的镜像id docker images -aq &amp;ndash;filter=reference=mysql&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;列出容器信息&#34;&gt;列出容器信息&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;docker ps [选项]默认显示正在运行的容器信息&lt;/p&gt;</description>
     </item>
     <item>
       <title>Ubuntu上Docker安装</title>
-      <link>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</link>
+      <link>http://localhost:63558/posts/docker%E5%AE%89%E8%A3%85/</link>
       <pubDate>Sat, 05 Oct 2024 17:31:39 +0800</pubDate>
-      <guid>http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/</guid>
-      <description>&lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;&#xA;&lt;h3 id=&#34;什么是docker&#34;&gt;什么是docker&lt;/h3&gt;&#xA;&lt;p&gt;Docker是一个应用容器引擎。 一个容器可以理解成是一个轻量级的虚拟机。但是又和虚拟机有些不同。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;docker有着比虚拟机更少的抽象层&lt;/li&gt;&#xA;&lt;li&gt;docker利用的是宿主机的内核，而不需要加载操作系统OS内核&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;为什么要使用docker&#34;&gt;为什么要使用docker&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;解决应用部署的不便，让应用部署更加简单方便&lt;/li&gt;&#xA;&lt;li&gt;避免环境不同导致问题&lt;/li&gt;&#xA;&lt;li&gt;降低微服务阶段的学习成本，减少安装时间，聚焦核心&lt;/li&gt;&#xA;&lt;li&gt;为理解实际开发中的打包发布流程打基础&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;docker核心概念&#34;&gt;Docker核心概念&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;镜像：相当于一个容器的模板&lt;/li&gt;&#xA;&lt;li&gt;容器：可以理解成是一个轻量级的虚拟机&lt;/li&gt;&#xA;&lt;li&gt;镜像仓库：存放镜像的仓库&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;docker的安装&#34;&gt;docker的安装&lt;/h2&gt;&#xA;&lt;h3 id=&#34;准备安装环境&#34;&gt;准备安装环境&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装前先卸载操作系统默认安装的docker，&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get remove docker docker-engine docker.io containerd runc&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装必要支持&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;开始安装&#34;&gt;开始安装&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#添加 Docker 官方 GPG key （可能国内现在访问会存在问题）&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 阿里源（推荐使用阿里的gpg KEY）&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#添加 apt 源:&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Docker官方源&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; stable&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#阿里apt源&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; stable&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#更新源&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装最新版本的Docker&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install docker-ce docker-ce-cli containerd.io&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#等待安装完成&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看Docker版本&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker version&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看Docker运行状态&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl status docker&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;安装docker-命令补全工具&#34;&gt;安装Docker 命令补全工具&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install bash-completion&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; /etc/bash_completion.d/docker.sh&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加docker用户组&#34;&gt;添加docker用户组&lt;/h3&gt;&#xA;&lt;p&gt;用户在不添加sudo命令来直接使用docker&lt;/p&gt;</description>
+      <guid>http://localhost:63558/posts/docker%E5%AE%89%E8%A3%85/</guid>
+      <description>&lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;
+&lt;h3 id=&#34;什么是docker&#34;&gt;什么是docker&lt;/h3&gt;
+&lt;p&gt;Docker是一个应用容器引擎。 一个容器可以理解成是一个轻量级的虚拟机。但是又和虚拟机有些不同。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;docker有着比虚拟机更少的抽象层&lt;/li&gt;
+&lt;li&gt;docker利用的是宿主机的内核，而不需要加载操作系统OS内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;为什么要使用docker&#34;&gt;为什么要使用docker&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;解决应用部署的不便，让应用部署更加简单方便&lt;/li&gt;
+&lt;li&gt;避免环境不同导致问题&lt;/li&gt;
+&lt;li&gt;降低微服务阶段的学习成本，减少安装时间，聚焦核心&lt;/li&gt;
+&lt;li&gt;为理解实际开发中的打包发布流程打基础&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;docker核心概念&#34;&gt;Docker核心概念&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;镜像：相当于一个容器的模板&lt;/li&gt;
+&lt;li&gt;容器：可以理解成是一个轻量级的虚拟机&lt;/li&gt;
+&lt;li&gt;镜像仓库：存放镜像的仓库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;docker的安装&#34;&gt;docker的安装&lt;/h2&gt;
+&lt;h3 id=&#34;准备安装环境&#34;&gt;准备安装环境&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装前先卸载操作系统默认安装的docker，&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get remove docker docker-engine docker.io containerd runc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装必要支持&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;开始安装&#34;&gt;开始安装&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#添加 Docker 官方 GPG key （可能国内现在访问会存在问题）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://download.docker.com/linux/ubuntu/gpg &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 阿里源（推荐使用阿里的gpg KEY）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#添加 apt 源:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#Docker官方源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; stable&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#阿里apt源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;deb [arch=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dpkg --print-architecture&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;lsb_release -cs&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; stable&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#更新源&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#安装最新版本的Docker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install docker-ce docker-ce-cli containerd.io
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#等待安装完成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看Docker版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#查看Docker运行状态&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo systemctl status docker
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;安装docker-命令补全工具&#34;&gt;安装Docker 命令补全工具&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install bash-completion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;sudo curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; /etc/bash_completion.d/docker.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;添加docker用户组&#34;&gt;添加docker用户组&lt;/h3&gt;
+&lt;p&gt;用户在不添加sudo命令来直接使用docker&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

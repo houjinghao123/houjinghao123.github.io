@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63558&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -10,18 +10,23 @@
 <meta name="description" content="#Run命令详解
 -p 端口对外发布（端口映射）
 解释
-为了使外部网络能够访问到容器">
+为了使外部网络能够访问到容器
+将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。
+使用方法
+1docker run -p 宿主机端口:容器端口 镜像名   #发布一个端口
+2docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名   #发布多个端口
+可以通过DockerHub或者DockerFile来确定不同容器发布的端口">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
-<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<link rel="canonical" href="http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4d7d1b00b3e9dfbefdbf8c49c30f9c2093ef02d2ea38594e3f7cba208f5feea.css" integrity="sha256-5NfRsAs&#43;nfvv2/jEnDD5wgk&#43;8C0uo4WU4/fLogj1/uo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63558/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63558/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63558/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63558/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63558/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
+<link rel="alternate" hreflang="zh" href="http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/">
 <noscript>
     <style>
         #theme-toggle,
@@ -74,9 +79,14 @@
 <meta property="og:description" content="#Run命令详解
 -p 端口对外发布（端口映射）
 解释
-为了使外部网络能够访问到容器" />
+为了使外部网络能够访问到容器
+将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。
+使用方法
+1docker run -p 宿主机端口:容器端口 镜像名   #发布一个端口
+2docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名   #发布多个端口
+可以通过DockerHub或者DockerFile来确定不同容器发布的端口" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" />
+<meta property="og:url" content="http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-10-13T16:48:15+08:00" />
@@ -88,7 +98,12 @@
 <meta name="twitter:description" content="#Run命令详解
 -p 端口对外发布（端口映射）
 解释
-为了使外部网络能够访问到容器"/>
+为了使外部网络能够访问到容器
+将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。
+使用方法
+1docker run -p 宿主机端口:容器端口 镜像名   #发布一个端口
+2docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名   #发布多个端口
+可以通过DockerHub或者DockerFile来确定不同容器发布的端口"/>
 
 
 <script type="application/ld+json">
@@ -100,13 +115,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://localhost:63558/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Docker Run命令详解",
-      "item": "http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"
+      "item": "http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"
     }
   ]
 }
@@ -117,7 +132,7 @@
   "@type": "BlogPosting",
   "headline": "Docker Run命令详解",
   "name": "Docker Run命令详解",
-  "description": "#Run命令详解\n-p 端口对外发布（端口映射） 解释 为了使外部网络能够访问到容器\n",
+  "description": "#Run命令详解\n-p 端口对外发布（端口映射） 解释 为了使外部网络能够访问到容器\n将容器端口发布到宿主机端口，就可以通过宿主机的端口访问容器内的端口了。\n使用方法 1docker run -p 宿主机端口:容器端口 镜像名 #发布一个端口 2docker run -p 宿主机端口1:容器端口1 -p 宿主机端口2:容器端口2 镜像名 #发布多个端口 可以通过DockerHub或者DockerFile来确定不同容器发布的端口\n",
   "keywords": [
     "Docker"
   ],
@@ -132,14 +147,14 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"
+    "@id": "http://localhost:63558/posts/docker-run%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "phjhq's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.png"
+      "url": "http://localhost:63558/favicon.png"
     }
   }
 }
@@ -157,7 +172,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <a href="http://localhost:63558/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -183,32 +198,32 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="http://localhost:63558/" title="phjhq&#39;s Blog">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="http://localhost:63558/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="分类">
+                <a href="http://localhost:63558/categories/" title="Categories">
                     <span>分类</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="http://localhost:63558/tags/" title="Tags">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="http://localhost:63558/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="友链">
+                <a href="http://localhost:63558/about/" title="友链">
                     <span>友链</span>
                 </a>
             </li>
@@ -264,7 +279,7 @@
                     <a href="#%e7%bb%83%e4%b9%a0-2" aria-label="练习">练习</a></li></ul>
                 </li>
                 <li>
-                    <a href="#--name-%e5%ae%b9%e5%99%a8%e5%91%bd%e5%90%8d" aria-label="&ndash;name 容器命名">&ndash;name 容器命名</a><ul>
+                    <a href="#name-%e5%ae%b9%e5%99%a8%e5%91%bd%e5%90%8d" aria-label="&ndash;name 容器命名">&ndash;name 容器命名</a><ul>
                         
                 <li>
                     <a href="#%e8%a7%a3%e9%87%8a-3" aria-label="解释">解释</a></li>
@@ -274,7 +289,7 @@
                     <a href="#%e7%bb%83%e4%b9%a0-3" aria-label="练习">练习</a></li></ul>
                 </li>
                 <li>
-                    <a href="#--restart-%e5%ae%b9%e5%99%a8%e9%80%80%e5%87%ba%e5%90%8e%e7%9a%84%e9%87%8d%e5%90%af%e7%ad%96%e7%95%a5" aria-label="&ndash;restart 容器退出后的重启策略">&ndash;restart 容器退出后的重启策略</a><ul>
+                    <a href="#restart-%e5%ae%b9%e5%99%a8%e9%80%80%e5%87%ba%e5%90%8e%e7%9a%84%e9%87%8d%e5%90%af%e7%ad%96%e7%95%a5" aria-label="&ndash;restart 容器退出后的重启策略">&ndash;restart 容器退出后的重启策略</a><ul>
                         
                 <li>
                     <a href="#%e8%a7%a3%e9%87%8a-4" aria-label="解释">解释</a></li>
@@ -357,7 +372,7 @@
 </span></span></code></pre></div><p>可以正常显示</p>
 <p><img loading="lazy" src="https://i.postimg.cc/76tzKfR9/screenshot-45.png" alt=""  />
 </p>
-<h2 id="--name-容器命名">&ndash;name 容器命名<a hidden class="anchor" aria-hidden="true" href="#--name-容器命名">#</a></h2>
+<h2 id="name-容器命名">&ndash;name 容器命名<a hidden class="anchor" aria-hidden="true" href="#name-容器命名">#</a></h2>
 <h3 id="解释-3">解释<a hidden class="anchor" aria-hidden="true" href="#解释-3">#</a></h3>
 <p>需要帮助我们更快的识别出来容器的作用。之前的容器命名都是随机命名的。当在进行删除停止容器等一些操作可以直接使用容器名字而不是容器id</p>
 <h3 id="用法-2">用法<a hidden class="anchor" aria-hidden="true" href="#用法-2">#</a></h3>
@@ -377,7 +392,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="ln">1</span><span class="cl">docker run -d --name nginx-test -p 82:80 -v /home/cp_test/index.html:/usr/share/nginx/html/index.html nginx
 </span></span></code></pre></div><p><img loading="lazy" src="https://i.postimg.cc/c4S3Xy9V/screenshot-46.png" alt=""  />
 </p>
-<h2 id="--restart-容器退出后的重启策略">&ndash;restart 容器退出后的重启策略<a hidden class="anchor" aria-hidden="true" href="#--restart-容器退出后的重启策略">#</a></h2>
+<h2 id="restart-容器退出后的重启策略">&ndash;restart 容器退出后的重启策略<a hidden class="anchor" aria-hidden="true" href="#restart-容器退出后的重启策略">#</a></h2>
 <h3 id="解释-4">解释<a hidden class="anchor" aria-hidden="true" href="#解释-4">#</a></h3>
 <p>保证容器退出后也可以自动重启</p>
 <h3 id="用法-3">用法<a hidden class="anchor" aria-hidden="true" href="#用法-3">#</a></h3>
@@ -414,15 +429,15 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/docker/">Docker</a></li>
+      <li><a href="http://localhost:63558/tags/docker/">Docker</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/">
+  <a class="prev" href="http://localhost:63558/posts/docker-%E9%95%9C%E5%83%8F_%E5%AE%B9%E5%99%A8_%E6%95%B0%E6%8D%AE%E5%8D%B7/">
     <span class="title">« 上一页</span>
     <br>
     <span>Docker 数据卷 网桥</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/docker%E5%91%BD%E4%BB%A4/">
+  <a class="next" href="http://localhost:63558/posts/docker%E5%91%BD%E4%BB%A4/">
     <span class="title">下一页 »</span>
     <br>
     <span>Docker命令</span>

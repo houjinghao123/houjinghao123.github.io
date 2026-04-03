@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63558&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
@@ -15,18 +15,26 @@ insert
 批量插入数据
 
 1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
-">
+
+手动控制事务的提交
+
+1start transaction;
+2INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+3INSERT INTO tb_test values(4,&#39;Tom&#39;),(5,&#39;Cat&#39;),(6,&#39;Jerry&#39;);
+4
+5commit;
+这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、">
 <meta name="author" content="phjhq">
-<link rel="canonical" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.73849ddbacd99e7f7f65fef830da533e08a3f4b2fad9ce732c65c06701f1000b.css" integrity="sha256-c4Sd26zZnn9/Zf74MNpTPgij9LL62c5zLGXAZwHxAAs=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.png">
-<link rel="mask-icon" href="http://localhost:1313/favicon.png">
+<link rel="canonical" href="http://localhost:63558/posts/sql%E4%BC%98%E5%8C%96/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e4d7d1b00b3e9dfbefdbf8c49c30f9c2093ef02d2ea38594e3f7cba208f5feea.css" integrity="sha256-5NfRsAs&#43;nfvv2/jEnDD5wgk&#43;8C0uo4WU4/fLogj1/uo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63558/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63558/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63558/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63558/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63558/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/">
+<link rel="alternate" hreflang="zh" href="http://localhost:63558/posts/sql%E4%BC%98%E5%8C%96/">
 <noscript>
     <style>
         #theme-toggle,
@@ -84,9 +92,17 @@ insert
 批量插入数据
 
 1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
-" />
+
+手动控制事务的提交
+
+1start transaction;
+2INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+3INSERT INTO tb_test values(4,&#39;Tom&#39;),(5,&#39;Cat&#39;),(6,&#39;Jerry&#39;);
+4
+5commit;
+这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/" />
+<meta property="og:url" content="http://localhost:63558/posts/sql%E4%BC%98%E5%8C%96/" />
 <meta property="og:image" content="https://i.postimg.cc/7hwBy7VS/calcr.png" />
 <meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-09-27T09:13:15+08:00" />
@@ -103,7 +119,15 @@ insert
 批量插入数据
 
 1INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
-"/>
+
+手动控制事务的提交
+
+1start transaction;
+2INSERT INTO tb_test values(1,&#39;Tom&#39;),(2,&#39;Cat&#39;),(3,&#39;Jerry&#39;);
+3INSERT INTO tb_test values(4,&#39;Tom&#39;),(5,&#39;Cat&#39;),(6,&#39;Jerry&#39;);
+4
+5commit;
+这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、"/>
 
 
 <script type="application/ld+json">
@@ -115,13 +139,13 @@ insert
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://localhost:1313/posts/"
+      "item": "http://localhost:63558/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "SQL优化",
-      "item": "http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/"
+      "item": "http://localhost:63558/posts/sql%E4%BC%98%E5%8C%96/"
     }
   ]
 }
@@ -132,7 +156,7 @@ insert
   "@type": "BlogPosting",
   "headline": "SQL优化",
   "name": "SQL优化",
-  "description": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 1INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); ",
+  "description": "SQL优化 插入数据 insert 假设我们需要插入大量数据，那么有哪些方法呢？\n批量插入数据 1INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); 手动控制事务的提交 1start transaction; 2INSERT INTO tb_test values(1,\u0026#39;Tom\u0026#39;),(2,\u0026#39;Cat\u0026#39;),(3,\u0026#39;Jerry\u0026#39;); 3INSERT INTO tb_test values(4,\u0026#39;Tom\u0026#39;),(5,\u0026#39;Cat\u0026#39;),(6,\u0026#39;Jerry\u0026#39;); 4 5commit; 这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、\n",
   "keywords": [
     "mysql", "数据库"
   ],
@@ -147,14 +171,14 @@ insert
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://localhost:1313/posts/sql%E4%BC%98%E5%8C%96/"
+    "@id": "http://localhost:63558/posts/sql%E4%BC%98%E5%8C%96/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "phjhq's Blog",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://localhost:1313/favicon.png"
+      "url": "http://localhost:63558/favicon.png"
     }
   }
 }
@@ -172,7 +196,7 @@ insert
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
+            <a href="http://localhost:63558/" accesskey="h" title="phjhq&#39;s Blog (Alt + H)">phjhq&#39;s Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -198,32 +222,32 @@ insert
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/" title="首页">
+                <a href="http://localhost:63558/" title="phjhq&#39;s Blog">
                     <span>首页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="http://localhost:63558/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="分类">
+                <a href="http://localhost:63558/categories/" title="Categories">
                     <span>分类</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="http://localhost:63558/tags/" title="Tags">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="http://localhost:63558/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="友链">
+                <a href="http://localhost:63558/about/" title="友链">
                     <span>友链</span>
                 </a>
             </li>
@@ -303,22 +327,22 @@ insert
 <li>手动控制事务的提交</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="n">start</span><span class="w"> </span><span class="n">transaction</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;Tom&#39;</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;Cat&#39;</span><span class="p">),(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;Jerry&#39;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="w"></span><span class="n">commit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="n">commit</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></div><p>这两种方法只适用于插入数据在几千条到几万条的，当数据涉及到几十万或者几百万时MySQL也给我们提供了别的方法、</p>
 <ul>
 <li>load 指令</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">-- 客户端连接服务端时，加上参数 ---local-infile
-</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"></span><span class="n">mysql</span><span class="w"> </span><span class="o">--</span><span class="n">local</span><span class="o">-</span><span class="k">infile</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="n">mysql</span><span class="w"> </span><span class="o">--</span><span class="n">local</span><span class="o">-</span><span class="k">infile</span><span class="w"> </span><span class="o">-</span><span class="n">uroot</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="c1">-- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
-</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">local_infile</span><span class="w"> </span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="c1">-- 设置全局参数local_infile为1，开启从本地加载文件导入数据的开关
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">local_infile</span><span class="w"> </span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="c1">-- 执行load指令将准备好的数据，加载到表结构中
-</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="c1"></span><span class="k">load</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="k">infile</span><span class="w"> </span><span class="s1">&#39;d:/data/test.log&#39;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="k">lines</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="s1">&#39;;
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="c1">-- 执行load指令将准备好的数据，加载到表结构中
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="k">load</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="n">local</span><span class="w"> </span><span class="k">infile</span><span class="w"> </span><span class="s1">&#39;d:/data/test.log&#39;</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">tb_test</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="k">lines</span><span class="w"> </span><span class="k">terminated</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="s1">&#39;;
 </span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s1">
 </span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s1">-- fields terminatedp-每个字段之间使用什么分隔
 </span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s1">-- lines terminated-每条数据之间用什么分隔
@@ -393,7 +417,7 @@ insert
 </blockquote>
 <p>为了使排序也使用索引，就需要在创建索引时添加排序。默认也会添加排序方式为asc，也可以自己指定。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">-- 创建索引
-</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"></span><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_user_age_phone</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">tb_user</span><span class="p">(</span><span class="n">age</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="n">phone</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_user_age_phone</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nf">tb_user</span><span class="p">(</span><span class="n">age</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">]</span><span class="w"> </span><span class="p">,</span><span class="n">phone</span><span class="p">[</span><span class="k">asc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">desc</span><span class="p">])</span><span class="w">
 </span></span></span></code></pre></div><p>根据age, phone进行降序一个升序，一个降序</p>
 <p><img loading="lazy" src="https://darwin-controller-pro-01.oss-cn-hangzhou.aliyuncs.com/c6026ad9ec8642b786f7c092d8cf8430/image.png?Expires=3304118571&amp;OSSAccessKeyId=LTAI5tBVMtznbk7xyCa56gof&amp;Signature=dZBo3V6pbA5xAOUW2KLkckSBVd0%3D" alt="image.png"  />
 </p>
@@ -444,16 +468,16 @@ insert
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/mysql/">Mysql</a></li>
-      <li><a href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
+      <li><a href="http://localhost:63558/tags/mysql/">Mysql</a></li>
+      <li><a href="http://localhost:63558/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+  <a class="prev" href="http://localhost:63558/posts/%E8%A7%86%E5%9B%BE%E5%92%8C%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
     <span class="title">« 上一页</span>
     <br>
     <span>MySQL视图和存储过程</span>
   </a>
-  <a class="next" href="http://localhost:1313/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/">
+  <a class="next" href="http://localhost:63558/posts/%E5%A4%8D%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A0%91/">
     <span class="title">下一页 »</span>
     <br>
     <span>复习数据结构二叉树</span>
