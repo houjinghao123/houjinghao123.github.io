@@ -12,20 +12,20 @@
     <generator>Hugo -- 0.158.0</generator>
     <language>zh-cn</language>
     <copyright>©2024 phjhq&amp;rsquo;s Blog</copyright>
-    <lastBuildDate>Fri, 03 Apr 2026 13:20:02 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 16 Apr 2026 17:07:02 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Springboot</title>
+      <link>http://localhost:1313/categories/springboot/</link>
+      <pubDate>Thu, 16 Apr 2026 17:07:02 +0800</pubDate>
+      <guid>http://localhost:1313/categories/springboot/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Maven</title>
       <link>http://localhost:1313/categories/maven/</link>
       <pubDate>Fri, 03 Apr 2026 13:20:02 +0800</pubDate>
       <guid>http://localhost:1313/categories/maven/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SpringBoot</title>
-      <link>http://localhost:1313/categories/springboot/</link>
-      <pubDate>Fri, 08 Nov 2024 23:09:14 +0800</pubDate>
-      <guid>http://localhost:1313/categories/springboot/</guid>
       <description></description>
     </item>
     <item>
@@ -43,7 +43,7 @@
       <description></description>
     </item>
     <item>
-      <title>MySQL</title>
+      <title>MYSQL</title>
       <link>http://localhost:1313/categories/mysql/</link>
       <pubDate>Wed, 02 Oct 2024 18:17:59 +0800</pubDate>
       <guid>http://localhost:1313/categories/mysql/</guid>

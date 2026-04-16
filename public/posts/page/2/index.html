@@ -183,6 +183,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Ubuntu上Docker安装
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>概述 什么是docker Docker是一个应用容器引擎。 一个容器可以理解成是一个轻量级的虚拟机。但是又和虚拟机有些不同。
+docker有着比虚拟机更少的抽象层 docker利用的是宿主机的内核，而不需要加载操作系统OS内核 为什么要使用docker 解决应用部署的不便，让应用部署更加简单方便 避免环境不同导致问题 降低微服务阶段的学习成本，减少安装时间，聚焦核心 为理解实际开发中的打包发布流程打基础 Docker核心概念 镜像：相当于一个容器的模板 容器：可以理解成是一个轻量级的虚拟机 镜像仓库：存放镜像的仓库 docker的安装 准备安装环境 1#安装前先卸载操作系统默认安装的docker， 2sudo apt-get remove docker docker-engine docker.io containerd runc 3 4#安装必要支持 5sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release 开始安装 1#添加 Docker 官方 GPG key （可能国内现在访问会存在问题） 2curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg 3 4# 阿里源（推荐使用阿里的gpg KEY） 5curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg 6 7 8 9#添加 apt 源: 10#Docker官方源 11echo &#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&#34; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null 12 13 14#阿里apt源 15echo &#34;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&#34; | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null 16 17 18#更新源 19sudo apt update 20sudo apt-get update 1#安装最新版本的Docker 2sudo apt install docker-ce docker-ce-cli containerd.io 3#等待安装完成 4 5#查看Docker版本 6sudo docker version 7 8#查看Docker运行状态 9sudo systemctl status docker 安装Docker 命令补全工具 1sudo apt-get install bash-completion 2 3sudo curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh 4 5source /etc/bash_completion.d/docker.sh 添加docker用户组 用户在不添加sudo命令来直接使用docker
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-10-05 17:31:39 +0800 CST'>2024-10-05</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq</footer>
+  <a class="entry-link" aria-label="post link to Ubuntu上Docker安装" href="http://localhost:1313/posts/docker%E5%AE%89%E8%A3%85/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">InnoDB详解
     </h2>
   </header>
@@ -299,21 +313,6 @@
   </div>
   <footer class="entry-footer"><span title='2024-09-19 20:02:09 +0800 CST'>2024-09-19</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;phjhq</footer>
   <a class="entry-link" aria-label="post link to Mysql常用函数" href="http://localhost:1313/posts/mysql%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Stop Hyper V
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>配置硬件加速 使用SDK 管理器安装 1.选择Tools&gt;SDK Manger
-2.点击 SDK Tools 标签页，然后选择 Android Emulator Hypervisor Driver
-3.点击 OK，以下载并安装 Android Emulator Hypervisor Driver。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-09-12 14:38:59 +0800 CST'>2024-09-12</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;phjhq</footer>
-  <a class="entry-link" aria-label="post link to Stop Hyper V" href="http://localhost:1313/posts/stop-hyper-v/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
